@@ -5,7 +5,6 @@ App::import('Vendor', 'Gdata', array('file' => 'loadGdata.php'));
  *
  */
 class Video extends AppModel {
-
 /**
  * Display field
  *

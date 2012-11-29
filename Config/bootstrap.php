@@ -91,7 +91,6 @@ Inflector::rules('plural',
  Configure::load('config');
  CakePlugin::load('DebugKit');
  CakePlugin::load('UploadPack');
- CakePlugin::load('PageRoute');
  CakePlugin::load('AssetCompress');
  CakePlugin::load('Utility');
  App::uses('Dot', 'Vendor');
