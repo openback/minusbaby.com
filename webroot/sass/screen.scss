@@ -1,0 +1,1383 @@
+@import "base";
+
+@mixin easyclearfix {
+	display: inline-block;
+
+	&:after {
+		content: " ";
+		display: block;
+		height: 0;
+		clear: both;
+		overflow: hidden;
+		visibility: hidden;
+	}
+
+	& {
+		display: block;
+	}
+}
+
+::-moz-selection { background-color: $location-border-shadow; }
+::-webkit-selection { background-color: $location-border-shadow; }
+::selection { background-color: $location-border-shadow; }
+
+* {
+	@include box-sizing(border-box);
+}
+
+html,
+body {
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+	@include link-colors($link, $location-border-shadow, $location-border-shadow, $link, $location-border-shadow);
+	@include transition-property();
+	@include transition-duration(250ms);
+
+	&.more {
+		@include sprite-replace-text($icons, forward_off);
+		position: absolute;
+		top: 4px; left: 946px;
+	}
+
+}
+
+p {
+    margin-bottom: 36px;
+}
+
+h1 {
+	color: $loud-text;
+	padding-bottom: 16px;
+	margin-bottom: 32px;
+	border-bottom: 1px solid $borders;
+}
+
+strong {
+	color: $normal-text;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.slash {
+	@include sprite_replace_text($icons, title_divider);
+	padding: 0 8px;
+}
+
+#flashMessage,
+.flash-success,
+.flash-error {
+	margin-bottom: 16px;
+	padding: 8px 16px;
+}
+
+#flashMessage.message,
+.flash-success {
+	background-color: #00960d;
+	color: white;
+}
+
+.flash-error {
+	background-color: $location-border-shadow;
+	color: black;
+}
+
+.wide-link {
+	@include fancy-top-border;
+	clear: both;
+	display: block;
+	margin-bottom: 16px;
+	padding-top: 16px;
+	text-transform: uppercase;
+	vertical-align: middle;
+
+	.left-arrow {
+		@include sprite-replace-text($icons, back_off);
+		margin-right: 16px;
+	}
+
+	.right-arrow {
+		@include sprite-replace-text($icons, back_off);
+		margin-left: 16px;
+	}
+
+}
+
+[contenteditable="true"]:hover {
+	background-color: darken($link, 55%);
+}
+
+time {
+	@include smaller-text;
+	color: $quiet-text;
+	display: block;
+	font-style: italic;
+}
+
+nav {
+	a {
+		&.forward,
+		&.back {
+			@include transition-duration(0ms);
+		}
+
+		&.back {
+			@include sprite-replace-text($icons, back_off);
+			margin-right: 5px;
+
+			&:hover {
+				@include sprite-replace-text($icons, back_on);
+			}
+
+			&.disabled {
+				@include sprite-replace-text($icons, back_disabled);
+			}
+		}
+
+		&.close {
+			@include sprite-replace-text($icons, nav_close_off);
+			margin-right: 5px;
+		}
+
+		&.forward {
+			@include sprite-replace-text($icons, forward_off);
+
+			&:hover {
+				@include sprite-replace-text($icons, forward_on);
+			}
+
+			&.disabled {
+				@include sprite-replace-text($icons, forward_disabled);
+			}
+		}
+	}
+}
+
+form {
+	div.input {
+		display: block;
+		@include fancy-bottom-border;
+		padding-bottom: 16px;
+		margin-bottom: 16px;
+
+		&.hidden {
+			&::after {
+				display: none;
+			}
+		}
+	}
+
+	div.checkbox {
+		label {
+			display: inline-block;
+			margin-left: 8px;
+		}
+	}
+
+	label {
+		@include smaller-text;
+		color: $quiet-text;
+		display: block;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	textarea,
+	select {
+		color: $normal-text;
+		display: block;
+		font-family: Roboto, Arial, sans-serif;
+        width: 100%;
+		background-color: $input-background;
+		border-width: 0 0 1px 0;
+		border-color: $link;
+		outline: 0;
+		padding: 8px;
+		margin: 16px 0 0;
+
+		&.form-error {
+			border-color: red;
+		}
+	}
+
+	textarea {
+		height: 15em;
+	}
+
+	input[type="checkbox"] {
+		margin-top: 20px;
+	}
+
+	select {
+		option {
+			background-color: $input-background;
+		}
+	}
+	button[type="submit"] {
+		position: relative;
+		background: transparent;
+		border: 1px solid $borders;
+		border-width: 0 0 1px 0;
+		color: $normal-text;
+		display: block;
+		margin-bottom: 16px;
+		padding: 0 0 16px 0;
+		text-align: right;
+		width: 100%;
+
+		&::after {
+			content: '>';
+			@include sprite_replace_text($icons, forward_off);
+			float: right;
+			margin-left: 16px;
+		}
+
+		&:active {
+			color: #fff;
+
+			&::after {
+				@include sprite_replace_text($icons, forward_on);
+			}
+		}
+	}
+
+	// Events
+	.venue-portion {
+		display: none;
+	}
+
+	.flier {
+		overflow: hidden;
+
+		div.file {
+			float: left;
+			width: 800px;
+
+			input {
+				width: 100%;
+			}
+		}
+
+		div.checkbox {
+			float: right;
+			margin-top: 6px;
+			width: 144px;
+		}
+	}
+
+	td {
+		div.input {
+			padding-bottom: 0;
+		}
+	}
+
+	.col-2 {
+		overflow: hidden;
+
+		div {
+			float: left;
+			width: 472px;
+			margin-right: 16px;
+
+			+ div {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 16px;
+	width: 100%;
+
+	td {
+		margin-right: 16px;
+
+		textarea {
+			height: 6em;
+		}
+	}
+
+	.drag {
+		@include sprite-replace-text($icons, sort);
+	}
+
+	a.delete {
+		@include sprite-replace-text($icons, nav_close_off);
+	}
+
+	&.songs {
+		.input {
+			display: inline-block;
+			overflow: hidden;
+		}
+
+		.number {
+			width: 2.5em;
+		}
+
+		.length {
+			width: 3.5em;
+		}
+
+		.delete {
+			width: 16px;
+		}
+
+		.file {
+			margin-top: 16px;
+			vertical-align: middle;
+			width: 200px;
+		}
+
+		.remove {
+			width: 16px;
+		}
+
+	}
+
+	.error-message {
+		display: none;
+	}
+}
+
+body {
+	background-color: $background;
+	color: $normal-text;
+	font-family: "Roboto", Arial, sans-serif;
+	font-size: 100%;
+	line-height: 100%;
+
+	> .wrapper {
+		font-size: 1em;
+		line-height: 2em;
+		margin: 0 auto (-$footer-height);
+		min-height: 100%;
+		overflow: hidden;
+		height: auto !important;
+		width: 960px; height: 100%;
+	}
+
+	#push,
+	> footer {
+		height: $footer-height;
+	}
+
+}
+
+div#monobomb {
+	@include smaller-text;
+	display: block;
+	background-color: $header-background;
+
+	a {
+		@include link-colors($normal-text, $location-border-highlight, $location-border-highlight, $normal-text, $location-border-highlight);
+	}
+
+	nav {
+		width: 960px;
+		margin: 0 auto;
+	}
+
+	.label {
+		border-right: 1px solid $borders;
+		display: inline-block;
+		line-height: 24px;
+		margin-right: 16px;
+		padding: 8px 16px 8px 0;
+
+		.logo {
+			@include sprite-replace-text($icons, monobomb_logo_off);
+			margin-right: 8px;
+			vertical-align: middle;
+		}
+
+		&:hover,
+		&:active {
+			.logo {
+				@include sprite-replace-text($icons, monobomb_logo_on);
+			}
+		}
+	}
+
+	.arrow {
+		@include sprite-replace-text($icons, header_arrow_off);
+		margin-left: 32px;
+	}
+
+	.viewing {
+		background-color: $artist-selector;
+		display: inline-block;
+		height: 24px;
+		line-height: 24px;
+		margin-left: 16px;
+		padding: 0 16px;
+		position: relative;
+
+		.color {
+			@include sprite-replace-text($icons, header_current_artist_off);
+			margin-right: 8px;
+		}
+	}
+
+	.selector-wrapper {
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+
+		&:hover {
+			.viewing {
+				& > .arrow {
+					@include sprite-replace-text($icons, header_arrow_on);
+				}
+
+				& > .color {
+					@include sprite-replace-text($icons, header_current_artist_on);
+					margin-right: 8px;
+				}
+			}
+
+			ul {
+				display: block;
+			}
+		}
+	}
+
+	ul {
+		$artist-link-width: 180px;
+		@include clearfix;
+		background-color: $artist-selector;
+		display: none;
+		margin-top: 8px;
+		padding: 16px;
+		position: absolute;
+		top: 24px; left: 0;
+		z-index: 1000;
+		width: $artist-link-width * 2 + 32px;
+
+		li {
+			display: inline-block;
+			width: $artist-link-width;
+
+			&:nth-child(2n+1) {
+				float:left;
+				clear:left;
+			}
+		}
+
+		a {
+			display: block;
+			padding: 8px 16px;
+		}
+
+		.arrow {
+			margin-left: 0;
+			margin-right: 8px;
+		}
+
+		.awkward,
+		.savior,
+		.cowell {
+			@include sprite-replace-text($icons, header_menu_default_off);
+		}
+
+		.tracer {
+			@include sprite-replace-text($icons, header_menu_tracer_off);
+		}
+
+		.minusbaby {
+			@include sprite-replace-text($icons, header_menu_minusbaby_off);
+		}
+
+		.zen {
+			@include sprite-replace-text($icons, header_menu_zen_albatross_off);
+		}
+
+		a:hover,
+		a:active {
+			.awkward,
+			.savior,
+			.cowell {
+				@include sprite-replace-text($icons, header_menu_default_on);
+			}
+
+			.tracer {
+				@include sprite-replace-text($icons, header_menu_tracer_on);
+			}
+
+			.minusbaby {
+				@include sprite-replace-text($icons, header_menu_minusbaby_on);
+			}
+
+			.zen {
+				@include sprite-replace-text($icons, header_menu_zen_albatross_on);
+			}
+		}
+	}
+}
+
+nav.main {
+	border-bottom: 1px solid $borders;
+	position: relative;
+
+	ul {
+		display: inline-block;
+
+		li {
+			display: inline-block;
+			font-size: 0.75em;
+			font-weight: bold;
+			padding: 0 32px;
+
+			&.main-logo {
+				margin-right: 126px;
+				padding: 0;
+			}
+
+			a {
+				position: relative;
+				display: block;
+				height: 108px;
+				line-height: 108px;
+				@include link-colors($quiet-text, $location-border-highlight, $location-border-highlight, $quiet-text, $location-border-highlight);
+				text-decoration: none;
+				text-transform: uppercase;
+
+				&.current {
+					color: $normal-text;
+				}
+			}
+		}
+	}
+
+	.logout {
+
+		a {
+			@include link-colors($normal-text, $location-border-highlight, $location-border-highlight, $normal-text, $location-border-highlight);
+		}
+	}
+
+	#highlight {
+		border-bottom: 1px solid $location-border-highlight;
+		display: block;
+		overflow: visible !important; // To override jQuery's animate
+		position: absolute;
+		top: 107px; left: 0;
+		width: 64px; height: 1px;
+
+		&::after,
+		&::before {
+			content:  '';
+			display: block;
+			width: 100%;
+			height: 0;
+			position: absolute;
+			}
+
+			&::before {
+				border-bottom: 1px solid $location-border-main;
+				top: 1px;
+			}
+
+			&::after {
+				border-bottom: 1px solid $location-border-shadow;
+				top: 2px;
+			}
+	}
+
+	#ball {
+		@include sprite-replace-text($icons, menu_ball);
+		position: absolute;
+	}
+}
+
+nav.pager {
+	background-color: $background;
+	display: none;
+	position: absolute;
+	top: 4px;
+		left: 905px;
+	width: 56px;
+
+	a {
+		float: left;
+
+		&.disabled {
+			cursor: default;
+		}
+	}
+}
+
+.no-js {
+	nav.main {
+		a {
+			&:hover,
+			&.current {
+				border-bottom: 1px solid $location-border-highlight;
+
+				&::after,
+				&::before {
+					content:  '';
+					display: block;
+					width: 100%;
+					height: 0;
+					position: absolute;
+				}
+
+				&::before {
+					border-bottom: 1px solid $location-border-main;
+					top: 108px;
+				}
+
+				&::after {
+					border-bottom: 1px solid $location-border-shadow;
+					top: 109px;
+				}
+			}
+		}
+	}
+}
+
+footer {
+	background-color: #313131;
+	border-top: 9px solid #1d1d1d;
+	height: 287px;
+	padding: 64px 0;
+	position: relative;
+	text-align: center;
+	width: 100%;
+
+	&::before {
+		content:  '';
+		display: block;
+		width: 100%;
+		height: 0;
+		position: absolute;
+		border-top: 1px solid #000;
+		top: -9px;
+	}
+
+	a {
+		@include link-colors(#000, $location-border-shadow, $location-border-shadow, #000, $location-border-shadow);
+		border-bottom: 1px dashed $location-border-shadow;
+	}
+
+	.footer-logo {
+		display: inline-block;
+		width: 495px;
+		height: 66px;
+		margin-bottom: 64px;
+	}
+
+	.copy {
+		display: block;
+		color: #000;
+		font-size: 0.75em;
+
+	}
+}
+
+.content {
+	@include easyclearfix;
+	margin-top: 48px;
+	position: relative;
+
+	.now-playing,
+	.videos,
+	.post,
+	.articles,
+	.event {
+		display: inline-block;
+	}
+
+	.now-playing,
+	.post,
+	.event {
+		width: 720px;
+	}
+
+	.videos,
+	.articles,
+	.all-events {
+		float: right;
+		width: 208px;
+	}
+}
+
+.content.about {
+	article,
+	section.members {
+		display: inline-block;
+	}
+
+	article {
+		float: left;
+		padding-right: 32px;
+		width: 960px - 464px;
+
+		a {
+			@include link-colors($normal-text, $link, $link, $normal-text, $link);
+			border-bottom: 1px dashed $link;
+		}
+	}
+
+	section.members {
+		position: absolute;
+		top: 0; left: 960px - 464px;
+		width: 2 * (464px + 16px);
+
+		.collaborator-wrapper {
+			@include easyclearfix;
+			position: relative;
+			width: 1900px;
+		}
+
+		dl {
+			float: left;
+			font-size: 0.75em;
+			width: 464px;
+
+			dt, dd {
+				display: inline-block;
+			}
+
+			dt {
+				float: left;
+				clear: left;
+				width: 464px - 343px;
+				padding-right: 16px;
+
+			}
+
+			dd {
+				width: 343px;
+				margin-bottom: 32px;
+			}
+
+			.name {
+				color: $loud-text;
+				display: block;
+				font-weight: bold;
+			}
+
+			.instrument {
+				display: block;
+				font-style: italic;
+			}
+		}
+
+		nav.pager {
+			left: 464px - 56px;
+		}
+	}
+}
+
+.content.videos {
+	.now-playing {
+		figcaption {
+			@include fancy-bottom-border;
+			font-size: 0.75em;
+			line-height: 1em;
+			margin-bottom: 24px;
+			padding-bottom: 16px;
+
+			h1 {
+				display: inline;
+				margin: auto;
+				padding: auto;
+				border: none;
+			}
+		}
+
+	}
+
+	.videos {
+		li {
+			@include smaller-text;
+			margin-bottom: 36px;
+		}
+
+		figcaption {
+			margin-top: 8px;
+		}
+	}
+}
+
+.content.news {
+	.title {
+		display: block;
+	}
+
+	> .admin {
+		width: 720px;
+
+		.wide-link {
+			clear: none;
+		}
+	}
+
+	.post {
+		border-bottom: 1px solid $borders;
+		margin-bottom: 32px;
+		padding-bottom: 32px;
+		width: 720px;
+
+		h1 {
+			@include smaller-text;
+		}
+
+		h1 {
+			border-bottom: none;
+			margin-bottom: auto;
+			padding-bottom: 0;
+		}
+
+		time {
+			padding-bottom: 16px;
+			margin-bottom: 16px;
+			@include fancy-bottom-border;
+		}
+	}
+
+	.articles {
+		time {
+			font-size: 1em;
+		}
+	}
+}
+
+nav.articles,
+nav.events {
+	a {
+		@include link-colors($normal-text, $link, $link, $normal-text, $link);
+		display: block;
+		margin-left: 24px;
+		position: relative;
+		width: 210px - 24px;
+
+		&:before {
+			@include sprite_replace_text($icons, led_off);
+			content: 'O';
+			position: absolute;
+			left: -24px;
+		}
+
+		&:hover,
+		&:active,
+		&.current {
+			&:before {
+				@include sprite_replace_text($icons, led_on);
+			}
+		}
+	}
+
+	li {
+		@include smaller-text;
+		margin-bottom: 24px;
+	}
+}
+
+.content.contact {
+	$aside-width: 168px;
+
+	.networks,
+	.individually {
+		float: right;
+		width: $aside-width;
+		margin-left: 32px;
+
+		ul {
+			@include smaller-text;
+
+			li {
+				margin-bottom: 32px;
+			}
+		}
+
+		a {
+			@include link-colors($quiet-text, $link, $link, $quiet-text, $link);
+		}
+	}
+
+	.individually {
+		span {
+			display: block;
+		}
+
+		.address {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: $link;
+		}
+	}
+
+	.networks {
+		h1 {
+			color: $quiet-text;
+		}
+	}
+
+	section {
+		width: 960px - 2 * ($aside-width + 32px);
+	}
+
+}
+
+.content.albums {
+	> nav {
+		display: block;
+		float: left;
+		margin-bottom: 48px;
+		overflow: hidden;
+		position: relative;
+		width: 210px * 2 + 40px;
+
+		&:nth-child(2n+1) {
+			margin-right: 40px;
+		}
+	}
+
+	hr {
+		border: none;
+		border-bottom: 1px solid $borders;
+		clear: both;
+		margin-bottom: 32px;
+	}
+
+	ul {
+		@include easyclearfix;
+		// Default width. JS will fix this
+		position: relative;
+		width: (210px + 40px) * 100;
+
+		li {
+			@include smaller-text;
+			display: inline-block;
+			float: left;
+			width: 210px;
+			margin-right: 40px;
+		}
+	}
+
+	a {
+		@include link-colors($normal-text, $link, $link, $normal-text, $link);
+	}
+
+	img,
+	h2,
+	.label,
+	time {
+		display: block;
+		margin-bottom: 16px;
+	}
+
+	.label,
+	time {
+		color: $quiet-text;
+	}
+
+	nav.pager {
+		display: block;
+		left:auto;
+		position: absolute;
+		top: 4px; right: 0;
+		width: 35px;
+	}
+}
+
+.content.album {
+	@include smaller-text;
+
+	div.images {
+		display: block;
+		float: left;
+		margin-bottom: 16px;
+		overflow: hidden;
+		width: 450px; height: 450px;
+
+		img {
+			display: block;
+			float: left;
+		}
+	}
+
+	nav.images {
+		clear: left;
+		display: block;
+		float:left;
+		text-align: center;
+		width: 450px;
+
+		a {
+			@include sprite_replace_text($icons, led_off);
+			@include transition-duration(0);
+			margin: 0 4px;
+
+			&.active,
+			&:hover,
+			&:active {
+				@include sprite_replace_text($icons, led_on);
+			}
+		}
+
+	}
+
+	dl {
+		@include easyclearfix;
+	}
+
+	dt {
+		clear: left;
+		color: $quiet-text;
+		display: inline-block;
+		float: left;
+		text-transform: uppercase;
+	}
+
+	dd {
+		float: left;
+		margin-left: 8px;
+		margin-bottom: 32px;
+		width: 390px;
+	}
+
+	.details {
+		display: inline-block;
+		margin-left: 48px;
+		width: 960px - (450px + 48px);
+
+		dl {
+			dt {
+				margin-bottom: 32px;
+				width: 64px;
+			}
+		}
+
+		time {
+			font-size: 1em;
+		}
+
+		dl.tracks {
+			dt {
+				color: $link;
+				margin-bottom: 8px;
+				width: 16px;
+			}
+
+			dd {
+				margin-bottom: 8px;
+				width: 366px;
+			}
+
+			a {
+				display: block;
+				color: $normal-text;
+
+				&:hover,
+				&:active {
+						color: $link;
+				}
+			}
+
+			.playing {
+				@include sprite_replace_text($icons, player-play);
+				display: none;
+				float: right;
+			}
+		}
+	}
+
+	.back {
+		clear: left;
+	}
+}
+
+.content.events {
+	.event {
+		@include smaller-text;
+
+		+ event {
+			border-top: 1px solid $borders;
+			padding-top: 16px;
+			margin-top: 16px;
+		}
+
+		figure {
+			overflow: hidden;
+
+			+ a {
+				margin-top: 16px;
+			}
+		}
+	}
+
+	.details {
+		display: block;
+
+		> * {
+			display: inline-block;
+		}
+
+		time {
+			color: $normal-text;
+			font-style: normal;
+		}
+
+		h1 {
+			border: none;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+
+		.slash {
+			margin-left: 8px;
+		}
+
+		.address {
+			display: inline;
+		}
+	}
+
+	time {
+		font-size: 1em; // Bring the size back up to match
+	}
+
+	img {
+		width: 460px;
+		float: left;
+	}
+
+	figcaption {
+		display: inline-block;
+		line-height: 2em;
+		margin-left: 16px;
+		width: 244px;
+	}
+
+	.participants {
+		@include fancy-bottom-border;
+		display: block;
+		margin-bottom: 16px;
+		padding-bottom: 16px;
+	}
+
+	.details,
+	.details h1,
+	.participants {
+		color: $quiet-text;
+	}
+
+	.all-events {
+		overflow: hidden;
+		position: absolute;
+		top: 0; left: 752px;
+		width: 4 * (210 + 16px);
+
+		&.start-open {
+			left: 0;
+		}
+
+		.past-events {
+			@include easyclearfix;
+			position: relative;
+			width: 1960px;
+		}
+
+		nav {
+			float: left;
+			margin-right: 16px;
+			width: 210px;
+
+		}
+	}
+
+	.admin {
+		width: 720px;
+
+		&.start-open {
+			display: none;
+		}
+	}
+
+	nav.pager.start-open {
+		display: block;
+	}
+
+	a.more.start-open {
+		display: none;
+	}
+
+	.admin.start-open {
+		display: none;
+	}
+}
+
+.content.venues {
+	ul {
+		overflow: hidden;
+	}
+
+	li {
+		@include inline-block;
+		border-bottom: 1px solid $borders;
+		width: 470px;
+		margin-bottom: 32px;
+		margin-right: 16px;
+
+		&:nth-child(2n+2) {
+			margin-right: 0;
+		}
+	}
+
+	.name {
+		display: block;
+		font-weight: bold;
+	}
+
+	.url,
+	.city,
+	.state,
+	.zip {
+		display: inline-block;
+		min-width: 2em;
+	}
+
+	.url {
+		text-overflow: ellipsis;
+		width: 430px;
+	}
+
+	.icon.site_url,
+	.map .icon {
+		@include sprite_replace_text($icons, link);
+		margin-right: 8px;
+	}
+
+	.count {
+		display: block;
+	}
+
+	.pages {
+		text-align: center;
+		margin-bottom: 16px;
+	}
+
+	.url.input {
+		display: block;
+		width: 100%;
+	}
+}
+
+
+/* jPlayer */
+.jp-interface {
+    display: block;
+    line-height: 13px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+    width: 390px; height: 13px;
+
+    ul.jp-controls {
+        width: 100%; height: 13px;
+
+        li {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .jp-progress,
+        a.jp-play,
+        a.jp-stop,
+        a.jp-lower,
+        .jp-volume-bar {
+            margin-right: 10px;
+        }
+
+        .jp-progress {
+            background-color: $quiet-text;
+			display: block;
+            margin-right: 10px;
+			overflow: hidden;
+            width: 265px; height: 13px;
+
+            .jp-seek-bar {
+                background-color: $link;
+                cursor: pointer;
+				display: block;
+				overflow: hidden;
+                width: 0; height: 13px;
+            }
+        }
+        a.jp-play {
+			@include sprite_replace_text($icons, player-play);
+        }
+        a.jp-stop {
+			@include sprite_replace_text($icons, player-stop);
+			display: none;
+        }
+        a.jp-lower {
+			@include sprite_replace_text($icons, player-volume-down);
+        }
+        a.jp-higher {
+			@include sprite-replace-text($icons, player-volume-up);
+        }
+        .jp-play-bar {
+            background-color: #fff;
+            width: 0; height: 13px;
+        }
+        .jp-seeking-bg {
+            background-color: purple;
+        }
+        .jp-volume-bar {
+            background-color: $link;
+            cursor: pointer;
+            overflow: hidden;
+            width: 46px; height: 13px;
+        }
+        .jp-volume-bar-value {
+            background-color: #fff;
+            width: 0; height: 13px;
+        }
+    }
+}
+li.jp-playlist-current {
+    .title {
+        background-color: #2d2d2d;
+    }
+    .length {
+        background-color: #2d2d2d;
+    }
+}
+
+.ui-slider-handle {
+	display: block;
+	position: relative;
+	width: 16px; height: 16px;
+}
+
+.ui-timepicker-div {
+	dl {
+		margin-top: 16px;
+		overflow: hidden;
+	}
+
+	dt {
+		float: left;
+		clear: left;
+		width: 30%;
+		margin-bottom: 8px;
+	}
+
+	dd {
+		float: left;
+		width: 70%;
+	}
+}

@@ -1,0 +1,79 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/typography";
+@import "blueprint";
+@import "roboto";
+$icons: sprite-map("icons/*.png");
+
+$background: #090909;
+$normal-text: #b3b3b3;
+$quiet-text: #595959;
+$loud-text: #ebebeb;
+$link: #ff6e36;
+$borders: #595959;
+$input-background: #1d1d1d;
+$header-background: #1d1d1d;
+$artist-selector: #313131;
+
+// three-line border for current section in menu
+$location-border-highlight: #ff6e36;
+$location-border-main: #ff460e;
+$location-border-shadow: #c30a00;
+
+$footer-height: 287px;
+
+@mixin smaller-text {
+	font-size: 0.8em;
+	line-height: 1.5em;
+}
+
+@mixin sprite-replace-text ($sprite, $img-name){
+	@include hide-text;
+	background: sprite($sprite, $img-name) no-repeat;
+	display: inline-block;
+	width: image-width(sprite-file($sprite, $img-name));
+	height: image-height(sprite-file($sprite, $img-name));
+}
+
+@mixin fancy-bottom-border () {
+    & {
+		position: relative;
+	}
+
+	&::after {
+		content: '';
+		display: block;
+		background: url('/img/dotted_line.png') repeat-x;
+		position: absolute;
+		width: 100%;
+		height: 1px;
+		top: 100%;
+	}
+}
+
+@mixin fancy-top-border () {
+    & {
+		position: relative;
+	}
+
+	&::before {
+		content: '';
+		display: block;
+		background: url('/img/dotted_line.png') repeat-x;
+		position: absolute;
+		width: 100%;
+		height: 1px;
+		top: 0;
+	}
+}
+
+@mixin inline-box() {
+	display: inline-block;
+	min-height: 1em;
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	*display: inline;
+	_height: 1em;
+}
