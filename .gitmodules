@@ -4,3 +4,9 @@
 [submodule "Plugin/Utility"]
 	path = Plugin/Utility
 	url = git://github.com/milesj/cake-utility.git
+[submodule "Plugin/AssetCompress"]
+	path = Plugin/AssetCompress
+	url = git://github.com/markstory/asset_compress.git
+[submodule "Plugin/UploadPack"]
+	path = Plugin/UploadPack
+	url = ssh://git@github.com/openback/uploadpack

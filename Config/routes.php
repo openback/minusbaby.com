@@ -61,17 +61,6 @@ Router::connect('/logout',
 	CakePlugin::routes();
 
 /**
- * Static files
- *
- */
-
-App::uses('PageRoute', 'PageRoute.Routing/Route');
-Router::connect('/:page',
-	array('controller' => 'static_pages', 'action' => 'index'),
-	array('routeClass' => 'PageRoute', 'controller' => 'StaticPages', 'action' => 'index')
-);
-
-/**
  * Load the CakePHP default routes. Remove this if you do not want to use
  * the built-in default routes.
  */
