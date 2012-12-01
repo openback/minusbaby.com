@@ -63,7 +63,27 @@ class Album extends AppModel {
 		}
 		return $results;
 	}
-    function beforeValidate($options = array()) {
+
+	public function afterFind(array $results, $primary = false) {
+		foreach ($results as $key => $val) {
+			if (empty($val['Album']['thumbnail_file_path'])) {
+				$results[$key]['Album']['thumbnail_url'] = 'no_album_cover.png';
+			} else {
+				$results[$key]['Album']['thumbnail_url'] = '/attachments/album-covers/original/'.$val['Album']['thumbnail_file_path'];
+			}
+
+			if (empty($val['Album']['cover_file_path'])) {
+				$results[$key]['Album']['cover_url'] = 'no_album_cover.png';
+			} else {
+				$results[$key]['Album']['cover_url'] = '/attachments/album-covers/original/'.$val['Album']['cover_file_path'];
+			}
+
+		}
+
+		return $results;
+	}
+
+    public function beforeValidate($options = array()) {
         parent::beforeValidate($options);
 
         // Set our artist if needed
@@ -77,7 +97,7 @@ class Album extends AppModel {
 
         // optional url validation is always buggy for me, so this is the fix
         $url_validation = array(
-            'rule' => 'url',
+        'rule' => 'url',
             'required' => true,
             'message' => 'This must be a valid URL',
         );

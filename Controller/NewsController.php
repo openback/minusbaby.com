@@ -22,6 +22,7 @@ class NewsController extends AppController {
 
     function index() {
         $this->set('posts', $this->paginate('Post'));
+        $this->set('postsList', $this->Post->find('all', array('fields' => array('id', 'title', 'slug', 'date'))));
 
         if ($this->request->is('ajax')) {
             $this->layout = null;
@@ -36,6 +37,7 @@ class NewsController extends AppController {
 			throw new NotFoundException('Could not find that post');
 
 		$this->set('posts', array($post));
+        $this->set('postsList', $this->Post->find('all', array('fields' => array('id', 'title', 'slug', 'date'))));
 		$this->render('index');
     }
 

@@ -166,8 +166,8 @@ pushState = (title, path) ->
 			return false
 
 		# Flash the...flash
-		$("#flashMessage").add(".flash-failure").effect("highlight", {}, 1000)
-		$(".flash-success").effect("highlight", {}, 1000).delay(3000).slideUp();
+		$("#flashMessage").add(".flash-success").effect("highlight", 1000, -> $(this).delay(2000).slideUp())
+		$(".flash-failure").effect("highlight", {}, 1000)
 
 		$email = $("a.email")
 
@@ -298,7 +298,7 @@ pushState = (title, path) ->
 					success: (response) ->
 						console.log 'RESPONSE: ', response
 
-		$('table.artists tbody').sortable
+		$('table.artists tbody').add('table.sites tbody').sortable
 			helper: (e, ui) ->
 				ui.children().each ->
 					$(this).width($(this).width())

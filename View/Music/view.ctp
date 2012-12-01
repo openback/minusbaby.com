@@ -2,20 +2,8 @@
 	$this->Html->script('jquery.jplayer.min', array('block' => 'pageJs'));
 	$this->Html->script('compiled/music', array('block' => 'pageJs'));
 
-	/* COVER IMAGES */
-	if (empty($album['Album']['thumbnail_file_path'])) {
-		$thumbnail = 'no_album_cover.png';
-	} else {
-		$thumbnail = '/attachments/album-covers/original/'.$album['Album']['thumbnail_file_path'];
-	}
-
 	// Should I set width to 450 here?
-	$cover = $this->Pixelpod->link_if(
-		!empty($album['Album']['cover_file_path']),
-		$this->Html->image($thumbnail, array('class'=>'cover', 'alt' => $album['Album']['title'].' cover')),
-		'/attachments/album-covers/original/'.$album['Album']['cover_file_path'],
-		array('class' => 'cover', 'escape' => false)
-	);
+	$cover = $this->Html->image($album['Album']['cover_url'], array('class'=>'cover', 'alt' => $album['Album']['title'].' cover', 'width' => 461));
 
 	/* LICENSE */
 	$license = $album['Album']['license'];
@@ -29,7 +17,7 @@
 	}
 ?>
 <div class="images"><?php echo $cover; ?></div>
-<nav class="images"><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a></nav>
+<!-- <nav class="images"><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a></nav> -->
 <section class="details">
 	<dl>
 		<dt>Title</dt>

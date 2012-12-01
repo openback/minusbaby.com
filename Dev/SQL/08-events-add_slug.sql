@@ -1,1 +1,1 @@
-ALTER TABLE `events` ADD `slug` varchar(140) default 'album';
+ALTER TABLE `events` ADD `slug` varchar(140) default '';

@@ -6,7 +6,10 @@ class Performer extends AppModel {
         'name' => array(
             'rule' => 'notEmpty',
             'required' => true,
-        ),
+		),
+		'url' => array(
+			'rule' => 'url'
+		),
     );
 
     function beforeValidate($options = array()) {

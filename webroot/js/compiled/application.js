@@ -161,8 +161,10 @@
         setTimeout(followLink, 100);
         return false;
       });
-      $("#flashMessage").add(".flash-failure").effect("highlight", {}, 1000);
-      $(".flash-success").effect("highlight", {}, 1000).delay(3000).slideUp();
+      $("#flashMessage").add(".flash-success").effect("highlight", 1000, function() {
+        return $(this).delay(2000).slideUp();
+      });
+      $(".flash-failure").effect("highlight", {}, 1000);
       $email = $("a.email");
       if ($email.length > 0) {
         $email.add("#xmpp span").html(function(index, oldhtml) {
@@ -291,7 +293,7 @@
           });
         }
       });
-      $('table.artists tbody').sortable({
+      $('table.artists tbody').add('table.sites tbody').sortable({
         helper: function(e, ui) {
           ui.children().each(function() {
             return $(this).width($(this).width());

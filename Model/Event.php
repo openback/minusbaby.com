@@ -11,6 +11,14 @@ class Event extends AppModel {
 	);
 
     public $hasMany = array(
+        /* This is just to make the event form easier
+         * TODO: Is there a better way?
+         */
+        'Performer' => array(
+            'className' => 'Performer',
+            'order' => 'name ASC',
+            'dependent' => true,
+        ),
         'Artist' => array(
             'className' => 'Performer',
             'conditions' => array('role' => 'artist'),
@@ -22,14 +30,6 @@ class Event extends AppModel {
             'conditions' => array('role' => 'visualist'),
             'order' => 'name ASC',
             'dependent' => false,
-        ),
-        /* This is just to make the event form easier
-         * TODO: Is there a better way?
-         */
-        'Performer' => array(
-            'className' => 'Performer',
-            'order' => 'name ASC',
-            'dependent' => true,
         ),
     );
     public $validate = array(

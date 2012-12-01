@@ -10,8 +10,3 @@
 	</div>
 	<?php } ?>
 </article>
-<?php
-	if ($this->action == 'view') {
-		echo $this->Html->link('BACK', array('action' => 'index'), array('class' => 'back_to'));
-	}
-?>

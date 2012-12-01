@@ -73,7 +73,14 @@ if (!empty($this->data['Song'])) {
 					<td><?php echo $this->Form->input("Song.{$index}.artist", array('class' => 'artist', 'label' => false)); ?></td>
 					<td><?php echo $this->Form->input("Song.{$index}.title", array('class' => 'title', 'label' => false)); ?></td>
 					<td><?php echo $this->Form->input("Song.{$index}.song", array('type' => 'file', 'label' => false));; ?></td>
-					<td><?php echo $this->Form->input("Song.{$index}.delete", array('type' => 'checkbox', 'label' => false)); ?></td>
+					<td>
+						<?php if (empty($song['id'])): ?>
+						<a href="#" class="remove-row-from-table delete">REMOVE</a>
+						<?php else:
+								echo $this->Form->input("Song.{$index}.delete", array('type' => 'checkbox', 'label' => false));
+							  endif;
+						?>
+					</td>
 				</tr>
 <?php
     }

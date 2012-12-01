@@ -4,7 +4,7 @@
 		<?php foreach($albums as $album) { ?>
 		<li><a href="<?php echo $this->Html->url(array('action' => 'view', $album['Album']['id'], $album['Album']['slug'])); ?>">
 			<figure>
-				<img src="http://placekitten.com/210/210" width="210" height="210" alt="album cover">
+			<img src="<?php echo $album['Album']['thumbnail_url']; ?>" width="210" height="210" alt="album cover">
 				<figcaption>
 					<h2><?php echo $album['Album']['title']; ?></h2>
 					<span class="label"><?php echo (empty($album['Album']['label'])) ? 'Self-Release' : $album['Album']['label']; ?></span>

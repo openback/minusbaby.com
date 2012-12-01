@@ -31,7 +31,8 @@ class EventsController extends AppController {
     function view($id = null) {
 		$event = $this->Event->findById($id);
 
-        if (empty($event)) throw new NotFoundException();
+		if (empty($event))
+			throw new NotFoundException();
 
 		if ($this->request->is('ajax')) {
 			$this->set('event', $event);
@@ -121,7 +122,6 @@ class EventsController extends AppController {
 						// remove it from the data so it doesn't get created again
 						unset($this->request->data['Performer'][$index]);
 					} else {
-						print_r($performer);
 						$this->Session->setFlash('The '.$performer['role'].' could not be removed.', 'flash_failure');
 						return;
 					}
