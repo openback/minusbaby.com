@@ -20,12 +20,12 @@
 $ = jQuery
 
 $.fn.extend
-	monobombNavigator: (options, args) ->
+	monobombNavigator: (options, args, cb) ->
 		this.each ->
-			new $.monobombNavigator(this, options, args)
+			new $.monobombNavigator(this, options, args, cb)
 
 
-$.monobombNavigator = (elem, options, args) ->
+$.monobombNavigator = (elem, options, args, cb) ->
 	# ----------------------------------------------------------------------------
 	# moveToPage
 	#
@@ -77,7 +77,7 @@ $.monobombNavigator = (elem, options, args) ->
 	# closes the Navigator back to its original spot with the current viewed page
 	# staying visible
 	# ----------------------------------------------------------------------------
-	closeNav = ->
+	closeNav = (cb) ->
 		data = $(elem).data('monobombNavigator')
 		moveToPage(data.viewing)
 		data.$controls_nav.fadeOut 'slow'
@@ -85,6 +85,7 @@ $.monobombNavigator = (elem, options, args) ->
 		data.$main_nav_wrapper.stop().animate
 			left: data.original_left + 'px'
 			'slow'
+			cb
 		data.closed = true
 
 	# ----------------------------------------------------------------------------
@@ -93,7 +94,7 @@ $.monobombNavigator = (elem, options, args) ->
 	# closes the Navigator back to its original spot with specified page staying
 	# visible
 	# ----------------------------------------------------------------------------
-	closeToPage = ($nav) ->
+	closeToPage = ($nav, cb) ->
 		$elem = $(elem)
 		data = $elem.data('monobombNavigator')
 
@@ -107,7 +108,7 @@ $.monobombNavigator = (elem, options, args) ->
 				break
 			data.viewing++
 
-		closeNav()
+		closeNav(cb)
 		false
 
 	# ----------------------------------------------------------------------------
@@ -120,11 +121,32 @@ $.monobombNavigator = (elem, options, args) ->
 		if data.first_page > 1 then data.$back.removeClass('disabled') else data.$back.addClass('disabled')
 
 	# ----------------------------------------------------------------------------
+	# hideClose
+	#
+	# Showss the control's close buttons
+	# ----------------------------------------------------------------------------
+	hideClose = (cb) ->
+		data = $(elem).data('monobombNavigator')
+		data.$close.hide()
+		cb() if cb
+
+	# ----------------------------------------------------------------------------
+	# showClose
+	#
+	# Showss the control's close buttons
+	# ----------------------------------------------------------------------------
+	showClose = (cb) ->
+		data = $(elem).data('monobombNavigator')
+		data.$close.show()
+		cb() if cb
+
+	# ----------------------------------------------------------------------------
 	# Switch control to the proper method
 	if options and typeof(options) is 'string'
 		switch options
-			when 'closeToPage' then closeToPage(args)
-
+			when 'closeToPage' then closeToPage(args, cb)
+			when 'showClose' then showClose(args, cb)
+			when 'hideClose' then hideClose(args, cb)
 		return
 
 	# No method called, so init

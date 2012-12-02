@@ -1213,6 +1213,10 @@ nav.events {
 
 	nav.pager.start-open {
 		display: block;
+
+		.close {
+			display: none;
+		}
 	}
 
 	a.more.start-open {

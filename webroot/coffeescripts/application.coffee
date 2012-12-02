@@ -318,7 +318,10 @@ pushState = (title, path) ->
 			$this.addClass 'active'
 			$events = $('article.event')
 
-			$('.content').monobombNavigator('closeToPage', $(this).closest('.events'))
+			$('.content').monobombNavigator('closeToPage', $(this).closest('.events')
+				, ->
+					$('.start-open').removeClass('start-open')
+			)
 
 			$events.fadeOut ->
 				# We only need one event now

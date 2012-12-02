@@ -317,7 +317,9 @@
         url = $this.attr('href');
         $this.addClass('active');
         $events = $('article.event');
-        $('.content').monobombNavigator('closeToPage', $(this).closest('.events'));
+        $('.content').monobombNavigator('closeToPage', $(this).closest('.events'), function() {
+          return $('.start-open').removeClass('start-open');
+        });
         $events.fadeOut(function() {
           var $event, _i, _len, _ref;
           _ref = $events.slice(1);

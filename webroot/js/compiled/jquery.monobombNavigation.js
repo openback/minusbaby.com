@@ -26,15 +26,15 @@
   $ = jQuery;
 
   $.fn.extend({
-    monobombNavigator: function(options, args) {
+    monobombNavigator: function(options, args, cb) {
       return this.each(function() {
-        return new $.monobombNavigator(this, options, args);
+        return new $.monobombNavigator(this, options, args, cb);
       });
     }
   });
 
-  $.monobombNavigator = function(elem, options, args) {
-    var $first_page, closeNav, closeToPage, data, moveToPage, openNav, setButtons, settings;
+  $.monobombNavigator = function(elem, options, args, cb) {
+    var $first_page, closeNav, closeToPage, data, hideClose, moveToPage, openNav, setButtons, settings, showClose;
     moveToPage = function(page, force) {
       var $nav, data, nav, time, _i, _len, _ref;
       data = $(elem).data('monobombNavigator');
@@ -71,7 +71,7 @@
       data.closed = false;
       return moveToPage(Math.max(1, Math.min(data.first_page, data.nav_count - settings.visible_columns + 1)));
     };
-    closeNav = function() {
+    closeNav = function(cb) {
       var data;
       data = $(elem).data('monobombNavigator');
       moveToPage(data.viewing);
@@ -79,10 +79,10 @@
       data.$more.add(data.$elem.find('> article').add(data.$elem.find('.admin'))).stop().fadeIn('slow');
       data.$main_nav_wrapper.stop().animate({
         left: data.original_left + 'px'
-      }, 'slow');
+      }, 'slow', cb);
       return data.closed = true;
     };
-    closeToPage = function($nav) {
+    closeToPage = function($nav, cb) {
       var $elem, data, nav, _i, _len, _ref;
       $elem = $(elem);
       data = $elem.data('monobombNavigator');
@@ -98,7 +98,7 @@
         }
         data.viewing++;
       }
-      closeNav();
+      closeNav(cb);
       return false;
     };
     setButtons = function(data) {
@@ -113,10 +113,32 @@
         return data.$back.addClass('disabled');
       }
     };
+    hideClose = function(cb) {
+      var data;
+      data = $(elem).data('monobombNavigator');
+      data.$close.hide();
+      if (cb) {
+        return cb();
+      }
+    };
+    showClose = function(cb) {
+      var data;
+      data = $(elem).data('monobombNavigator');
+      data.$close.show();
+      if (cb) {
+        return cb();
+      }
+    };
     if (options && typeof options === 'string') {
       switch (options) {
         case 'closeToPage':
-          closeToPage(args);
+          closeToPage(args, cb);
+          break;
+        case 'showClose':
+          showClose(args, cb);
+          break;
+        case 'hideClose':
+          hideClose(args, cb);
       }
       return;
     }
