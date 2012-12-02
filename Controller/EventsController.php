@@ -147,7 +147,7 @@ class EventsController extends AppController {
 
 		if ($this->Event->saveAll($this->request->data)) {
 			$this->Session->setFlash('The event was updated succesfully.','flash_success');
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action' => 'view', $id, $this->Event->field('slug')));
 		} else {
 			$this->Session->setFlash('There was a problem updating the event.','flash_failure');
 		}
