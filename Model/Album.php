@@ -88,8 +88,8 @@ class Album extends AppModel {
 
         // Set our artist if needed
         if (empty($this->data['Album']['artist'])) {
-            if ($this->data['Album']['type'] == 'Solo') {
-                $this->data['Album']['artist'] = 'minusbaby';
+			if (($this->data['Album']['type'] == 'EP') || ($this->data['Album']['type'] == 'LP')) {
+                $this->data['Album']['artist'] = 'crashfaster';
             } else {
                 $this->data['Album']['artist'] = 'Various Artists';
             }

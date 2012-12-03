@@ -17,6 +17,7 @@
  * @since         CakePHP(tm) v 1.2.0.4433
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
+
 set_time_limit(0);
 ini_set('display_errors', 1);
 /**
@@ -49,9 +50,7 @@ ini_set('display_errors', 1);
  * The absolute path to the "cake" directory, WITHOUT a trailing DS.
  *
  */
-	if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-		define('CAKE_CORE_INCLUDE_PATH', ROOT);
-	}
+	define('CAKE_CORE_INCLUDE_PATH',  DS . 'var' . DS . 'www' . DS . 'cakephp-2' . DS . 'lib');
 
 /**
  * Editing below this line should not be necessary.
@@ -64,31 +63,27 @@ if (!defined('WEBROOT_DIR')) {
 if (!defined('WWW_ROOT')) {
 	define('WWW_ROOT', dirname(__FILE__) . DS);
 }
-if (!defined('CORE_PATH')) {
-	if (function_exists('ini_set') && ini_set('include_path', CAKE_CORE_INCLUDE_PATH . PATH_SEPARATOR . ROOT . DS . APP_DIR . DS . PATH_SEPARATOR . ini_get('include_path'))) {
-		define('APP_PATH', null);
-		define('CORE_PATH', null);
-	} else {
-		define('APP_PATH', ROOT . DS . APP_DIR . DS);
-		define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
+
+if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+	if (function_exists('ini_set')) {
+		ini_set('include_path', ROOT . DS . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
+	}
+	if (!include ('Cake' . DS . 'bootstrap.php')) {
+		$failed = true;
+	}
+} else {
+	if (!include (CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php')) {
+		$failed = true;
 	}
 }
-if (!include(CORE_PATH . 'cake' . DS . 'bootstrap.php')) {
+if (!empty($failed)) {
 	trigger_error("CakePHP core could not be found.  Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/index.php.  It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
 }
 
-$corePath = App::core('cake');
-if (isset($corePath[0])) {
-	define('TEST_CAKE_CORE_INCLUDE_PATH', rtrim($corePath[0], DS) . DS);
-} else {
-	define('TEST_CAKE_CORE_INCLUDE_PATH', CAKE_CORE_INCLUDE_PATH);
-}
-
 if (Configure::read('debug') < 1) {
-	die(__('Debug setting does not allow access to this url.', true));
+	die(__d('cake_dev', 'Debug setting does not allow access to this url.'));
 }
 
-require_once CAKE_TESTS_LIB . 'cake_test_suite_dispatcher.php';
+require_once CAKE . 'TestSuite' . DS . 'CakeTestSuiteDispatcher.php';
 
-$Dispatcher = new CakeTestSuiteDispatcher();
-$Dispatcher->dispatch();
+CakeTestSuiteDispatcher::run();
