@@ -142,7 +142,6 @@ class MusicController extends AppController {
         }
 
         if (isset($this->request->data['Song'])) {
-            App::import('vendor', 'getid3', array('file' =>'getid3/getid3.php'));
             $mp3_dir = WWW_ROOT.'attachments'.DS.'mp3';
 
             // Save the mp3s manually
@@ -185,6 +184,8 @@ class MusicController extends AppController {
 
                 // Populate fields if needed
                 if (is_file($mp3_dir.DS.$song['url'])) {
+					App::import('vendor', 'getid3', array('file' =>'getid3/getid3/getid3.php'));
+
                     $getID3 = new getID3;
                     $fileInfo = $getID3->analyze($mp3_dir.DS.$song['url']);
 
