@@ -43,6 +43,7 @@
 			$this->Html->script('jquery-1.8.3.min', array('block' => 'footJs'));
 			// $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', array('block' => 'footJs'));
 			$this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
+			$this->Html->script('jquery.history', array('block' => 'footJs'));
 
 			if (AuthComponent::user('id') != null) {
 				$this->Html->script('ckeditor/ckeditor', array('block' => 'footJs'));

@@ -1,5 +1,6 @@
 <?php
 $start_open = (empty($current))? ' start-open' : '';
+$id = ($this->request->params['action'] == 'view') ? $this->request->params['pass'][0] : null;
 
 $this->Pixelpod->monobombNavigation('.all-events', '.past-events', 'nav');
 
@@ -19,6 +20,7 @@ if (!empty($past)) {
         $row = '';
         $year = '';
         $eventYear = $this->Time->format('Y', $event['start_time']);
+		$class = ($id == $event['id']) ? ' current' : null;
 
         if ($eventYear != $currentYear) {
 			if ($currentYear != '') {
@@ -36,8 +38,9 @@ if (!empty($past)) {
 			echo $this->html->tag('h1', 'Past Events ' . $this->Html->tag('strong', $eventYear));
 			echo '<ul>';
         }
+
 		?>
-			<li><a href="<?php echo $this->Html->url(array('action' => 'view', $event['id'], $event['title'])); ?>"><span class="title"><?php echo $event['title']; ?></span><?php echo $this->Pixelpod->time(null, $event['start_time']); ?></a></li>
+			<li><a href="<?php echo $this->Html->url(array('action' => 'view', $event['id'], $event['title'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $event['title']; ?></span><?php echo $this->Pixelpod->time(null, $event['start_time']); ?></a></li>
 		<?php
 	}
 

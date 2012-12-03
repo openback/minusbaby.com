@@ -19,6 +19,7 @@ class Post extends AppModel {
             'message' => 'You must include an image or embed text.',
         ),
     );
+	public $order = 'Post.date DESC';
 
     function imageOrEmbed($data) {
         return (!empty($this->data['Post']['post_file_name']) OR

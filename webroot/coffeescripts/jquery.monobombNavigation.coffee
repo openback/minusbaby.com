@@ -20,22 +20,26 @@
 $ = jQuery
 
 $.fn.extend
-	monobombNavigator: (options, args, cb) ->
-		this.each ->
-			new $.monobombNavigator(this, options, args, cb)
+	monobombNavigator: (options, args) ->
+		if options and typeof(options) is 'string'
+			return $.monobombNavigator(this, options, args)
+		else
+			this.each ->
+				new $.monobombNavigator(this, options, args)
 
 
-$.monobombNavigator = (elem, options, args, cb) ->
+$.monobombNavigator = (elem, options, args) ->
 	# ----------------------------------------------------------------------------
 	# moveToPage
 	#
 	# page: page number (1 indexed) or the actual page itself
 	# ----------------------------------------------------------------------------
-	moveToPage = (page, force) ->
+	moveToPage = (page, force, cb) ->
 		data = $(elem).data('monobombNavigator')
 
 		return if data.closed and not force
 
+		page = 1 if typeof(page) is 'undefined'
 		if typeof(page) is 'number'
 			$nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')')
 		else
@@ -52,15 +56,19 @@ $.monobombNavigator = (elem, options, args, cb) ->
 		data.$inner_nav_wrapper.stop().animate
 			left: '-' + $nav.position().left + 'px'
 			time
+			cb
 
 		setButtons(data)
+		$(elem)
 
 	# ----------------------------------------------------------------------------
 	# openNav
 	#
 	# opens the Navigator with the currently viewed page as the first one
 	# ----------------------------------------------------------------------------
-	openNav = ->
+	openNav = (page, cb) ->
+		data = $(elem).data('monobombNavigator')
+
 		data.$more.add(data.$elem.find('> article').add(data.$elem.find('.admin'))).stop().fadeOut 'slow'
 		data.$controls_nav.fadeIn 'slow'
 
@@ -70,7 +78,8 @@ $.monobombNavigator = (elem, options, args, cb) ->
 
 		data.closed = false
 
-		moveToPage(Math.max(1, Math.min(data.first_page, data.nav_count - settings.visible_columns + 1)))
+		moveToPage(page, false, cb)
+		$(elem)
 	# ----------------------------------------------------------------------------
 	# closeNav
 	#
@@ -87,6 +96,16 @@ $.monobombNavigator = (elem, options, args, cb) ->
 			'slow'
 			cb
 		data.closed = true
+		$(elem)
+
+	# ----------------------------------------------------------------------------
+	# openToPage
+	#
+	# opens the Navigator back to its original spot with specified page at start
+	# ----------------------------------------------------------------------------
+	openToPage = (page, cb) ->
+		openNav(page, cb)
+		false
 
 	# ----------------------------------------------------------------------------
 	# closeToPage
@@ -109,6 +128,7 @@ $.monobombNavigator = (elem, options, args, cb) ->
 			data.viewing++
 
 		closeNav(cb)
+		$(elem)
 		false
 
 	# ----------------------------------------------------------------------------
@@ -119,35 +139,61 @@ $.monobombNavigator = (elem, options, args, cb) ->
 	setButtons = (data) ->
 		if data.nav_count - data.first_page > data.settings.visible_columns then data.$forward.removeClass('disabled') else data.$forward.addClass('disabled')
 		if data.first_page > 1 then data.$back.removeClass('disabled') else data.$back.addClass('disabled')
+		$(elem)
 
 	# ----------------------------------------------------------------------------
 	# hideClose
 	#
-	# Showss the control's close buttons
+	# Shows the control's close buttons
 	# ----------------------------------------------------------------------------
 	hideClose = (cb) ->
 		data = $(elem).data('monobombNavigator')
 		data.$close.hide()
 		cb() if cb
+		$(elem)
 
 	# ----------------------------------------------------------------------------
 	# showClose
 	#
-	# Showss the control's close buttons
+	# Shows the control's close buttons
 	# ----------------------------------------------------------------------------
 	showClose = (cb) ->
 		data = $(elem).data('monobombNavigator')
 		data.$close.show()
 		cb() if cb
+		$(elem)
+
+	# ----------------------------------------------------------------------------
+	# isAnimating
+	#
+	# Returns boolean of whether the nav is animating or not
+	# ----------------------------------------------------------------------------
+	isAnimating = ->
+		data = $(elem).data('monobombNavigator')
+		return data.$inner_nav_wrapper.is(':animated')
+
+	# ----------------------------------------------------------------------------
+	# isOpen
+	#
+	# Returns boolean of whether the nav is open or not
+	# ----------------------------------------------------------------------------
+	isOpen = ->
+		data = $(elem).data('monobombNavigator')
+		return data.$main_nav_wrapper.position().left is 0
 
 	# ----------------------------------------------------------------------------
 	# Switch control to the proper method
 	if options and typeof(options) is 'string'
 		switch options
-			when 'closeToPage' then closeToPage(args, cb)
-			when 'showClose' then showClose(args, cb)
-			when 'hideClose' then hideClose(args, cb)
-		return
+			when 'closeToPage' then return closeToPage(args)
+			when 'openToPage' then return openToPage(args)
+			when 'showClose' then return showClose(args)
+			when 'hideClose' then return hideClose(args)
+			when 'isOpen' then return isOpen()
+			when 'isAnimating' then return isAnimating()
+			else
+				console.log 'Error: Bad method call: "' + options + '"'
+				return
 
 	# No method called, so init
 	settings =

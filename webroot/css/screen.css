@@ -1330,13 +1330,24 @@ footer .copy {
 .content.news .articles time {
   font-size: 1em;
 }
-/* line 855, ../sass/screen.scss */
+/* line 857, ../sass/screen.scss */
+.content.news .back,
+.content.news .more-posts,
+.content.news .loading {
+  width: 720px;
+}
+/* line 861, ../sass/screen.scss */
 .content.news .back {
   clear: left;
   width: 720px;
 }
+/* line 866, ../sass/screen.scss */
+.content.news .loading {
+  margin-bottom: 32px;
+  text-align: center;
+}
 
-/* line 863, ../sass/screen.scss */
+/* line 874, ../sass/screen.scss */
 nav.articles a,
 nav.events a {
   color: #b3b3b3;
@@ -1365,7 +1376,7 @@ nav.articles a:active,
 nav.events a:active {
   color: #ff6e36;
 }
-/* line 870, ../sass/screen.scss */
+/* line 881, ../sass/screen.scss */
 nav.articles a:before,
 nav.events a:before {
   text-indent: -119988px;
@@ -1379,7 +1390,7 @@ nav.events a:before {
   position: absolute;
   left: -24px;
 }
-/* line 880, ../sass/screen.scss */
+/* line 891, ../sass/screen.scss */
 nav.articles a:hover:before, nav.articles a:active:before, nav.articles a.current:before,
 nav.events a:hover:before,
 nav.events a:active:before,
@@ -1392,7 +1403,7 @@ nav.events a.current:before {
   width: 17px;
   height: 17px;
 }
-/* line 886, ../sass/screen.scss */
+/* line 897, ../sass/screen.scss */
 nav.articles li,
 nav.events li {
   font-size: 0.8em;
@@ -1400,25 +1411,25 @@ nav.events li {
   margin-bottom: 24px;
 }
 
-/* line 896, ../sass/screen.scss */
+/* line 907, ../sass/screen.scss */
 .content.contact .networks,
 .content.contact .individually {
   float: right;
   width: 168px;
   margin-left: 32px;
 }
-/* line 901, ../sass/screen.scss */
+/* line 912, ../sass/screen.scss */
 .content.contact .networks ul,
 .content.contact .individually ul {
   font-size: 0.8em;
   line-height: 1.5em;
 }
-/* line 904, ../sass/screen.scss */
+/* line 915, ../sass/screen.scss */
 .content.contact .networks ul li,
 .content.contact .individually ul li {
   margin-bottom: 32px;
 }
-/* line 909, ../sass/screen.scss */
+/* line 920, ../sass/screen.scss */
 .content.contact .networks a,
 .content.contact .individually a {
   color: #595959;
@@ -1443,26 +1454,26 @@ nav.events li {
 .content.contact .individually a:active {
   color: #ff6e36;
 }
-/* line 915, ../sass/screen.scss */
+/* line 926, ../sass/screen.scss */
 .content.contact .individually span {
   display: block;
 }
-/* line 919, ../sass/screen.scss */
+/* line 930, ../sass/screen.scss */
 .content.contact .individually .address {
   overflow: hidden;
   text-overflow: ellipsis;
   color: #ff6e36;
 }
-/* line 927, ../sass/screen.scss */
+/* line 938, ../sass/screen.scss */
 .content.contact .networks h1 {
   color: #595959;
 }
-/* line 932, ../sass/screen.scss */
+/* line 943, ../sass/screen.scss */
 .content.contact section {
   width: 560px;
 }
 
-/* line 939, ../sass/screen.scss */
+/* line 950, ../sass/screen.scss */
 .content.albums > nav {
   display: block;
   float: left;
@@ -1471,18 +1482,18 @@ nav.events li {
   position: relative;
   width: 460px;
 }
-/* line 947, ../sass/screen.scss */
+/* line 958, ../sass/screen.scss */
 .content.albums > nav:nth-child(2n+1) {
   margin-right: 40px;
 }
-/* line 952, ../sass/screen.scss */
+/* line 963, ../sass/screen.scss */
 .content.albums hr {
   border: none;
   border-bottom: 1px solid #595959;
   clear: both;
   margin-bottom: 32px;
 }
-/* line 959, ../sass/screen.scss */
+/* line 970, ../sass/screen.scss */
 .content.albums ul {
   display: inline-block;
   position: relative;
@@ -1501,7 +1512,7 @@ nav.events li {
 .content.albums ul {
   display: block;
 }
-/* line 965, ../sass/screen.scss */
+/* line 976, ../sass/screen.scss */
 .content.albums ul li {
   font-size: 0.8em;
   line-height: 1.5em;
@@ -1510,7 +1521,7 @@ nav.events li {
   width: 210px;
   margin-right: 40px;
 }
-/* line 974, ../sass/screen.scss */
+/* line 985, ../sass/screen.scss */
 .content.albums a {
   color: #b3b3b3;
 }
@@ -1530,7 +1541,7 @@ nav.events li {
 .content.albums a:active {
   color: #ff6e36;
 }
-/* line 981, ../sass/screen.scss */
+/* line 992, ../sass/screen.scss */
 .content.albums img,
 .content.albums h2,
 .content.albums .label,
@@ -1538,12 +1549,12 @@ nav.events li {
   display: block;
   margin-bottom: 16px;
 }
-/* line 987, ../sass/screen.scss */
+/* line 998, ../sass/screen.scss */
 .content.albums .label,
 .content.albums time {
   color: #595959;
 }
-/* line 991, ../sass/screen.scss */
+/* line 1002, ../sass/screen.scss */
 .content.albums nav.pager {
   display: block;
   left: auto;
@@ -1553,12 +1564,12 @@ nav.events li {
   width: 35px;
 }
 
-/* line 1000, ../sass/screen.scss */
+/* line 1011, ../sass/screen.scss */
 .content.album {
   font-size: 0.8em;
   line-height: 1.5em;
 }
-/* line 1003, ../sass/screen.scss */
+/* line 1014, ../sass/screen.scss */
 .content.album div.images {
   display: block;
   float: left;
@@ -1567,12 +1578,12 @@ nav.events li {
   width: 450px;
   height: 450px;
 }
-/* line 1010, ../sass/screen.scss */
+/* line 1021, ../sass/screen.scss */
 .content.album div.images img {
   display: block;
   float: left;
 }
-/* line 1016, ../sass/screen.scss */
+/* line 1027, ../sass/screen.scss */
 .content.album nav.images {
   clear: left;
   display: block;
@@ -1580,7 +1591,7 @@ nav.events li {
   text-align: center;
   width: 450px;
 }
-/* line 1023, ../sass/screen.scss */
+/* line 1034, ../sass/screen.scss */
 .content.album nav.images a {
   text-indent: -119988px;
   overflow: hidden;
@@ -1595,7 +1606,7 @@ nav.events li {
   transition-duration: 0;
   margin: 0 4px;
 }
-/* line 1030, ../sass/screen.scss */
+/* line 1041, ../sass/screen.scss */
 .content.album nav.images a.active, .content.album nav.images a:hover, .content.album nav.images a:active {
   text-indent: -119988px;
   overflow: hidden;
@@ -1605,7 +1616,7 @@ nav.events li {
   width: 17px;
   height: 17px;
 }
-/* line 1037, ../sass/screen.scss */
+/* line 1048, ../sass/screen.scss */
 .content.album dl {
   display: inline-block;
 }
@@ -1622,7 +1633,7 @@ nav.events li {
 .content.album dl {
   display: block;
 }
-/* line 1041, ../sass/screen.scss */
+/* line 1052, ../sass/screen.scss */
 .content.album dt {
   clear: left;
   color: #595959;
@@ -1630,49 +1641,49 @@ nav.events li {
   float: left;
   text-transform: uppercase;
 }
-/* line 1049, ../sass/screen.scss */
+/* line 1060, ../sass/screen.scss */
 .content.album dd {
   float: left;
   margin-left: 8px;
   margin-bottom: 32px;
   width: 390px;
 }
-/* line 1056, ../sass/screen.scss */
+/* line 1067, ../sass/screen.scss */
 .content.album .details {
   display: inline-block;
   margin-left: 48px;
   width: 462px;
 }
-/* line 1062, ../sass/screen.scss */
+/* line 1073, ../sass/screen.scss */
 .content.album .details dl dt {
   margin-bottom: 32px;
   width: 64px;
 }
-/* line 1068, ../sass/screen.scss */
+/* line 1079, ../sass/screen.scss */
 .content.album .details time {
   font-size: 1em;
 }
-/* line 1073, ../sass/screen.scss */
+/* line 1084, ../sass/screen.scss */
 .content.album .details dl.tracks dt {
   color: #ff6e36;
   margin-bottom: 8px;
   width: 16px;
 }
-/* line 1079, ../sass/screen.scss */
+/* line 1090, ../sass/screen.scss */
 .content.album .details dl.tracks dd {
   margin-bottom: 8px;
   width: 366px;
 }
-/* line 1084, ../sass/screen.scss */
+/* line 1095, ../sass/screen.scss */
 .content.album .details dl.tracks a {
   display: block;
   color: #b3b3b3;
 }
-/* line 1089, ../sass/screen.scss */
+/* line 1100, ../sass/screen.scss */
 .content.album .details dl.tracks a:hover, .content.album .details dl.tracks a:active {
   color: #ff6e36;
 }
-/* line 1094, ../sass/screen.scss */
+/* line 1105, ../sass/screen.scss */
 .content.album .details dl.tracks .playing {
   text-indent: -119988px;
   overflow: hidden;
@@ -1684,74 +1695,74 @@ nav.events li {
   display: none;
   float: right;
 }
-/* line 1102, ../sass/screen.scss */
+/* line 1113, ../sass/screen.scss */
 .content.album .back {
   clear: left;
 }
 
-/* line 1108, ../sass/screen.scss */
+/* line 1119, ../sass/screen.scss */
 .content.events .event {
   font-size: 0.8em;
   line-height: 1.5em;
 }
-/* line 1111, ../sass/screen.scss */
+/* line 1122, ../sass/screen.scss */
 .content.events .event + event {
   border-top: 1px solid #595959;
   padding-top: 16px;
   margin-top: 16px;
 }
-/* line 1117, ../sass/screen.scss */
+/* line 1128, ../sass/screen.scss */
 .content.events .event figure {
   overflow: hidden;
 }
-/* line 1120, ../sass/screen.scss */
+/* line 1131, ../sass/screen.scss */
 .content.events .event figure + a {
   margin-top: 16px;
 }
-/* line 1126, ../sass/screen.scss */
+/* line 1137, ../sass/screen.scss */
 .content.events .details {
   display: block;
 }
-/* line 1129, ../sass/screen.scss */
+/* line 1140, ../sass/screen.scss */
 .content.events .details > * {
   display: inline-block;
 }
-/* line 1133, ../sass/screen.scss */
+/* line 1144, ../sass/screen.scss */
 .content.events .details time {
   color: #b3b3b3;
   font-style: normal;
 }
-/* line 1138, ../sass/screen.scss */
+/* line 1149, ../sass/screen.scss */
 .content.events .details h1 {
   border: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
-/* line 1144, ../sass/screen.scss */
+/* line 1155, ../sass/screen.scss */
 .content.events .details .slash {
   margin-left: 8px;
 }
-/* line 1148, ../sass/screen.scss */
+/* line 1159, ../sass/screen.scss */
 .content.events .details .address {
   display: inline;
 }
-/* line 1153, ../sass/screen.scss */
+/* line 1164, ../sass/screen.scss */
 .content.events time {
   font-size: 1em;
 }
-/* line 1157, ../sass/screen.scss */
+/* line 1168, ../sass/screen.scss */
 .content.events img {
   width: 460px;
   float: left;
 }
-/* line 1162, ../sass/screen.scss */
+/* line 1173, ../sass/screen.scss */
 .content.events figcaption {
   display: inline-block;
   line-height: 2em;
   margin-left: 16px;
   width: 244px;
 }
-/* line 1169, ../sass/screen.scss */
+/* line 1180, ../sass/screen.scss */
 .content.events .participants {
   display: block;
   margin-bottom: 16px;
@@ -1771,13 +1782,13 @@ nav.events li {
   height: 1px;
   top: 100%;
 }
-/* line 1178, ../sass/screen.scss */
+/* line 1189, ../sass/screen.scss */
 .content.events .details,
 .content.events .details h1,
 .content.events .participants {
   color: #595959;
 }
-/* line 1182, ../sass/screen.scss */
+/* line 1193, ../sass/screen.scss */
 .content.events .all-events {
   overflow: hidden;
   position: absolute;
@@ -1785,11 +1796,11 @@ nav.events li {
   left: 752px;
   width: 904px;
 }
-/* line 1188, ../sass/screen.scss */
+/* line 1199, ../sass/screen.scss */
 .content.events .all-events.start-open {
   left: 0;
 }
-/* line 1192, ../sass/screen.scss */
+/* line 1203, ../sass/screen.scss */
 .content.events .all-events .past-events {
   display: inline-block;
   position: relative;
@@ -1808,42 +1819,42 @@ nav.events li {
 .content.events .all-events .past-events {
   display: block;
 }
-/* line 1198, ../sass/screen.scss */
+/* line 1209, ../sass/screen.scss */
 .content.events .all-events nav {
   float: left;
   margin-right: 16px;
   width: 210px;
 }
-/* line 1206, ../sass/screen.scss */
+/* line 1217, ../sass/screen.scss */
 .content.events .admin {
   width: 720px;
 }
-/* line 1209, ../sass/screen.scss */
+/* line 1220, ../sass/screen.scss */
 .content.events .admin.start-open {
   display: none;
 }
-/* line 1214, ../sass/screen.scss */
+/* line 1225, ../sass/screen.scss */
 .content.events nav.pager.start-open {
   display: block;
 }
-/* line 1217, ../sass/screen.scss */
+/* line 1228, ../sass/screen.scss */
 .content.events nav.pager.start-open .close {
   display: none;
 }
-/* line 1222, ../sass/screen.scss */
+/* line 1233, ../sass/screen.scss */
 .content.events a.more.start-open {
   display: none;
 }
-/* line 1226, ../sass/screen.scss */
+/* line 1237, ../sass/screen.scss */
 .content.events .admin.start-open {
   display: none;
 }
 
-/* line 1232, ../sass/screen.scss */
+/* line 1243, ../sass/screen.scss */
 .content.venues ul {
   overflow: hidden;
 }
-/* line 1236, ../sass/screen.scss */
+/* line 1247, ../sass/screen.scss */
 .content.venues li {
   display: -moz-inline-stack;
   display: inline-block;
@@ -1856,16 +1867,16 @@ nav.events li {
   margin-bottom: 32px;
   margin-right: 16px;
 }
-/* line 1243, ../sass/screen.scss */
+/* line 1254, ../sass/screen.scss */
 .content.venues li:nth-child(2n+2) {
   margin-right: 0;
 }
-/* line 1248, ../sass/screen.scss */
+/* line 1259, ../sass/screen.scss */
 .content.venues .name {
   display: block;
   font-weight: bold;
 }
-/* line 1256, ../sass/screen.scss */
+/* line 1267, ../sass/screen.scss */
 .content.venues .url,
 .content.venues .city,
 .content.venues .state,
@@ -1873,12 +1884,12 @@ nav.events li {
   display: inline-block;
   min-width: 2em;
 }
-/* line 1261, ../sass/screen.scss */
+/* line 1272, ../sass/screen.scss */
 .content.venues .url {
   text-overflow: ellipsis;
   width: 430px;
 }
-/* line 1267, ../sass/screen.scss */
+/* line 1278, ../sass/screen.scss */
 .content.venues .icon.site_url,
 .content.venues .map .icon {
   text-indent: -119988px;
@@ -1890,23 +1901,23 @@ nav.events li {
   height: 16px;
   margin-right: 8px;
 }
-/* line 1272, ../sass/screen.scss */
+/* line 1283, ../sass/screen.scss */
 .content.venues .count {
   display: block;
 }
-/* line 1276, ../sass/screen.scss */
+/* line 1287, ../sass/screen.scss */
 .content.venues .pages {
   text-align: center;
   margin-bottom: 16px;
 }
-/* line 1281, ../sass/screen.scss */
+/* line 1292, ../sass/screen.scss */
 .content.venues .url.input {
   display: block;
   width: 100%;
 }
 
 /* jPlayer */
-/* line 1289, ../sass/screen.scss */
+/* line 1300, ../sass/screen.scss */
 .jp-interface {
   display: block;
   line-height: 13px;
@@ -1916,17 +1927,17 @@ nav.events li {
   width: 390px;
   height: 13px;
 }
-/* line 1297, ../sass/screen.scss */
+/* line 1308, ../sass/screen.scss */
 .jp-interface ul.jp-controls {
   width: 100%;
   height: 13px;
 }
-/* line 1300, ../sass/screen.scss */
+/* line 1311, ../sass/screen.scss */
 .jp-interface ul.jp-controls li {
   display: inline-block;
   vertical-align: top;
 }
-/* line 1309, ../sass/screen.scss */
+/* line 1320, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-progress,
 .jp-interface ul.jp-controls a.jp-play,
 .jp-interface ul.jp-controls a.jp-stop,
@@ -1934,7 +1945,7 @@ nav.events li {
 .jp-interface ul.jp-controls .jp-volume-bar {
   margin-right: 10px;
 }
-/* line 1313, ../sass/screen.scss */
+/* line 1324, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-progress {
   background-color: #595959;
   display: block;
@@ -1943,7 +1954,7 @@ nav.events li {
   width: 265px;
   height: 13px;
 }
-/* line 1320, ../sass/screen.scss */
+/* line 1331, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-progress .jp-seek-bar {
   background-color: #ff6e36;
   cursor: pointer;
@@ -1952,7 +1963,7 @@ nav.events li {
   width: 0;
   height: 13px;
 }
-/* line 1328, ../sass/screen.scss */
+/* line 1339, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-play {
   text-indent: -119988px;
   overflow: hidden;
@@ -1962,7 +1973,7 @@ nav.events li {
   width: 13px;
   height: 13px;
 }
-/* line 1331, ../sass/screen.scss */
+/* line 1342, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-stop {
   text-indent: -119988px;
   overflow: hidden;
@@ -1973,7 +1984,7 @@ nav.events li {
   height: 13px;
   display: none;
 }
-/* line 1335, ../sass/screen.scss */
+/* line 1346, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-lower {
   text-indent: -119988px;
   overflow: hidden;
@@ -1983,7 +1994,7 @@ nav.events li {
   width: 13px;
   height: 13px;
 }
-/* line 1338, ../sass/screen.scss */
+/* line 1349, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-higher {
   text-indent: -119988px;
   overflow: hidden;
@@ -1993,17 +2004,17 @@ nav.events li {
   width: 13px;
   height: 13px;
 }
-/* line 1341, ../sass/screen.scss */
+/* line 1352, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-play-bar {
   background-color: #fff;
   width: 0;
   height: 13px;
 }
-/* line 1345, ../sass/screen.scss */
+/* line 1356, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-seeking-bg {
   background-color: purple;
 }
-/* line 1348, ../sass/screen.scss */
+/* line 1359, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-volume-bar {
   background-color: #ff6e36;
   cursor: pointer;
@@ -2011,23 +2022,23 @@ nav.events li {
   width: 46px;
   height: 13px;
 }
-/* line 1354, ../sass/screen.scss */
+/* line 1365, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-volume-bar-value {
   background-color: #fff;
   width: 0;
   height: 13px;
 }
 
-/* line 1361, ../sass/screen.scss */
+/* line 1372, ../sass/screen.scss */
 li.jp-playlist-current .title {
   background-color: #2d2d2d;
 }
-/* line 1364, ../sass/screen.scss */
+/* line 1375, ../sass/screen.scss */
 li.jp-playlist-current .length {
   background-color: #2d2d2d;
 }
 
-/* line 1369, ../sass/screen.scss */
+/* line 1380, ../sass/screen.scss */
 .ui-slider-handle {
   display: block;
   position: relative;
@@ -2035,19 +2046,19 @@ li.jp-playlist-current .length {
   height: 16px;
 }
 
-/* line 1376, ../sass/screen.scss */
+/* line 1387, ../sass/screen.scss */
 .ui-timepicker-div dl {
   margin-top: 16px;
   overflow: hidden;
 }
-/* line 1381, ../sass/screen.scss */
+/* line 1392, ../sass/screen.scss */
 .ui-timepicker-div dt {
   float: left;
   clear: left;
   width: 30%;
   margin-bottom: 8px;
 }
-/* line 1388, ../sass/screen.scss */
+/* line 1399, ../sass/screen.scss */
 .ui-timepicker-div dd {
   float: left;
   width: 70%;

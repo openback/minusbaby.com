@@ -14,20 +14,12 @@ class NewsController extends AppController {
         ),
     );
     public $paginate = array(
-        'limit' => 5,
-        'order' => array(
-            'Post.date' => 'desc',
-        ),
+        'limit' => 5
     );
 
     function index() {
         $this->set('posts', $this->paginate('Post'));
         $this->set('postsList', $this->Post->find('all', array('fields' => array('id', 'title', 'slug', 'date'))));
-
-        if ($this->request->is('ajax')) {
-            $this->layout = null;
-            $this->render('/elements/paginated_posts');
-        }
     }
 
     function view($id = null) {
@@ -152,6 +144,8 @@ class NewsController extends AppController {
         }
 
         parent::beforeFilter();
+
+		$this->Security->unlockedActions = array('index');
         $this->Auth->deny('preview');
         $this->set('controller_name','news');
     }

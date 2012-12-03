@@ -273,6 +273,33 @@ pushState = (title, path) ->
 				changeYear: true,
 				dateFormat: "yy-mm-dd"
 
+		# News
+		$('#posts').find('.loading').hide().end().find('.more-posts').live(
+			'click'
+			, (e) ->
+				$this = $(this)
+				url = $(this).attr('href')
+
+				$this.remove()
+				$('.loading').show()
+
+				$.ajax
+					type: 'POST'
+					url: url + '.json'
+					dataType: 'json'
+					success: (response) ->
+						if (response.success)
+							$newPosts = $(response.data)
+							$newPosts.hide()
+
+							$('#posts .loading').hide().before($newPosts)
+							$newPosts.fadeIn()
+				false
+		)
+
+
+
+		# Video forms
 		$('table#videos tbody').disableSelection().sortable
 			helper: (e, ui) ->
 				ui.children().each ->
@@ -298,6 +325,7 @@ pushState = (title, path) ->
 					success: (response) ->
 						console.log 'RESPONSE: ', response
 
+		# Artist forms
 		$('table.artists tbody').add('table.sites tbody').sortable
 			helper: (e, ui) ->
 				ui.children().each ->
@@ -311,34 +339,66 @@ pushState = (title, path) ->
 					$(row).find('input[type=number]:first').val(order++)
 				ui
 
-		$('.past-events a').click ->
-			$this = $(this)
-			url = $this.attr('href')
+		# Events
+		$past_events = $('.past-events')
 
-			$this.addClass 'active'
-			$events = $('article.event')
-
-			$('.content').monobombNavigator('closeToPage', $(this).closest('.events')
+		if $past_events
+			History.Adapter.bind(window, 'statechange'
 				, ->
-					$('.start-open').removeClass('start-open')
+					$content = $('.content')
+					state = History.getState()
+
+					if (state.url.match(/\//g) || []).length is 3
+						# We ended up on the main page
+						$('nav.events .current').removeClass('current')
+						$('.pager').addClass('start-open')
+						$content.monobombNavigator('hideClose')
+							.monobombNavigator('openToPage', 1)
+
+						return
+
+					split_url = state.url.split('/')
+					path = '/' + split_url.slice(3, -1).join('/')
+					path += '/' + escape(split_url.slice(-1)[0])
+
+					$('nav.events .current').removeClass('current')
+					$current = $('nav.events a[href="' + path + '"]')
+					$current.addClass('current')
+					$page = $current.closest('nav')
+
+					if $content.monobombNavigator('isOpen')
+						$content.monobombNavigator('closeToPage', $page)
+
+					$events = $('article.event')
+					$events.fadeOut ->
+						# We only need one event now
+						for $event in $events.slice(1)
+							$event.remove()
+
+						$.ajax
+							type: 'GET'
+							url: state.url + '.json'
+							success: (response) ->
+								if (response.success)
+									$event = $(response.data)
+									$event.hide()
+									$('article.event').replaceWith($event)
+									$event.fadeIn()
 			)
 
-			$events.fadeOut ->
-				# We only need one event now
-				for $event in $events.slice(1)
-					$event.remove()
+			$past_events.find('a').click ->
+				return false if $('.content').monobombNavigator('isAnimating')
 
-				$.ajax
-					type: 'GET'
-					url: url + '.json'
-					success: (response) ->
-						if (response.success)
-							$event = $(response.data)
-							$event.hide()
-							pushState($event.find('.title').text(), url)
-							$('article.event').replaceWith($event)
-							$event.fadeIn()
-			false
+				$this = $(this)
+
+				$('.content').monobombNavigator('closeToPage', $(this).closest('.events')
+					, ->
+						$('.start-open').removeClass('start-open')
+				)
+
+				History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'))
+
+				false
 
 		# Events forms
 		if jQuery.fn.autocomplete

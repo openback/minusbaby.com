@@ -46,7 +46,7 @@
 <article class="event">
 	<div class="details">
 		<time datetime="<?php echo $event['Event']['start_time']; ?>"><?php echo $start_date; ?><span class="slash"> / </span><?php echo $start_time; ?></time><span class="slash"> / </span>
-		<h1 class="title"><?php echo $this->Pixelpod->link_if_url($event['Event']['title'], $event['Event']['external_url']); ?> at
+		<h1 class="title"><?php echo $this->Pixelpod->link_if_url($event['Event']['title'], $event['Event']['external_url']); ?> at&nbsp;
 		<?php echo $this->Pixelpod->link_if_url($event['Venue']['name'], $event['Venue']['url']); ?></h1><span class="slash"> / </span>
 		<span class="address"><?php echo $address; ?></span>
 	</div>

@@ -93,7 +93,7 @@
       return $table.trInsertSlideDown($row);
     };
     return $(document).ready(function() {
-      var $ball, $current, $email, $highlight, $nav, clicked, left, width;
+      var $ball, $current, $email, $highlight, $nav, $past_events, clicked, left, width;
       clicked = false;
       $highlight = $('<span id="highlight"/>');
       $ball = $('<span id="ball"/>').hide();
@@ -260,6 +260,28 @@
           dateFormat: "yy-mm-dd"
         });
       }
+      $('#posts').find('.loading').hide().end().find('.more-posts').live('click', function(e) {
+        var $this, url;
+        $this = $(this);
+        url = $(this).attr('href');
+        $this.remove();
+        $('.loading').show();
+        $.ajax({
+          type: 'POST',
+          url: url + '.json',
+          dataType: 'json',
+          success: function(response) {
+            var $newPosts;
+            if (response.success) {
+              $newPosts = $(response.data);
+              $newPosts.hide();
+              $('#posts .loading').hide().before($newPosts);
+              return $newPosts.fadeIn();
+            }
+          }
+        });
+        return false;
+      });
       $('table#videos tbody').disableSelection().sortable({
         helper: function(e, ui) {
           ui.children().each(function() {
@@ -311,38 +333,63 @@
           return ui;
         }
       });
-      $('.past-events a').click(function() {
-        var $events, $this, url;
-        $this = $(this);
-        url = $this.attr('href');
-        $this.addClass('active');
-        $events = $('article.event');
-        $('.content').monobombNavigator('closeToPage', $(this).closest('.events'), function() {
-          return $('.start-open').removeClass('start-open');
-        });
-        $events.fadeOut(function() {
-          var $event, _i, _len, _ref;
-          _ref = $events.slice(1);
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            $event = _ref[_i];
-            $event.remove();
+      $past_events = $('.past-events');
+      if ($past_events) {
+        History.Adapter.bind(window, 'statechange', function() {
+          var $content, $events, $page, path, split_url, state;
+          $content = $('.content');
+          state = History.getState();
+          if ((state.url.match(/\//g) || []).length === 3) {
+            $('nav.events .current').removeClass('current');
+            $('.pager').addClass('start-open');
+            $content.monobombNavigator('hideClose').monobombNavigator('openToPage', 1);
+            return;
           }
-          return $.ajax({
-            type: 'GET',
-            url: url + '.json',
-            success: function(response) {
-              if (response.success) {
-                $event = $(response.data);
-                $event.hide();
-                pushState($event.find('.title').text(), url);
-                $('article.event').replaceWith($event);
-                return $event.fadeIn();
-              }
+          split_url = state.url.split('/');
+          path = '/' + split_url.slice(3, -1).join('/');
+          path += '/' + escape(split_url.slice(-1)[0]);
+          $('nav.events .current').removeClass('current');
+          $current = $('nav.events a[href="' + path + '"]');
+          $current.addClass('current');
+          $page = $current.closest('nav');
+          if ($content.monobombNavigator('isOpen')) {
+            $content.monobombNavigator('closeToPage', $page);
+          }
+          $events = $('article.event');
+          return $events.fadeOut(function() {
+            var $event, _i, _len, _ref;
+            _ref = $events.slice(1);
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              $event = _ref[_i];
+              $event.remove();
             }
+            return $.ajax({
+              type: 'GET',
+              url: state.url + '.json',
+              success: function(response) {
+                if (response.success) {
+                  $event = $(response.data);
+                  $event.hide();
+                  $('article.event').replaceWith($event);
+                  return $event.fadeIn();
+                }
+              }
+            });
           });
         });
-        return false;
-      });
+        $past_events.find('a').click(function() {
+          var $this;
+          if ($('.content').monobombNavigator('isAnimating')) {
+            return false;
+          }
+          $this = $(this);
+          $('.content').monobombNavigator('closeToPage', $(this).closest('.events'), function() {
+            return $('.start-open').removeClass('start-open');
+          });
+          History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'));
+          return false;
+        });
+      }
       if (jQuery.fn.autocomplete) {
         $('input#EventTitle').autocomplete({
           source: '/events/autocomplete/title.json'

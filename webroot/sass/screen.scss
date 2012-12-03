@@ -852,9 +852,20 @@ footer {
 		}
 	}
 
+	.back,
+	.more-posts,
+	.loading {
+		width: 720px;
+	}
+
 	.back {
 		clear: left;
 		width: 720px;
+	}
+
+	.loading {
+		margin-bottom: 32px;
+		text-align: center;
 	}
 }
 

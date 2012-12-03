@@ -26,20 +26,27 @@
   $ = jQuery;
 
   $.fn.extend({
-    monobombNavigator: function(options, args, cb) {
-      return this.each(function() {
-        return new $.monobombNavigator(this, options, args, cb);
-      });
+    monobombNavigator: function(options, args) {
+      if (options && typeof options === 'string') {
+        return $.monobombNavigator(this, options, args);
+      } else {
+        return this.each(function() {
+          return new $.monobombNavigator(this, options, args);
+        });
+      }
     }
   });
 
-  $.monobombNavigator = function(elem, options, args, cb) {
-    var $first_page, closeNav, closeToPage, data, hideClose, moveToPage, openNav, setButtons, settings, showClose;
-    moveToPage = function(page, force) {
+  $.monobombNavigator = function(elem, options, args) {
+    var $first_page, closeNav, closeToPage, data, hideClose, isAnimating, isOpen, moveToPage, openNav, openToPage, setButtons, settings, showClose;
+    moveToPage = function(page, force, cb) {
       var $nav, data, nav, time, _i, _len, _ref;
       data = $(elem).data('monobombNavigator');
       if (data.closed && !force) {
         return;
+      }
+      if (typeof page === 'undefined') {
+        page = 1;
       }
       if (typeof page === 'number') {
         $nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')');
@@ -59,17 +66,21 @@
       data.first_page = page;
       data.$inner_nav_wrapper.stop().animate({
         left: '-' + $nav.position().left + 'px'
-      }, time);
-      return setButtons(data);
+      }, time, cb);
+      setButtons(data);
+      return $(elem);
     };
-    openNav = function() {
+    openNav = function(page, cb) {
+      var data;
+      data = $(elem).data('monobombNavigator');
       data.$more.add(data.$elem.find('> article').add(data.$elem.find('.admin'))).stop().fadeOut('slow');
       data.$controls_nav.fadeIn('slow');
       data.$main_nav_wrapper.stop().animate({
         left: 0
       }, 'slow');
       data.closed = false;
-      return moveToPage(Math.max(1, Math.min(data.first_page, data.nav_count - settings.visible_columns + 1)));
+      moveToPage(page, false, cb);
+      return $(elem);
     };
     closeNav = function(cb) {
       var data;
@@ -80,7 +91,12 @@
       data.$main_nav_wrapper.stop().animate({
         left: data.original_left + 'px'
       }, 'slow', cb);
-      return data.closed = true;
+      data.closed = true;
+      return $(elem);
+    };
+    openToPage = function(page, cb) {
+      openNav(page, cb);
+      return false;
     };
     closeToPage = function($nav, cb) {
       var $elem, data, nav, _i, _len, _ref;
@@ -99,6 +115,7 @@
         data.viewing++;
       }
       closeNav(cb);
+      $(elem);
       return false;
     };
     setButtons = function(data) {
@@ -108,39 +125,58 @@
         data.$forward.addClass('disabled');
       }
       if (data.first_page > 1) {
-        return data.$back.removeClass('disabled');
+        data.$back.removeClass('disabled');
       } else {
-        return data.$back.addClass('disabled');
+        data.$back.addClass('disabled');
       }
+      return $(elem);
     };
     hideClose = function(cb) {
       var data;
       data = $(elem).data('monobombNavigator');
       data.$close.hide();
       if (cb) {
-        return cb();
+        cb();
       }
+      return $(elem);
     };
     showClose = function(cb) {
       var data;
       data = $(elem).data('monobombNavigator');
       data.$close.show();
       if (cb) {
-        return cb();
+        cb();
       }
+      return $(elem);
+    };
+    isAnimating = function() {
+      var data;
+      data = $(elem).data('monobombNavigator');
+      return data.$inner_nav_wrapper.is(':animated');
+    };
+    isOpen = function() {
+      var data;
+      data = $(elem).data('monobombNavigator');
+      return data.$main_nav_wrapper.position().left === 0;
     };
     if (options && typeof options === 'string') {
       switch (options) {
         case 'closeToPage':
-          closeToPage(args, cb);
-          break;
+          return closeToPage(args);
+        case 'openToPage':
+          return openToPage(args);
         case 'showClose':
-          showClose(args, cb);
-          break;
+          return showClose(args);
         case 'hideClose':
-          hideClose(args, cb);
+          return hideClose(args);
+        case 'isOpen':
+          return isOpen();
+        case 'isAnimating':
+          return isAnimating();
+        default:
+          console.log('Error: Bad method call: "' + options + '"');
+          return;
       }
-      return;
     }
     settings = {
       more_selector: '> .more',
