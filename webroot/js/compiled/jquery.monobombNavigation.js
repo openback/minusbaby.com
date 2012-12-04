@@ -25,6 +25,15 @@
   (function($) {
     var methods;
     methods = {
+      /*
+      		* Moves so that the first or specified page is the leftmost visible page
+      		*
+      		* @param {mixed} [page] Page number (1 indexed) or the actual page itself
+      		* @param {bool} [force] Whether to still move even if the nav is closed
+      		*
+      		* @returns {object} Jquery object
+      */
+
       moveToPage: function(page, force, cb) {
         var $nav, data, nav, time, _i, _len, _ref;
         data = this.data('monobombNavigator');
@@ -56,6 +65,15 @@
         methods.setButtons.apply(this);
         return this;
       },
+      /*
+      		* Opens so that the current or specified page is the leftmost visible page
+      		*
+      		* @param {mixed} [page] Page number (1 indexed) or the actual page itself
+      		* @param {function} [cb] Callback
+      		*
+      		* @returns {object} Jquery object
+      */
+
       openToPage: function(page, cb) {
         var data;
         data = this.data('monobombNavigator');
@@ -68,24 +86,34 @@
         methods.moveToPage.call(this, page, false, cb);
         return this;
       },
-      closeToPage: function($nav, cb) {
+      /*
+      		* Closes the navigator back to its original spot with the current or specified
+      		* page staying visible
+      		*
+      		* @param {mixed} [page] Page number (1 indexed) or the actual page itself
+      		* @param {function} [cb] Callback
+      		*
+      		* @returns {object} Jquery object
+      */
+
+      closeToPage: function(page, cb) {
         var data, nav, _i, _len, _ref;
         data = this.data('monobombNavigator');
         if (data.$main_nav_wrapper.position().left === data.original_left) {
           return;
         }
-        if (typeof $nav === 'object') {
+        if (typeof page === 'object') {
           data.viewing = 1;
           _ref = data.$actual_navs;
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             nav = _ref[_i];
-            if ($nav.equals($(nav))) {
+            if ($nav.equals($(page))) {
               break;
             }
             data.viewing++;
           }
         } else {
-          cb = $nav;
+          cb = page;
         }
         methods.moveToPage.call(this, data.viewing);
         data.$controls_nav.fadeOut('slow');
@@ -94,8 +122,16 @@
           left: data.original_left + 'px'
         }, 'slow', cb);
         data.closed = true;
-        return false;
+        return this;
       },
+      /*
+      		* Scrolls the navigator one full page back
+      		*
+      		* @param {function} [cb] Callback
+      		*
+      		* @returns {object} Jquery object
+      */
+
       back: function(cb) {
         var data;
         data = this.data('monobombNavigator');
@@ -105,6 +141,14 @@
         methods.moveToPage.call(this, Math.max(1, data.first_page - data.settings.visible_columns));
         return this;
       },
+      /*
+      		* Scrolls the navigator one full page forward
+      		*
+      		* @param {function} [cb] Callback
+      		*
+      		* @returns {object} Jquery object
+      */
+
       forward: function(cb) {
         var data, maxFirstPage, newPage;
         data = this.data('monobombNavigator');
@@ -119,6 +163,12 @@
         methods.moveToPage.call(this, newPage, false, cb);
         return this;
       },
+      /*
+      		* Sets the control's buttons according to availability of pages
+      		*
+      		* @returns {object} Jquery object
+      */
+
       setButtons: function() {
         var data;
         data = this.data('monobombNavigator');
@@ -134,20 +184,57 @@
         }
         return this;
       },
+      /*
+      		* Hides the control's close buttons
+      		*
+      		* @returns {object} Jquery object
+      */
+
       hideClose: function() {
         this.data('monobombNavigator').$close.hide();
         return this;
       },
+      /*
+      		* Shows the control's close buttons
+      		*
+      		* @returns {object} Jquery object
+      */
+
       showClose: function() {
         this.data('monobombNavigator').$close.show();
         return this;
       },
+      /*
+      		* @returns {boolean} Whether the nav is animating
+      */
+
       isAnimating: function() {
         return this.data('monobombNavigator').$inner_nav_wrapper.is(':animated');
       },
+      /*
+      		* @returns {boolean} of whether the nav is open
+      */
+
       isOpen: function() {
         return this.data('monobombNavigator').$main_nav_wrapper.position().left === 0;
       },
+      /*
+      		* Initilazes the navigator
+      		*
+      		* @param {object} options Various settings for the navigator
+      		* @config {string} main_nav_wrapper Outer wrapper selector
+      		* @config {string} inner_nav_wrapper Inner wrapper selector
+      		* @config {string} inner_elements Page selector
+      		* @config {string} controls_nav Control selector
+      		* @config {string} [more_selector] More button selector ('> .more')
+      		* @config {string} [back_selector] Back button selector '.back')
+      		* @config {string} [close_selector] Close button selector ('.close')
+      		* @config {string} [forward_selector] Forward button selector ('.forward')
+      		* @config {string} [visible_columns] Number of columns visible at once (4)
+      		*
+      		* @returns {object} Jquery object
+      */
+
       init: function(options) {
         var $first_page, data, settings,
           _this = this;
@@ -206,10 +293,11 @@
           methods.forward.apply(_this);
           return false;
         });
-        return data.$back.click(function() {
+        data.$back.click(function() {
           methods.back.apply(_this);
           return false;
         });
+        return this;
       }
     };
     return $.fn.monobombNavigator = function(method) {

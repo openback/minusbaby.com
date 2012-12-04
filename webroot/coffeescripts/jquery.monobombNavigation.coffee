@@ -20,17 +20,21 @@
 
 (($) ->
 	methods =
-		# ----------------------------------------------------------------------------
-		# moveToPage
-		#
-		# page: page number (1 indexed) or the actual page itself
-		# ----------------------------------------------------------------------------
+		###
+		* Moves so that the first or specified page is the leftmost visible page
+		*
+		* @param {mixed} [page] Page number (1 indexed) or the actual page itself
+		* @param {bool} [force] Whether to still move even if the nav is closed
+		*
+		* @returns {object} Jquery object
+		###
 		moveToPage: (page, force, cb) ->
 			data = this.data('monobombNavigator')
 
 			return if data.closed and not force
 
 			page = 1 if typeof(page) is 'undefined'
+
 			if typeof(page) is 'number'
 				$nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')')
 			else
@@ -52,12 +56,14 @@
 			methods.setButtons.apply(this)
 			this
 
-		# ----------------------------------------------------------------------------
-		# openToPage
-		#
-		# opens the Navigator with the currently viewed or specified page as the first
-		# one
-		# ----------------------------------------------------------------------------
+		###
+		* Opens so that the current or specified page is the leftmost visible page
+		*
+		* @param {mixed} [page] Page number (1 indexed) or the actual page itself
+		* @param {function} [cb] Callback
+		*
+		* @returns {object} Jquery object
+		###
 		openToPage: (page, cb) ->
 			data = this.data('monobombNavigator')
 
@@ -73,27 +79,30 @@
 			methods.moveToPage.call(this, page, false, cb)
 			this
 
-		# ----------------------------------------------------------------------------
-		# closeToPage
-		#
-		# closes the Navigator back to its original spot with specified page staying
-		# visible
-		# ----------------------------------------------------------------------------
-		closeToPage: ($nav, cb) ->
+		###
+		* Closes the navigator back to its original spot with the current or specified
+		* page staying visible
+		*
+		* @param {mixed} [page] Page number (1 indexed) or the actual page itself
+		* @param {function} [cb] Callback
+		*
+		* @returns {object} Jquery object
+		###
+		closeToPage: (page, cb) ->
 			data = this.data('monobombNavigator')
 
 			return if data.$main_nav_wrapper.position().left is data.original_left
 
-			if typeof($nav) is 'object'
+			if typeof(page) is 'object'
 				## find our new "viewing" page
 				data.viewing = 1
 
 				for nav in data.$actual_navs
-					if $nav.equals $(nav)
+					if $nav.equals $(page)
 						break
 					data.viewing++
 			else
-				cb = $nav
+				cb = page
 
 			methods.moveToPage.call(this, data.viewing)
 			data.$controls_nav.fadeOut 'slow'
@@ -103,13 +112,15 @@
 				'slow'
 				cb
 			data.closed = true
-			false
+			this
 
-		# ----------------------------------------------------------------------------
-		# back
-		#
-		# Scrolls the navigator one full page back
-		# ----------------------------------------------------------------------------
+		###
+		* Scrolls the navigator one full page back
+		*
+		* @param {function} [cb] Callback
+		*
+		* @returns {object} Jquery object
+		###
 		back: (cb) ->
 			data = this.data('monobombNavigator')
 			return if data.$inner_nav_wrapper.is(':animated')
@@ -117,11 +128,13 @@
 			methods.moveToPage.call(this, Math.max(1, data.first_page - data.settings.visible_columns))
 			this
 
-		# ----------------------------------------------------------------------------
-		# forward
-		#
-		# Scrolls the navigator one full page forward
-		# ----------------------------------------------------------------------------
+		###
+		* Scrolls the navigator one full page forward
+		*
+		* @param {function} [cb] Callback
+		*
+		* @returns {object} Jquery object
+		###
 		forward: (cb) ->
 			data = this.data('monobombNavigator')
 			return if data.$inner_nav_wrapper.is(':animated')
@@ -136,51 +149,63 @@
 			methods.moveToPage.call(this, newPage, false, cb)
 			this
 
-		# ----------------------------------------------------------------------------
-		# setButtons
-		#
-		# Sets the control's buttons according to availability of pages
-		# ----------------------------------------------------------------------------
+		###
+		* Sets the control's buttons according to availability of pages
+		*
+		* @returns {object} Jquery object
+		###
 		setButtons: () ->
 			data = this.data('monobombNavigator')
 			if data.nav_count - data.first_page > data.settings.visible_columns - 1 then data.$forward.removeClass('disabled') else data.$forward.addClass('disabled')
 			if data.first_page > 1 then data.$back.removeClass('disabled') else data.$back.addClass('disabled')
 			this
 
-		# ----------------------------------------------------------------------------
-		# hideClose
-		#
-		# Shows the control's close buttons
-		# ----------------------------------------------------------------------------
+		###
+		* Hides the control's close buttons
+		*
+		* @returns {object} Jquery object
+		###
 		hideClose: () ->
 			this.data('monobombNavigator').$close.hide()
 			this
 
-		# ----------------------------------------------------------------------------
-		# showClose
-		#
-		# Shows the control's close buttons
-		# ----------------------------------------------------------------------------
+		###
+		* Shows the control's close buttons
+		*
+		* @returns {object} Jquery object
+		###
 		showClose: () ->
 			this.data('monobombNavigator').$close.show()
 			this
 
-		# ----------------------------------------------------------------------------
-		# isAnimating
-		#
-		# Returns boolean of whether the nav is animating or not
-		# ----------------------------------------------------------------------------
+		###
+		* @returns {boolean} Whether the nav is animating
+		###
 		isAnimating: ->
 			this.data('monobombNavigator').$inner_nav_wrapper.is(':animated')
 
-		# ----------------------------------------------------------------------------
-		# isOpen
-		#
-		# Returns boolean of whether the nav is open or not
-		# ----------------------------------------------------------------------------
+		###
+		* @returns {boolean} of whether the nav is open
+		###
 		isOpen: ->
 			this.data('monobombNavigator').$main_nav_wrapper.position().left is 0
 
+		###
+		* Initilazes the navigator
+		*
+		* @param {object} options Various settings for the navigator
+		* @config {string} main_nav_wrapper Outer wrapper selector
+		* @config {string} inner_nav_wrapper Inner wrapper selector
+		* @config {string} inner_elements Page selector
+		* @config {string} controls_nav Control selector
+		* @config {string} [more_selector] More button selector ('> .more')
+		* @config {string} [back_selector] Back button selector '.back')
+		* @config {string} [close_selector] Close button selector ('.close')
+		* @config {string} [forward_selector] Forward button selector ('.forward')
+		* @config {string} [visible_columns] Number of columns visible at once (4)
+		*
+		* @returns {object} Jquery object
+		###
 		init: (options) ->
 			settings =
 				more_selector: '> .more'
@@ -250,6 +275,8 @@
 			data.$back.click =>
 				methods.back.apply(this)
 				false
+
+			this
 
 	$.fn.monobombNavigator = (method) ->
 		if methods[method]
