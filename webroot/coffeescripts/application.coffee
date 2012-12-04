@@ -356,18 +356,25 @@ pushState = (title, path) ->
 							.monobombNavigator('openToPage', 1)
 
 						return
+					else
+						$content.monobombNavigator('showClose')
 
 					split_url = state.url.split('/')
-					path = '/' + split_url.slice(3, -1).join('/')
-					path += '/' + escape(split_url.slice(-1)[0])
+					id = split_url[split_url.length - 2]
 
 					$('nav.events .current').removeClass('current')
-					$current = $('nav.events a[href="' + path + '"]')
+					$current = $('#event-' + id)
 					$current.addClass('current')
 					$page = $current.closest('nav')
 
 					if $content.monobombNavigator('isOpen')
-						$content.monobombNavigator('closeToPage', $page)
+						$content.monobombNavigator('closeToPage', $page
+							, ->
+								$('.start-open').removeClass('start-open')
+						)
+					else
+						$content.monobombNavigator('moveToPage', $page, true)
+
 
 					$events = $('article.event')
 					$events.fadeOut ->
@@ -390,11 +397,6 @@ pushState = (title, path) ->
 				return false if $('.content').monobombNavigator('isAnimating')
 
 				$this = $(this)
-
-				$('.content').monobombNavigator('closeToPage', $(this).closest('.events')
-					, ->
-						$('.start-open').removeClass('start-open')
-				)
 
 				History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'))
 

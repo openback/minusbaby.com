@@ -17,262 +17,243 @@
 #	inner_elements: .event
 #	controls_nav: .pager
 ###
-$ = jQuery
 
-$.fn.extend
-	monobombNavigator: (options, args) ->
-		if options and typeof(options) is 'string'
-			return $.monobombNavigator(this, options, args)
-		else
-			this.each ->
-				new $.monobombNavigator(this, options, args)
+(($) ->
+	methods =
+		# ----------------------------------------------------------------------------
+		# moveToPage
+		#
+		# page: page number (1 indexed) or the actual page itself
+		# ----------------------------------------------------------------------------
+		moveToPage: (page, force, cb) ->
+			data = this.data('monobombNavigator')
 
+			return if data.closed and not force
 
-$.monobombNavigator = (elem, options, args) ->
-	# ----------------------------------------------------------------------------
-	# moveToPage
-	#
-	# page: page number (1 indexed) or the actual page itself
-	# ----------------------------------------------------------------------------
-	moveToPage = (page, force, cb) ->
-		data = $(elem).data('monobombNavigator')
-
-		return if data.closed and not force
-
-		page = 1 if typeof(page) is 'undefined'
-		if typeof(page) is 'number'
-			$nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')')
-		else
-			$nav = $(page)
-
-			page = 1
-			for nav in data.$actual_navs
-				break if $(nav).equals $nav
-				page++
-
-		time = if force then 0 else 'slow'
-
-		data.first_page = page
-		data.$inner_nav_wrapper.stop().animate
-			left: '-' + $nav.position().left + 'px'
-			time
-			cb
-
-		setButtons(data)
-		$(elem)
-
-	# ----------------------------------------------------------------------------
-	# openNav
-	#
-	# opens the Navigator with the currently viewed page as the first one
-	# ----------------------------------------------------------------------------
-	openNav = (page, cb) ->
-		data = $(elem).data('monobombNavigator')
-
-		data.$more.add(data.$elem.find('> article').add(data.$elem.find('.admin'))).stop().fadeOut 'slow'
-		data.$controls_nav.fadeIn 'slow'
-
-		data.$main_nav_wrapper.stop().animate
-			left: 0
-			'slow'
-
-		data.closed = false
-
-		moveToPage(page, false, cb)
-		$(elem)
-	# ----------------------------------------------------------------------------
-	# closeNav
-	#
-	# closes the Navigator back to its original spot with the current viewed page
-	# staying visible
-	# ----------------------------------------------------------------------------
-	closeNav = (cb) ->
-		data = $(elem).data('monobombNavigator')
-		moveToPage(data.viewing)
-		data.$controls_nav.fadeOut 'slow'
-		data.$more.add(data.$elem.find('> article').add(data.$elem.find('.admin'))).stop().fadeIn 'slow'
-		data.$main_nav_wrapper.stop().animate
-			left: data.original_left + 'px'
-			'slow'
-			cb
-		data.closed = true
-		$(elem)
-
-	# ----------------------------------------------------------------------------
-	# openToPage
-	#
-	# opens the Navigator back to its original spot with specified page at start
-	# ----------------------------------------------------------------------------
-	openToPage = (page, cb) ->
-		openNav(page, cb)
-		false
-
-	# ----------------------------------------------------------------------------
-	# closeToPage
-	#
-	# closes the Navigator back to its original spot with specified page staying
-	# visible
-	# ----------------------------------------------------------------------------
-	closeToPage = ($nav, cb) ->
-		$elem = $(elem)
-		data = $elem.data('monobombNavigator')
-
-		return if data.$main_nav_wrapper.position().left is data.original_left
-
-		## find our new "viewing" page
-		data.viewing = 1
-
-		for nav in data.$actual_navs
-			if $nav.equals $(nav)
-				break
-			data.viewing++
-
-		closeNav(cb)
-		$(elem)
-		false
-
-	# ----------------------------------------------------------------------------
-	# setButtons
-	#
-	# Sets the control's buttons according to availability of pages
-	# ----------------------------------------------------------------------------
-	setButtons = (data) ->
-		if data.nav_count - data.first_page > data.settings.visible_columns then data.$forward.removeClass('disabled') else data.$forward.addClass('disabled')
-		if data.first_page > 1 then data.$back.removeClass('disabled') else data.$back.addClass('disabled')
-		$(elem)
-
-	# ----------------------------------------------------------------------------
-	# hideClose
-	#
-	# Shows the control's close buttons
-	# ----------------------------------------------------------------------------
-	hideClose = (cb) ->
-		data = $(elem).data('monobombNavigator')
-		data.$close.hide()
-		cb() if cb
-		$(elem)
-
-	# ----------------------------------------------------------------------------
-	# showClose
-	#
-	# Shows the control's close buttons
-	# ----------------------------------------------------------------------------
-	showClose = (cb) ->
-		data = $(elem).data('monobombNavigator')
-		data.$close.show()
-		cb() if cb
-		$(elem)
-
-	# ----------------------------------------------------------------------------
-	# isAnimating
-	#
-	# Returns boolean of whether the nav is animating or not
-	# ----------------------------------------------------------------------------
-	isAnimating = ->
-		data = $(elem).data('monobombNavigator')
-		return data.$inner_nav_wrapper.is(':animated')
-
-	# ----------------------------------------------------------------------------
-	# isOpen
-	#
-	# Returns boolean of whether the nav is open or not
-	# ----------------------------------------------------------------------------
-	isOpen = ->
-		data = $(elem).data('monobombNavigator')
-		return data.$main_nav_wrapper.position().left is 0
-
-	# ----------------------------------------------------------------------------
-	# Switch control to the proper method
-	if options and typeof(options) is 'string'
-		switch options
-			when 'closeToPage' then return closeToPage(args)
-			when 'openToPage' then return openToPage(args)
-			when 'showClose' then return showClose(args)
-			when 'hideClose' then return hideClose(args)
-			when 'isOpen' then return isOpen()
-			when 'isAnimating' then return isAnimating()
+			page = 1 if typeof(page) is 'undefined'
+			if typeof(page) is 'number'
+				$nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')')
 			else
-				console.log 'Error: Bad method call: "' + options + '"'
-				return
+				$nav = $(page)
 
-	# No method called, so init
-	settings =
-		more_selector: '> .more'
-		back_selector: '.back'
-		close_selector: '.close'
-		forward_selector: '.forward'
-		visible_columns: 4
-		# The rest are required
-		main_nav_wrapper: null
-		inner_nav_wrapper: null
-		inner_elements: null
-		controls_nav: null
+				page = 1
+				for nav in data.$actual_navs
+					break if $(nav).equals $nav
+					page++
+
+			time = if force then 0 else 'slow'
+
+			data.first_page = page
+			data.$inner_nav_wrapper.stop().animate
+				left: '-' + $nav.position().left + 'px'
+				time
+				cb
+
+			methods.setButtons.apply(this)
+			this
+
+		# ----------------------------------------------------------------------------
+		# openToPage
+		#
+		# opens the Navigator with the currently viewed or specified page as the first
+		# one
+		# ----------------------------------------------------------------------------
+		openToPage: (page, cb) ->
+			data = this.data('monobombNavigator')
+
+			data.$more.add(this.find('> article').add(this.find('.admin'))).stop().fadeOut 'slow'
+			data.$controls_nav.fadeIn 'slow'
+
+			data.$main_nav_wrapper.stop().animate
+				left: 0
+				'slow'
+
+			data.closed = false
+
+			methods.moveToPage.call(this, page, false, cb)
+			this
+
+		# ----------------------------------------------------------------------------
+		# closeToPage
+		#
+		# closes the Navigator back to its original spot with specified page staying
+		# visible
+		# ----------------------------------------------------------------------------
+		closeToPage: ($nav, cb) ->
+			data = this.data('monobombNavigator')
+
+			return if data.$main_nav_wrapper.position().left is data.original_left
+
+			if typeof($nav) is 'object'
+				## find our new "viewing" page
+				data.viewing = 1
+
+				for nav in data.$actual_navs
+					if $nav.equals $(nav)
+						break
+					data.viewing++
+			else
+				cb = $nav
+
+			methods.moveToPage.call(this, data.viewing)
+			data.$controls_nav.fadeOut 'slow'
+			data.$more.add(this.find('> article').add(this.find('.admin'))).stop().fadeIn 'slow'
+			data.$main_nav_wrapper.stop().animate
+				left: data.original_left + 'px'
+				'slow'
+				cb
+			data.closed = true
+			false
+
+		# ----------------------------------------------------------------------------
+		# back
+		#
+		# Scrolls the navigator one full page back
+		# ----------------------------------------------------------------------------
+		back: (cb) ->
+			data = this.data('monobombNavigator')
+			return if data.$inner_nav_wrapper.is(':animated')
+
+			methods.moveToPage.call(this, Math.max(1, data.first_page - data.settings.visible_columns))
+			this
+
+		# ----------------------------------------------------------------------------
+		# forward
+		#
+		# Scrolls the navigator one full page forward
+		# ----------------------------------------------------------------------------
+		forward: (cb) ->
+			data = this.data('monobombNavigator')
+			return if data.$inner_nav_wrapper.is(':animated')
+
+			newPage = data.first_page + data.settings.visible_columns
+			maxFirstPage = data.nav_count - data.settings.visible_columns + 1
+
+			if newPage > maxFirstPage
+				# We can't go so far
+				newPage = maxFirstPage
+
+			methods.moveToPage.call(this, newPage, false, cb)
+			this
+
+		# ----------------------------------------------------------------------------
+		# setButtons
+		#
+		# Sets the control's buttons according to availability of pages
+		# ----------------------------------------------------------------------------
+		setButtons: () ->
+			data = this.data('monobombNavigator')
+			if data.nav_count - data.first_page > data.settings.visible_columns - 1 then data.$forward.removeClass('disabled') else data.$forward.addClass('disabled')
+			if data.first_page > 1 then data.$back.removeClass('disabled') else data.$back.addClass('disabled')
+			this
+
+		# ----------------------------------------------------------------------------
+		# hideClose
+		#
+		# Shows the control's close buttons
+		# ----------------------------------------------------------------------------
+		hideClose: () ->
+			this.data('monobombNavigator').$close.hide()
+			this
+
+		# ----------------------------------------------------------------------------
+		# showClose
+		#
+		# Shows the control's close buttons
+		# ----------------------------------------------------------------------------
+		showClose: () ->
+			this.data('monobombNavigator').$close.show()
+			this
+
+		# ----------------------------------------------------------------------------
+		# isAnimating
+		#
+		# Returns boolean of whether the nav is animating or not
+		# ----------------------------------------------------------------------------
+		isAnimating: ->
+			this.data('monobombNavigator').$inner_nav_wrapper.is(':animated')
+
+		# ----------------------------------------------------------------------------
+		# isOpen
+		#
+		# Returns boolean of whether the nav is open or not
+		# ----------------------------------------------------------------------------
+		isOpen: ->
+			this.data('monobombNavigator').$main_nav_wrapper.position().left is 0
+
+		init: (options) ->
+			settings =
+				more_selector: '> .more'
+				back_selector: '.back'
+				close_selector: '.close'
+				forward_selector: '.forward'
+				visible_columns: 4
+				# The rest are required
+				main_nav_wrapper: null
+				inner_nav_wrapper: null
+				inner_elements: null
+				controls_nav: null
 
 
-	settings = $.extend settings, options
+			settings = $.extend settings, options
 
-	if not settings.main_nav_wrapper? or not settings.inner_nav_wrapper? or not settings.controls_nav?
-		console.log '[monobombNavigator] Error: required settings not defined.'
-		return false
+			if not settings.main_nav_wrapper? or not settings.inner_nav_wrapper? or not settings.controls_nav?
+				console.log '[monobombNavigator] Error: required settings not defined.'
+				return false
 
-	data =
-		settings: settings
-	data.$elem              = $(elem)
-	data.$main_nav_wrapper  = $(settings.main_nav_wrapper)
-	data.$inner_nav_wrapper = data.$main_nav_wrapper.find(settings.inner_nav_wrapper)
-	data.$controls_nav      = $(settings.controls_nav)
-	data.$more              = data.$elem.find(settings.more_selector)
-	data.$back              = data.$controls_nav.find(settings.back_selector)
-	data.$close             = data.$controls_nav.find(settings.close_selector)
-	data.$forward           = data.$controls_nav.find(settings.forward_selector)
-	data.$actual_navs       = data.$inner_nav_wrapper.find(settings.inner_elements)
-	data.nav_count          = data.$actual_navs.length
-	data.individual_width   = $(data.$actual_navs[1]).outerWidth(true)
-	data.required_height    = data.$inner_nav_wrapper.height()
-	data.original_left      = 960 - $(data.$actual_navs[1]).width()
-	# holds the page of the currently viewed article
-	data.viewing            = 1
-	# holds the first page visible when opened
-	data.first_page         = 1
-	data.closed             = not data.$main_nav_wrapper.hasClass('start-open')
+			data =
+				settings: settings
+			data.$main_nav_wrapper  = $(settings.main_nav_wrapper)
+			data.$inner_nav_wrapper = data.$main_nav_wrapper.find(settings.inner_nav_wrapper)
+			data.$controls_nav      = $(settings.controls_nav)
+			data.$more              = this.find(settings.more_selector)
+			data.$back              = data.$controls_nav.find(settings.back_selector)
+			data.$close             = data.$controls_nav.find(settings.close_selector)
+			data.$forward           = data.$controls_nav.find(settings.forward_selector)
+			data.$actual_navs       = data.$inner_nav_wrapper.find(settings.inner_elements)
+			data.nav_count          = data.$actual_navs.length
+			data.individual_width   = $(data.$actual_navs[1]).outerWidth(true)
+			data.required_height    = data.$inner_nav_wrapper.height()
+			data.original_left      = 960 - $(data.$actual_navs[1]).width()
+			# holds the page of the currently viewed article
+			data.viewing            = 1
+			# holds the first page visible when opened
+			data.first_page         = 1
+			data.closed             = not data.$main_nav_wrapper.hasClass('start-open')
 
-	# We need to adjust the width of the wrapper to fit all the navs
-	data.$inner_nav_wrapper.width(data.nav_count * data.individual_width + 'px')
-	# And adjust the height of page to contain everything
-	data.$elem.height(data.required_height + 140) if data.$elem.height() < data.required_height
+			this.data 'monobombNavigator', data
 
-	data.$elem.data 'monobombNavigator', data
+			# We need to adjust the width of the wrapper to fit all the navs
+			data.$inner_nav_wrapper.width(data.nav_count * data.individual_width + 'px')
+			# And adjust the height of page to contain everything
+			this.height(data.required_height + 140) if this.height() < data.required_height
 
-	# Switch to the current page if we're on a view page
-	if data.closed and ($first_page = data.$elem.find('.first-page')).length
-		moveToPage($first_page, true)
+			# Switch to the current page if we're on a view page
+			if data.closed and ($first_page = this.find('.first-page')).length
+				methods.moveToPage.call(this, $first_page, true)
 
-	setButtons(data)
+			methods.setButtons.apply(this)
 
-	# Set up our navigation events
-	data.$more.click ->
-		openNav()
-		false
+			# Set up our navigation events
+			data.$more.click =>
+				methods.openToPage.apply(this)
+				false
 
-	data.$close.click ->
-		closeNav()
-		false
+			data.$close.click =>
+				methods.closeToPage.apply(this)
+				false
 
-	data.$forward.click ->
-		return if data.$inner_nav_wrapper.is(':animated')
+			data.$forward.click =>
+				methods.forward.apply(this)
+				false
 
-		if data.nav_count - data.first_page - 1 < data.nav_count - settings.visible_columns
-			# We can't go so far
-			newPage = data.nav_count - settings.visible_columns + 1
-		else
-			newPage = data.first_page + settings.visible_columns
+			data.$back.click =>
+				methods.back.apply(this)
+				false
 
-		moveToPage(newPage)
-		false
+	$.fn.monobombNavigator = (method) ->
+		if methods[method]
+			 return methods[method].apply(this, Array.prototype.slice.call(arguments, 1))
 
-	data.$back.click ->
-		return if data.$inner_nav_wrapper.is(':animated')
-
-		moveToPage(Math.max(1, data.first_page - settings.visible_columns))
-		false
-
+		 return methods.init.apply(this, arguments)
+) jQuery

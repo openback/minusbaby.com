@@ -40,7 +40,7 @@ if (!empty($past)) {
         }
 
 		?>
-			<li><a href="<?php echo $this->Html->url(array('action' => 'view', $event['id'], $event['title'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $event['title']; ?></span><?php echo $this->Pixelpod->time(null, $event['start_time']); ?></a></li>
+			<li><a id="event-<?php echo $event['id']; ?>" href="<?php echo $this->Html->url(array('action' => 'view', $event['id'], $event['title'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $event['title']; ?></span><?php echo $this->Pixelpod->time(null, $event['start_time']); ?></a></li>
 		<?php
 	}
 

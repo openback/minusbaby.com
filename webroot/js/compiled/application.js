@@ -336,7 +336,7 @@
       $past_events = $('.past-events');
       if ($past_events) {
         History.Adapter.bind(window, 'statechange', function() {
-          var $content, $events, $page, path, split_url, state;
+          var $content, $events, $page, id, split_url, state;
           $content = $('.content');
           state = History.getState();
           if ((state.url.match(/\//g) || []).length === 3) {
@@ -344,16 +344,21 @@
             $('.pager').addClass('start-open');
             $content.monobombNavigator('hideClose').monobombNavigator('openToPage', 1);
             return;
+          } else {
+            $content.monobombNavigator('showClose');
           }
           split_url = state.url.split('/');
-          path = '/' + split_url.slice(3, -1).join('/');
-          path += '/' + escape(split_url.slice(-1)[0]);
+          id = split_url[split_url.length - 2];
           $('nav.events .current').removeClass('current');
-          $current = $('nav.events a[href="' + path + '"]');
+          $current = $('#event-' + id);
           $current.addClass('current');
           $page = $current.closest('nav');
           if ($content.monobombNavigator('isOpen')) {
-            $content.monobombNavigator('closeToPage', $page);
+            $content.monobombNavigator('closeToPage', $page, function() {
+              return $('.start-open').removeClass('start-open');
+            });
+          } else {
+            $content.monobombNavigator('moveToPage', $page, true);
           }
           $events = $('article.event');
           return $events.fadeOut(function() {
@@ -383,9 +388,6 @@
             return false;
           }
           $this = $(this);
-          $('.content').monobombNavigator('closeToPage', $(this).closest('.events'), function() {
-            return $('.start-open').removeClass('start-open');
-          });
           History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'));
           return false;
         });
