@@ -288,7 +288,7 @@
     */
 
     init: function(options) {
-      var $first_page, data, settings,
+      var $first_page, data, individual_width, required_height, settings,
         _this = this;
       settings = {
         more_selector: '> .more',
@@ -318,16 +318,16 @@
       data.$forward = data.$controls_nav.find(settings.forward_selector);
       data.$actual_navs = data.$inner_nav_wrapper.find(settings.inner_elements);
       data.nav_count = data.$actual_navs.length;
-      data.individual_width = $(data.$actual_navs[1]).outerWidth(true);
-      data.required_height = data.$inner_nav_wrapper.height();
       data.original_left = 960 - $(data.$actual_navs[1]).width();
       data.viewing = 1;
       data.first_page = 1;
       data.closed = !data.$main_nav_wrapper.hasClass('start-open');
       this.data('monobombNavigator', data);
-      data.$inner_nav_wrapper.width(data.nav_count * data.individual_width + 'px');
-      if (this.height() < data.required_height) {
-        this.height(data.required_height + 140);
+      individual_width = $(data.$actual_navs[1]).outerWidth(true);
+      data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px');
+      required_height = data.$inner_nav_wrapper.height();
+      if (this.height() < required_height) {
+        this.height(required_height + 140);
       }
       if (data.closed && ($first_page = this.find('.first-page')).length) {
         methods.moveToPage.call(this, $first_page, true);

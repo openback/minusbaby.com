@@ -189,8 +189,16 @@ methods =
 	###
 	setButtons: () ->
 		data = this.data('monobombNavigator')
-		if data.nav_count - data.first_page > data.settings.visible_columns - 1 then data.$forward.removeClass('disabled') else data.$forward.addClass('disabled')
-		if data.first_page > 1 then data.$back.removeClass('disabled') else data.$back.addClass('disabled')
+
+		if data.nav_count - data.first_page > data.settings.visible_columns - 1
+			data.$forward.removeClass('disabled')
+		else
+			data.$forward.addClass('disabled')
+
+		if data.first_page > 1
+			data.$back.removeClass('disabled')
+		else
+			data.$back.addClass('disabled')
 		this
 
 	###*
@@ -287,8 +295,6 @@ methods =
 		data.$forward           = data.$controls_nav.find(settings.forward_selector)
 		data.$actual_navs       = data.$inner_nav_wrapper.find(settings.inner_elements)
 		data.nav_count          = data.$actual_navs.length
-		data.individual_width   = $(data.$actual_navs[1]).outerWidth(true)
-		data.required_height    = data.$inner_nav_wrapper.height()
 		data.original_left      = 960 - $(data.$actual_navs[1]).width()
 		# holds the page of the currently viewed article
 		data.viewing            = 1
@@ -299,9 +305,12 @@ methods =
 		this.data 'monobombNavigator', data
 
 		# We need to adjust the width of the wrapper to fit all the navs
-		data.$inner_nav_wrapper.width(data.nav_count * data.individual_width + 'px')
+		individual_width   = $(data.$actual_navs[1]).outerWidth(true)
+		data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px')
+
 		# And adjust the height of page to contain everything
-		this.height(data.required_height + 140) if this.height() < data.required_height
+		required_height    = data.$inner_nav_wrapper.height()
+		this.height(required_height + 140) if this.height() < required_height
 
 		# Switch to the current page if we're on a view page
 		if data.closed and ($first_page = this.find('.first-page')).length
