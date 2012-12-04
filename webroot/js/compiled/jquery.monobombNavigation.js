@@ -126,17 +126,18 @@
     */
 
     closeToPage: function(page, callback) {
-      var data, nav, _i, _len, _ref;
+      var $page, data, nav, _i, _len, _ref;
       data = this.data('monobombNavigator');
       if (data.$main_nav_wrapper.position().left === data.original_left) {
         return;
       }
       if (typeof page === 'object') {
+        $page = $(page);
         data.viewing = 1;
         _ref = data.$actual_navs;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           nav = _ref[_i];
-          if ($nav.equals($(page))) {
+          if ($page.equals(nav)) {
             break;
           }
           data.viewing++;

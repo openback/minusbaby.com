@@ -122,10 +122,11 @@ methods =
 
 		if typeof(page) is 'object'
 			## find our new "viewing" page
+			$page = $(page)
 			data.viewing = 1
 
 			for nav in data.$actual_navs
-				if $nav.equals $(page)
+				if $page.equals nav
 					break
 				data.viewing++
 		else
