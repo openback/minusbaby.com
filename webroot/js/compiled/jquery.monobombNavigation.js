@@ -70,7 +70,7 @@
       }
       if (typeof page === 'number') {
         $nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')');
-      } else {
+      } else if (typeof page === 'object') {
         $nav = $(page);
         page = 1;
         _ref = data.$actual_navs;
@@ -104,7 +104,10 @@
     openToPage: function(page, callback) {
       var data;
       data = this.data('monobombNavigator');
-      data.$more.add(this.find('> article').add(this.find('.admin'))).stop().fadeOut('slow');
+      data.$more.fadeOut('slow');
+      this.find('> article').add(this.find('.admin')).stop().animate({
+        opacity: 0
+      }, 'slow');
       data.$controls_nav.fadeIn('slow');
       data.$main_nav_wrapper.stop().animate({
         left: 0
@@ -147,7 +150,10 @@
       }
       methods.moveToPage.call(this, data.viewing);
       data.$controls_nav.fadeOut('slow');
-      data.$more.add(this.find('> article').add(this.find('.admin'))).stop().fadeIn('slow');
+      data.$more.fadeIn('fast');
+      this.find('> article').add(this.find('.admin')).stop().animate({
+        opacity: 100
+      }, 'fast');
       data.$main_nav_wrapper.stop().animate({
         left: data.original_left + 'px'
       }, 'slow', callback);

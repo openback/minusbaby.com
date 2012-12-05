@@ -95,6 +95,70 @@ addRowFromTable = (table) ->
 	# $table.find('tbody').append($row)
 	$table.trInsertSlideDown($row)
 
+bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
+	$outer_wrapper = $(outer_wrapper_selector)
+	$content = $('.content')
+	$loading = $content.find('> .loading')
+
+	History.Adapter.bind(window, 'statechange'
+		, =>
+			state = History.getState()
+
+			split_url = state.url.split('/')
+			id = split_url[split_url.length - 2]
+
+			if isNaN(id)
+				# We ended up on the main page
+				$outer_wrapper.find('.current').removeClass('current')
+				$('.pager').addClass('start-open')
+				$content.monobombNavigator('hideClose')
+					.monobombNavigator('openToPage', 1)
+
+				return
+			else
+				$content.monobombNavigator('showClose')
+
+			$outer_wrapper.find('.current').removeClass('current')
+			$current = $('#' + model_name + '-' + id)
+			$current.addClass('current')
+			$page = $current.closest('nav')
+
+			if $content.monobombNavigator('isOpen')
+				$content.monobombNavigator('closeToPage', $page
+					, ->
+						$('.start-open').removeClass('start-open')
+				)
+			else
+				$content.monobombNavigator('moveToPage', $page, true)
+
+
+			$articles = $(article_selector)
+			$loading.fadeIn('fast')
+			$articles.fadeOut ->
+				# We only need one event now
+				for article in $articles.slice(1)
+					$(article).remove()
+
+				$.ajax
+					type: 'GET'
+					url: state.url + '.json'
+					success: (response) ->
+						if (response.success)
+							$article = $(response.data)
+							$article.hide()
+							$(article_selector).replaceWith($article)
+							$loading.fadeOut('fast')
+							$article.fadeIn()
+	)
+
+	$outer_wrapper.delegate('a', 'click', ->
+		if not $('.content').monobombNavigator('isAnimating')
+			$this = $(this)
+			History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'))
+
+		false
+	)
+
 
 $(document).ready ->
 	# flag for whether the user clicked to go elsewhere
@@ -133,7 +197,7 @@ $(document).ready ->
 				'width': width
 	)
 
-	$nav.find('a').click ->
+	$nav.delegate('a', 'click', ->
 		return if clicked
 		clicked = true
 		bottom = $highlight.position().top - $ball.height()
@@ -164,6 +228,7 @@ $(document).ready ->
 
 		setTimeout(followLink, 100)
 		return false
+	)
 
 	# Flash the...flash
 	$("#flashMessage").add(".flash-success").effect("highlight", 1000, -> $(this).delay(2000).slideUp())
@@ -274,30 +339,10 @@ $(document).ready ->
 			dateFormat: "yy-mm-dd"
 
 	# News
-	$('#posts').find('.loading').hide().end().find('.more-posts').live(
-		'click'
-		, (e) ->
-			$this = $(this)
-			url = $(this).attr('href')
+	$news = $('.content.news')
 
-			$this.remove()
-			$('.loading').show()
-
-			$.ajax
-				type: 'POST'
-				url: url + '.json'
-				dataType: 'json'
-				success: (response) ->
-					if (response.success)
-						$newPosts = $(response.data)
-						$newPosts.hide()
-
-						$('#posts .loading').hide().before($newPosts)
-						$newPosts.fadeIn()
-			false
-	)
-
-
+	if $news.length
+		bindNavigatorLinks('nav.posts', 'article.post', 'post')
 
 	# Video forms
 	$('table#videos tbody').disableSelection().sortable
@@ -342,65 +387,8 @@ $(document).ready ->
 	# Events
 	$past_events = $('.past-events')
 
-	if $past_events
-		History.Adapter.bind(window, 'statechange'
-			, ->
-				$content = $('.content')
-				state = History.getState()
-
-				if (state.url.match(/\//g) || []).length is 3
-					# We ended up on the main page
-					$('nav.events .current').removeClass('current')
-					$('.pager').addClass('start-open')
-					$content.monobombNavigator('hideClose')
-						.monobombNavigator('openToPage', 1)
-
-					return
-				else
-					$content.monobombNavigator('showClose')
-
-				split_url = state.url.split('/')
-				id = split_url[split_url.length - 2]
-
-				$('nav.events .current').removeClass('current')
-				$current = $('#event-' + id)
-				$current.addClass('current')
-				$page = $current.closest('nav')
-
-				if $content.monobombNavigator('isOpen')
-					$content.monobombNavigator('closeToPage', $page
-						, ->
-							$('.start-open').removeClass('start-open')
-					)
-				else
-					$content.monobombNavigator('moveToPage', $page, true)
-
-
-				$events = $('article.event')
-				$events.fadeOut ->
-					# We only need one event now
-					for $event in $events.slice(1)
-						$event.remove()
-
-					$.ajax
-						type: 'GET'
-						url: state.url + '.json'
-						success: (response) ->
-							if (response.success)
-								$event = $(response.data)
-								$event.hide()
-								$('article.event').replaceWith($event)
-								$event.fadeIn()
-		)
-
-		$past_events.find('a').click ->
-			return false if $('.content').monobombNavigator('isAnimating')
-
-			$this = $(this)
-
-			History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'))
-
-			false
+	if $past_events.length
+		bindNavigatorLinks('nav.events', 'article.event', 'event')
 
 	# Events forms
 	if jQuery.fn.autocomplete

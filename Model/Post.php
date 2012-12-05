@@ -21,6 +21,19 @@ class Post extends AppModel {
     );
 	public $order = 'Post.date DESC';
 
+	public $findMethods = array(
+		'navList' => true
+	);
+
+	public function _findNavList($state, $query, $results = array()) {
+		if ($state == 'before') {
+			$query['fields'] = array('id', 'title', 'slug', 'date');
+			$query['sort'] = 'Post.date DESC';
+			return $query;
+		}
+		return $results;
+	}
+
     function imageOrEmbed($data) {
         return (!empty($this->data['Post']['post_file_name']) OR
                 !empty($this->data['Post']['embed']));

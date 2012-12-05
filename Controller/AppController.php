@@ -60,7 +60,7 @@ class AppController extends Controller {
 
         /* Auth settings */
 		$this->Auth->deny();
-		$this->Auth->allow('index', 'view');
+		$this->Auth->allow('index', 'view', 'sql_explain');
 
         // keep anyone from editing the site while I do things
 		if (Configure::read( "System.maintenance" ) && (AuthComponent::user('id') != 1) &&

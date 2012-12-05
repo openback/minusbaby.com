@@ -603,8 +603,9 @@ nav.pager {
 	display: none;
 	position: absolute;
 	top: 4px;
-		left: 905px;
+	left: 905px;
 	width: 56px;
+	z-index: 102;
 
 	a {
 		float: left;
@@ -705,6 +706,7 @@ footer {
 
 	.videos,
 	.articles,
+	.all-posts,
 	.all-events {
 		float: right;
 		width: 208px;
@@ -732,6 +734,7 @@ footer {
 		position: absolute;
 		top: 0; left: 960px - 464px;
 		width: 2 * (464px + 16px);
+		z-index: 100;
 
 		.collaborator-wrapper {
 			@include easyclearfix;
@@ -776,6 +779,10 @@ footer {
 		nav.pager {
 			left: 464px - 56px;
 		}
+	}
+
+	a.more {
+		z-index: 103;
 	}
 }
 
@@ -852,24 +859,19 @@ footer {
 		}
 	}
 
-	.back,
-	.more-posts,
-	.loading {
+	> .back,
+	.more-posts {
 		width: 720px;
 	}
 
-	.back {
+	> .back {
 		clear: left;
 		width: 720px;
-	}
-
-	.loading {
-		margin-bottom: 32px;
-		text-align: center;
 	}
 }
 
 nav.articles,
+nav.posts,
 nav.events {
 	a {
 		@include link-colors($normal-text, $link, $link, $normal-text, $link);
@@ -1128,6 +1130,11 @@ nav.events {
 		figure {
 			overflow: hidden;
 
+			img {
+				width: 460px;
+				float: left;
+			}
+
 			+ a {
 				margin-top: 16px;
 			}
@@ -1165,11 +1172,6 @@ nav.events {
 		font-size: 1em; // Bring the size back up to match
 	}
 
-	img {
-		width: 460px;
-		float: left;
-	}
-
 	figcaption {
 		display: inline-block;
 		line-height: 2em;
@@ -1190,16 +1192,24 @@ nav.events {
 		color: $quiet-text;
 	}
 
+}
+
+// TODO: this causes twice as much CSS as is needed
+.content.events,
+.content.news {
+	.all-articles,
 	.all-events {
 		overflow: hidden;
 		position: absolute;
 		top: 0; left: 752px;
 		width: 4 * (210 + 16px);
+		z-index: 100;
 
 		&.start-open {
 			left: 0;
 		}
 
+		.inner-articles,
 		.past-events {
 			@include easyclearfix;
 			position: relative;
@@ -1214,6 +1224,15 @@ nav.events {
 		}
 	}
 
+	.loading {
+		display: none;
+		padding: 64px 0;
+		position: absolute;
+		text-align: center;
+		top: 0; left: 0;
+		width: 720px;
+	}
+
 	.admin {
 		width: 720px;
 
@@ -1222,16 +1241,22 @@ nav.events {
 		}
 	}
 
-	nav.pager.start-open {
-		display: block;
+	nav.pager {
+		&.start-open {
+			display: block;
 
-		.close {
-			display: none;
+			.close {
+				display: none;
+			}
 		}
 	}
 
-	a.more.start-open {
-		display: none;
+	a.more {
+		z-index: 103;
+
+		&.start-open {
+			display: none;
+		}
 	}
 
 	.admin.start-open {

@@ -60,7 +60,7 @@ methods =
 
 		if typeof(page) is 'number'
 			$nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')')
-		else
+		else if typeof(page) is 'object'
 			$nav = $(page)
 
 			page = 1
@@ -92,7 +92,10 @@ methods =
 	openToPage: (page, callback) ->
 		data = this.data('monobombNavigator')
 
-		data.$more.add(this.find('> article').add(this.find('.admin'))).stop().fadeOut 'slow'
+		data.$more.fadeOut('slow')
+		this.find('> article').add(this.find('.admin')).stop().animate
+			opacity: 0
+			'slow'
 		data.$controls_nav.fadeIn 'slow'
 
 		data.$main_nav_wrapper.stop().animate
@@ -134,7 +137,10 @@ methods =
 
 		methods.moveToPage.call(this, data.viewing)
 		data.$controls_nav.fadeOut 'slow'
-		data.$more.add(this.find('> article').add(this.find('.admin'))).stop().fadeIn 'slow'
+		data.$more.fadeIn('fast')
+		this.find('> article').add(this.find('.admin')).stop().animate
+			opacity: 100
+			'fast'
 		data.$main_nav_wrapper.stop().animate
 			left: data.original_left + 'px'
 			'slow'

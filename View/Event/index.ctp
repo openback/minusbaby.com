@@ -73,3 +73,4 @@ if ($this->Session->check('Auth.User')) {
 <?php
 }
 ?>
+<div class="loading"><?php echo $this->Html->image('loading.gif', array('alt' => 'loading')); ?></div>

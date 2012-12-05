@@ -1,5 +1,5 @@
 (function() {
-  var $, addRowFromTable, flash_failure, pushState;
+  var $, addRowFromTable, bindNavigatorLinks, flash_failure, pushState;
 
   $ = jQuery;
 
@@ -97,8 +97,73 @@
     return $table.trInsertSlideDown($row);
   };
 
+  bindNavigatorLinks = function(outer_wrapper_selector, article_selector, model_name) {
+    var $content, $loading, $outer_wrapper,
+      _this = this;
+    $outer_wrapper = $(outer_wrapper_selector);
+    $content = $('.content');
+    $loading = $content.find('> .loading');
+    History.Adapter.bind(window, 'statechange', function() {
+      var $articles, $current, $page, id, split_url, state;
+      state = History.getState();
+      split_url = state.url.split('/');
+      id = split_url[split_url.length - 2];
+      if (isNaN(id)) {
+        $outer_wrapper.find('.current').removeClass('current');
+        $('.pager').addClass('start-open');
+        $content.monobombNavigator('hideClose').monobombNavigator('openToPage', 1);
+        return;
+      } else {
+        $content.monobombNavigator('showClose');
+      }
+      $outer_wrapper.find('.current').removeClass('current');
+      $current = $('#' + model_name + '-' + id);
+      $current.addClass('current');
+      $page = $current.closest('nav');
+      if ($content.monobombNavigator('isOpen')) {
+        $content.monobombNavigator('closeToPage', $page, function() {
+          return $('.start-open').removeClass('start-open');
+        });
+      } else {
+        $content.monobombNavigator('moveToPage', $page, true);
+      }
+      $articles = $(article_selector);
+      $loading.fadeIn('fast');
+      return $articles.fadeOut(function() {
+        var article, _i, _len, _ref;
+        _ref = $articles.slice(1);
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          article = _ref[_i];
+          $(article).remove();
+        }
+        return $.ajax({
+          type: 'GET',
+          url: state.url + '.json',
+          success: function(response) {
+            var $article;
+            if (response.success) {
+              $article = $(response.data);
+              $article.hide();
+              $(article_selector).replaceWith($article);
+              $loading.fadeOut('fast');
+              return $article.fadeIn();
+            }
+          }
+        });
+      });
+    });
+    return $outer_wrapper.delegate('a', 'click', function() {
+      var $this;
+      if (!$('.content').monobombNavigator('isAnimating')) {
+        $this = $(this);
+        History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'));
+      }
+      return false;
+    });
+  };
+
   $(document).ready(function() {
-    var $ball, $current, $email, $highlight, $nav, $past_events, clicked, left, width;
+    var $ball, $current, $email, $highlight, $nav, $news, $past_events, clicked, left, width;
     clicked = false;
     $highlight = $('<span id="highlight"/>');
     $ball = $('<span id="ball"/>').hide();
@@ -135,7 +200,7 @@
         'width': width
       });
     });
-    $nav.find('a').click(function() {
+    $nav.delegate('a', 'click', function() {
       var bottom, bouncy, followLink, url;
       if (clicked) {
         return;
@@ -265,28 +330,10 @@
         dateFormat: "yy-mm-dd"
       });
     }
-    $('#posts').find('.loading').hide().end().find('.more-posts').live('click', function(e) {
-      var $this, url;
-      $this = $(this);
-      url = $(this).attr('href');
-      $this.remove();
-      $('.loading').show();
-      $.ajax({
-        type: 'POST',
-        url: url + '.json',
-        dataType: 'json',
-        success: function(response) {
-          var $newPosts;
-          if (response.success) {
-            $newPosts = $(response.data);
-            $newPosts.hide();
-            $('#posts .loading').hide().before($newPosts);
-            return $newPosts.fadeIn();
-          }
-        }
-      });
-      return false;
-    });
+    $news = $('.content.news');
+    if ($news.length) {
+      bindNavigatorLinks('nav.posts', 'article.post', 'post');
+    }
     $('table#videos tbody').disableSelection().sortable({
       helper: function(e, ui) {
         ui.children().each(function() {
@@ -339,63 +386,8 @@
       }
     });
     $past_events = $('.past-events');
-    if ($past_events) {
-      History.Adapter.bind(window, 'statechange', function() {
-        var $content, $events, $page, id, split_url, state;
-        $content = $('.content');
-        state = History.getState();
-        if ((state.url.match(/\//g) || []).length === 3) {
-          $('nav.events .current').removeClass('current');
-          $('.pager').addClass('start-open');
-          $content.monobombNavigator('hideClose').monobombNavigator('openToPage', 1);
-          return;
-        } else {
-          $content.monobombNavigator('showClose');
-        }
-        split_url = state.url.split('/');
-        id = split_url[split_url.length - 2];
-        $('nav.events .current').removeClass('current');
-        $current = $('#event-' + id);
-        $current.addClass('current');
-        $page = $current.closest('nav');
-        if ($content.monobombNavigator('isOpen')) {
-          $content.monobombNavigator('closeToPage', $page, function() {
-            return $('.start-open').removeClass('start-open');
-          });
-        } else {
-          $content.monobombNavigator('moveToPage', $page, true);
-        }
-        $events = $('article.event');
-        return $events.fadeOut(function() {
-          var $event, _i, _len, _ref;
-          _ref = $events.slice(1);
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            $event = _ref[_i];
-            $event.remove();
-          }
-          return $.ajax({
-            type: 'GET',
-            url: state.url + '.json',
-            success: function(response) {
-              if (response.success) {
-                $event = $(response.data);
-                $event.hide();
-                $('article.event').replaceWith($event);
-                return $event.fadeIn();
-              }
-            }
-          });
-        });
-      });
-      $past_events.find('a').click(function() {
-        var $this;
-        if ($('.content').monobombNavigator('isAnimating')) {
-          return false;
-        }
-        $this = $(this);
-        History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'));
-        return false;
-      });
+    if ($past_events.length) {
+      bindNavigatorLinks('nav.events', 'article.event', 'event');
     }
     if (jQuery.fn.autocomplete) {
       $('input#EventTitle').autocomplete({

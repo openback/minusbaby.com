@@ -1,1 +1,1 @@
-<?php echo $this->element('paginated_posts'); ?>
+<?php echo $this->element('post', array('post' => $posts[0])); ?>
