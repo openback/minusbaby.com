@@ -38,7 +38,7 @@
 
 
 (function() {
-  var $, methods;
+  var $, methods, private_;
 
   $ = jQuery;
 
@@ -60,29 +60,25 @@
     */
 
     moveToPage: function(page, force, callback) {
-      var $nav, data, nav, time, _i, _len, _ref;
+      var $nav, data, time;
       data = this.data('monobombNavigator');
+      if (typeof page === 'function') {
+        callback = page;
+        page = null;
+      }
+      if (typeof force === 'function') {
+        callback = force;
+        force = false;
+      }
       if (data.closed && !force) {
         return;
       }
-      if (typeof page === 'undefined') {
+      if (!page) {
         page = 1;
-      }
-      if (typeof page === 'number') {
-        $nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')');
-      } else if (typeof page === 'object') {
-        $nav = $(page);
-        page = 1;
-        _ref = data.$actual_navs;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          nav = _ref[_i];
-          if ($(nav).equals($nav)) {
-            break;
-          }
-          page++;
-        }
       }
       time = force ? 0 : 'slow';
+      $nav = private_.getPageObject.call(this, page);
+      page = private_.getPageNumber.call(this, page);
       data.first_page = page;
       data.$inner_nav_wrapper.stop().animate({
         left: '-' + $nav.position().left + 'px'
@@ -129,26 +125,12 @@
     */
 
     closeToPage: function(page, callback) {
-      var $page, data, nav, _i, _len, _ref;
+      var data;
       data = this.data('monobombNavigator');
       if (data.$main_nav_wrapper.position().left === data.original_left) {
         return;
       }
-      if (typeof page === 'object') {
-        $page = $(page);
-        data.viewing = 1;
-        _ref = data.$actual_navs;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          nav = _ref[_i];
-          if ($page.equals(nav)) {
-            break;
-          }
-          data.viewing++;
-        }
-      } else {
-        callback = page;
-      }
-      methods.moveToPage.call(this, data.viewing);
+      methods.moveToPage.call(this, page, callback);
       data.$controls_nav.fadeOut('slow');
       data.$more.fadeIn('fast');
       this.find('> article').add(this.find('.admin')).stop().animate({
@@ -357,6 +339,57 @@
         return false;
       });
       return this;
+    }
+  };
+
+  private_ = {
+    /**
+    	 * @lends $.fn.monobombNavigator
+    */
+
+    /**
+    	 * Returns the numberof the specified page
+    	 *
+    	 * @private
+    	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+    	 *
+    	 * @returns {int} Page number
+    */
+
+    getPageNumber: function(page) {
+      var $page, data, nav, page_num, _i, _len, _ref;
+      data = this.data('monobombNavigator');
+      if (typeof page === 'object') {
+        $page = $(page);
+        page_num = 1;
+        _ref = data.$actual_navs;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          nav = _ref[_i];
+          if ($page.equals(nav)) {
+            break;
+          }
+          page_num++;
+        }
+        return page_num;
+      }
+      return parseInt(page);
+    },
+    /**
+    	 * Returns the jQuery object of the specified page
+    	 *
+    	 * @private
+    	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+    	 *
+    	 * @returns {object} Jquery object
+    */
+
+    getPageObject: function(page) {
+      var data;
+      if (typeof page === 'object') {
+        return $(page);
+      }
+      data = this.data('monobombNavigator');
+      return data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + parseInt(page) + ')');
     }
   };
 

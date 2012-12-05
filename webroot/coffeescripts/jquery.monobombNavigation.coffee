@@ -54,21 +54,20 @@ methods =
 	moveToPage: (page, force, callback) ->
 		data = this.data('monobombNavigator')
 
+		if typeof(page) is 'function'
+			callback = page
+			page = null
+
+		if typeof(force) is 'function'
+			callback = force
+			force = false
+
 		return if data.closed and not force
 
-		page = 1 if typeof(page) is 'undefined'
-
-		if typeof(page) is 'number'
-			$nav = data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + page + ')')
-		else if typeof(page) is 'object'
-			$nav = $(page)
-
-			page = 1
-			for nav in data.$actual_navs
-				break if $(nav).equals $nav
-				page++
-
+		page = 1 if not page
 		time = if force then 0 else 'slow'
+		$nav = private_.getPageObject.call(this, page)
+		page = private_.getPageNumber.call(this, page)
 
 		data.first_page = page
 		data.$inner_nav_wrapper.stop().animate
@@ -123,19 +122,7 @@ methods =
 
 		return if data.$main_nav_wrapper.position().left is data.original_left
 
-		if typeof(page) is 'object'
-			## find our new "viewing" page
-			$page = $(page)
-			data.viewing = 1
-
-			for nav in data.$actual_navs
-				if $page.equals nav
-					break
-				data.viewing++
-		else
-			callback = page
-
-		methods.moveToPage.call(this, data.viewing)
+		methods.moveToPage.call(this, page, callback)
 		data.$controls_nav.fadeOut 'slow'
 		data.$more.fadeIn('fast')
 		this.find('> article').add(this.find('.admin')).stop().animate
@@ -344,6 +331,49 @@ methods =
 
 		this
 
+private_ =
+	###*
+	 * @lends $.fn.monobombNavigator
+	###
+
+	###*
+	 * Returns the numberof the specified page
+	 *
+	 * @private
+	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+	 *
+	 * @returns {int} Page number
+	###
+	getPageNumber: (page) ->
+		data = this.data('monobombNavigator')
+
+		if typeof(page) is 'object'
+			## find our new "viewing" page
+			$page = $(page)
+			page_num = 1
+
+			for nav in data.$actual_navs
+				if $page.equals nav
+					break
+				page_num++
+
+			return page_num
+
+		parseInt(page)
+
+	###*
+	 * Returns the jQuery object of the specified page
+	 *
+	 * @private
+	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+	 *
+	 * @returns {object} Jquery object
+	###
+	getPageObject: (page) ->
+		return $(page) if typeof(page) is 'object'
+
+		data = this.data('monobombNavigator')
+		data.$inner_nav_wrapper.find(data.settings.inner_elements + ':nth-child(' + parseInt(page) + ')')
 
 ###*
  * monobombNavigator - handles navigation

@@ -13,12 +13,9 @@ class NewsController extends AppController {
             )
         ),
     );
-    public $paginate = array(
-        'limit' => 5
-    );
 
     function index() {
-        $this->set('posts', $this->paginate('Post'));
+        $this->set('posts', $this->Post->find('all', array('limit' => 5)));
         $this->set('postsList', $this->Post->find('navList'));
     }
 
@@ -36,10 +33,11 @@ class NewsController extends AppController {
     }
 
     function preview() {
+		/*
+		// TODO: make this work
         $this->autoRender = false;
         $response = array('success' => false);
 
-		// TODO: respond properly
         if (empty($this->data)) {
             $response['data'] = array('Error' => 'Empty data');
             $response['code'] = -1;
@@ -58,6 +56,7 @@ class NewsController extends AppController {
 
         $this->header('Content-Type: application/json');
         echo json_encode($response);
+		*/
     }
 
     function add() {
