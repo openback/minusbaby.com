@@ -110,24 +110,42 @@ methods =
 	 * Closes the navigator back to its original spot with the current or specified
 	 * page staying visible
 	 *
-	 * @example $(element).monobombNavigator('closeToPage', 2)
+	 * @example $(element).monobombNavigator('closeToPage', 2, false)
 	 *
 	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+	 * @param {boolean} [show_articles] Should we redisplay the articles?
 	 * @param {function} [callback] Callback
 	 *
 	 * @returns {object} Jquery object
 	###
-	closeToPage: (page, callback) ->
+	closeToPage: (page, show_articles, callback) ->
 		data = this.data('monobombNavigator')
 
 		return if data.$main_nav_wrapper.position().left is data.original_left
 
+		if typeof(page) is 'boolean'
+			callback = fade-articles
+			show_articles = page
+			page = null
+
+		if typeof(page)  is 'function'
+			callback = page
+			page = null
+			show_articles = true
+
+		if typeof(show_articles) is 'function'
+			callback = show_articles
+			show_articles = true
+
 		methods.moveToPage.call(this, page, callback)
 		data.$controls_nav.fadeOut 'slow'
 		data.$more.fadeIn('fast')
-		this.find('> article').add(this.find('.admin')).stop().animate
-			opacity: 100
-			'fast'
+
+		if show_articles
+			this.find('> article').add(this.find('.admin')).stop().animate
+				opacity: 100
+				'fast'
+
 		data.$main_nav_wrapper.stop().animate
 			left: data.original_left + 'px'
 			'slow'

@@ -124,7 +124,7 @@ bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
 			$page = $current.closest('nav')
 
 			if $content.monobombNavigator('isOpen')
-				$content.monobombNavigator('closeToPage', $page
+				$content.monobombNavigator('closeToPage', $page, false
 					, ->
 						$('.start-open').removeClass('start-open')
 				)

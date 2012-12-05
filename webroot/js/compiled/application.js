@@ -121,7 +121,7 @@
       $current.addClass('current');
       $page = $current.closest('nav');
       if ($content.monobombNavigator('isOpen')) {
-        $content.monobombNavigator('closeToPage', $page, function() {
+        $content.monobombNavigator('closeToPage', $page, false, function() {
           return $('.start-open').removeClass('start-open');
         });
       } else {
