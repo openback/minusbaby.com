@@ -95,6 +95,7 @@ addRowFromTable = (table) ->
 	# $table.find('tbody').append($row)
 	$table.trInsertSlideDown($row)
 
+# TODO: Just move this into the navigator
 bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
 	$outer_wrapper = $(outer_wrapper_selector)
 	$content = $('.content')
@@ -148,7 +149,10 @@ bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
 							$article.hide()
 							$(article_selector).replaceWith($article)
 							$loading.fadeOut('fast')
-							$article.fadeIn()
+							$article.fadeIn =>
+								height = $article.height()
+								$content.stop().animate
+									height: height + 140 + 'px'
 	)
 
 	$outer_wrapper.delegate('a', 'click', ->

@@ -140,13 +140,20 @@
           type: 'GET',
           url: state.url + '.json',
           success: function(response) {
-            var $article;
+            var $article,
+              _this = this;
             if (response.success) {
               $article = $(response.data);
               $article.hide();
               $(article_selector).replaceWith($article);
               $loading.fadeOut('fast');
-              return $article.fadeIn();
+              return $article.fadeIn(function() {
+                var height;
+                height = $article.height();
+                return $content.stop().animate({
+                  height: height + 140 + 'px'
+                });
+              });
             }
           }
         });

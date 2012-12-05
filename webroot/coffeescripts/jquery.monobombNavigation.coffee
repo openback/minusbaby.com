@@ -137,6 +137,8 @@ methods =
 			callback = show_articles
 			show_articles = true
 
+		show_articles = true if typeof(show_articles) isnt 'boolean'
+
 		methods.moveToPage.call(this, page, callback)
 		data.$controls_nav.fadeOut 'slow'
 		data.$more.fadeIn('fast')

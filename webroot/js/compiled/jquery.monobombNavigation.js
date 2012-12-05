@@ -145,6 +145,9 @@
         callback = show_articles;
         show_articles = true;
       }
+      if (typeof show_articles !== 'boolean') {
+        show_articles = true;
+      }
       methods.moveToPage.call(this, page, callback);
       data.$controls_nav.fadeOut('slow');
       data.$more.fadeIn('fast');
