@@ -1,18 +1,10 @@
 (function() {
-  var $, addRowFromTable, bindNavigatorLinks, flash_failure, pushState;
+  var $, addRowFromTable, bindNavigatorLinks, flash_failure;
 
   $ = jQuery;
 
   String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
-  };
-
-  pushState = function(title, path) {
-    if (typeof window.history.pushState === 'function') {
-      return window.history.pushState(null, title, path);
-    } else {
-      return window.location.hash = '#!' + path;
-    }
   };
 
   $.fn.equals = function(selector) {
@@ -338,7 +330,7 @@
       });
     }
     $news = $('.content.news');
-    if ($news.length) {
+    if ($news.length && typeof History.Adapter !== 'undefined') {
       bindNavigatorLinks('nav.posts', 'article.post', 'post');
     }
     $('table#videos tbody').disableSelection().sortable({
@@ -393,7 +385,7 @@
       }
     });
     $past_events = $('.past-events');
-    if ($past_events.length) {
+    if ($past_events.length && typeof History.Adapter !== 'undefined') {
       bindNavigatorLinks('nav.events', 'article.event', 'event');
     }
     if (jQuery.fn.autocomplete) {

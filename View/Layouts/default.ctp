@@ -19,8 +19,10 @@
 		<meta name="designer"   content="Richard Alexander Caraballo">
 		<meta name="viewport" content="width=device-width">
 		<?php echo $this->Html->meta('icon'); ?>
+
 		<!--[if lt IE 9]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+
 		<![endif]-->
 		<!--[if IE]>
 			<?php $this->Html->css('ie', null, array('media' => 'screen, projection', 'inline' => false)); ?>
@@ -43,7 +45,7 @@
 			$this->Html->script('jquery-1.8.3.min', array('block' => 'footJs'));
 			// $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', array('block' => 'footJs'));
 			$this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
-			$this->Html->script('jquery.history', array('block' => 'footJs'));
+			$this->Html->script('respond.min', array('block' => 'footJs'));
 
 			if (AuthComponent::user('id') != null) {
 				$this->Html->script('ckeditor/ckeditor', array('block' => 'footJs'));
@@ -108,6 +110,15 @@
 			<span class="copy">This website and its content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 Unported License</a>.</span>
 		</footer>
 		<?php echo $this->fetch('footJs'); ?>
+		<!--[if !IE]> -->
+			<?php echo $this->Html->script('jquery.history'); ?>
+
+		<!-- <![endif]-->
+
+		<!--[if (gte IE 6)&(lte IE 8)]>
+			<?php echo $this->Html->script('selectivizr-min'); ?>
+
+		<![endif]-->
 		<?php echo $this->fetch('pageJs'); ?>
 	</body>
 </html>

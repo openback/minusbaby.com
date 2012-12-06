@@ -2,12 +2,6 @@ $ = jQuery
 String.prototype.endsWith = (suffix) ->
 	this.indexOf(suffix, this.length - suffix.length) isnt -1
 
-pushState = (title, path) ->
-	if (typeof(window.history.pushState) == 'function')
-		window.history.pushState(null, title, path)
-	else
-		window.location.hash = '#!' + path
-
 $.fn.equals = (selector) ->
 	$(this).get(0) is $(selector).get(0)
 
@@ -345,7 +339,7 @@ $(document).ready ->
 	# News
 	$news = $('.content.news')
 
-	if $news.length
+	if $news.length and typeof History.Adapter isnt 'undefined'
 		bindNavigatorLinks('nav.posts', 'article.post', 'post')
 
 	# Video forms
@@ -391,7 +385,7 @@ $(document).ready ->
 	# Events
 	$past_events = $('.past-events')
 
-	if $past_events.length
+	if $past_events.length and typeof History.Adapter isnt 'undefined'
 		bindNavigatorLinks('nav.events', 'article.event', 'event')
 
 	# Events forms
