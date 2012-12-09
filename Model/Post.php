@@ -7,7 +7,6 @@ class Post extends AppModel {
     public $validate = array(
         'title' => array(
             'rule' => 'notEmpty',
-            'required' => true,
             'allowEmpty' => false,
         ),
         'date' => array(

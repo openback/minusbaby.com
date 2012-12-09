@@ -5,9 +5,10 @@ class EventsController extends AppController {
     public $helpers = array('CountryList', 'Time', 'Text');
     public $components = array(
         'Attachment' => array(
-            'rm_tmp_file' => true,
             'files_dir' => 'events',
             'allow_non_image_files' => false,
+            'rm_tmp_file' => false,
+			'max_file_size' => 3145728, /* in bytes */
             'images_size' => array(
                 'original' => true,
             )
@@ -25,7 +26,7 @@ class EventsController extends AppController {
 
     function index() {
         $this->set('current', $this->Event->find('current'));
-        $this->set('past', $this->Event->find('past'));
+        $this->set('eventList', $this->Event->find('eventList'));
     }
 
     function view($id = null) {
@@ -38,7 +39,7 @@ class EventsController extends AppController {
 			$this->set('event', $event);
 		} else {
 			$this->set('current', array($event));
-			$this->set('past', $this->Event->find('past'));
+			$this->set('eventList', $this->Event->find('eventList'));
 			$this->render('index');
 		}
     }

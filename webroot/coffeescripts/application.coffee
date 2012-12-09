@@ -286,13 +286,15 @@ $(document).ready ->
 			e.editor.on('blur', (ee) ->
 				editor = ee.editor
 
+				return if not editor.editable().isInline()
+
 				if editor.checkDirty()
 					# Got our data
 					$el = $(editor.element.$)
 					model = $el.attr('data-model')
 
 					# Get our hidden form
-					$form = $el.prev()
+					$form = $el.next()
 					$('[name="data[' + model + '][id]"]', $form).val($el.attr('data-id'))
 					$('[name="data[' + model + '][' + $el.attr('data-field') + ']"]', $form).val(ee.editor.getData())
 
@@ -307,6 +309,8 @@ $(document).ready ->
 						dataType: 'json'
 						success: (response) ->
 							console.log 'RESPONSE: ', response
+							if not response.success
+								alert('Sorry, there was a problem!')
 
 			)
 
@@ -329,6 +333,12 @@ $(document).ready ->
 			if $field.text() is $field.attr('data-label')
 				$field.text('')
 		)
+
+	if $.fn.datepicker
+		$('.datepicker').datepicker
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: "yy-mm-dd"
 
 	if $.fn.datetimepicker
 		$('.datetimepicker').datetimepicker

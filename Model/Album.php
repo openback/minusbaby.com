@@ -15,19 +15,15 @@ class Album extends AppModel {
     var $validate = array(
         'title' => array(
             'rule' => 'notEmpty',
-            'required' => true,
         ),
         'artist' => array(
             'rule' => 'notEmpty',
-            'required' => true,
         ),
         'release_date' => array(
             'rule' => 'date',
-            'required' => true,
         ),
         'formats' => array(
             'rule' => 'notEmpty',
-            'required' => true,
         ),
     );
 
@@ -67,15 +63,19 @@ class Album extends AppModel {
 	public function afterFind(array $results, $primary = false) {
 		foreach ($results as $key => $val) {
 			if (empty($val['Album']['thumbnail_file_path'])) {
-				$results[$key]['Album']['thumbnail_url'] = 'no_album_cover.png';
+			   if (empty($val['Album']['cover_file_path'])) {
+					$results[$key]['Album']['thumbnail_url'] = 'no_album_cover.png';
+				} else {
+					$results[$key]['Album']['thumbnail_url'] = '/attachments/album-covers/thumb/'.$val['Album']['cover_file_path'];
+				}
 			} else {
-				$results[$key]['Album']['thumbnail_url'] = '/attachments/album-covers/original/'.$val['Album']['thumbnail_file_path'];
+				$results[$key]['Album']['thumbnail_url'] = '/attachments/tmp/'.$val['Album']['thumbnail_file_path'];
 			}
 
 			if (empty($val['Album']['cover_file_path'])) {
 				$results[$key]['Album']['cover_url'] = 'no_album_cover.png';
 			} else {
-				$results[$key]['Album']['cover_url'] = '/attachments/album-covers/original/'.$val['Album']['cover_file_path'];
+				$results[$key]['Album']['cover_url'] = '/attachments/tmp/'.$val['Album']['cover_file_path'];
 			}
 
 		}

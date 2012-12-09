@@ -208,6 +208,8 @@ form {
 
 	textarea {
 		height: 15em;
+
+
 	}
 
 	input[type="checkbox"] {
@@ -868,6 +870,10 @@ footer {
 		clear: left;
 		width: 720px;
 	}
+
+	textarea {
+		height: 4em;
+	}
 }
 
 nav.articles,
@@ -1194,36 +1200,45 @@ nav.events {
 
 }
 
-// TODO: this causes twice as much CSS as is needed
-.content.events,
-.content.news {
-	.all-articles,
-	.all-events {
-		overflow: hidden;
-		position: absolute;
-		top: 0; left: 752px;
-		width: 4 * (210 + 16px);
-		z-index: 100;
+/* navigator styles */
+.content.events .all-events,
+.content.news .all-articles {
+	overflow: hidden;
+	position: absolute;
+	top: 0; left: 752px;
+	width: 4 * (210 + 16px);
+	z-index: 100;
 
-		&.start-open {
-			left: 0;
-		}
-
-		.inner-articles,
-		.past-events {
-			@include easyclearfix;
-			position: relative;
-			width: 1960px;
-		}
-
-		nav {
-			float: left;
-			margin-right: 16px;
-			width: 210px;
-
-		}
+	&.start-open {
+		left: 0;
 	}
 
+	.inner-articles,
+	.past-events {
+		@include easyclearfix;
+		position: relative;
+		width: 1960px;
+	}
+
+	nav {
+		float: left;
+		margin-right: 16px;
+		width: 210px;
+
+	}
+
+	h1 {
+		margin-bottom: 16px;
+	}
+
+	h2 {
+		line-height: 1em;
+		margin-bottom: 16px;
+	}
+}
+
+.content.events,
+.content.news {
 	.loading {
 		display: none;
 		padding: 64px 0;
@@ -1263,6 +1278,7 @@ nav.events {
 		display: none;
 	}
 }
+/* end navigator styles */
 
 .content.venues {
 	ul {

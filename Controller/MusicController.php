@@ -5,11 +5,13 @@ class MusicController extends AppController {
     var $components = array(
         'Attachment' => array(
             'files_dir' => 'album-covers',
-            'rename_files' => false,
-            'rm_tmp_file' => true,
+            'rename_files' => true,
+            'rm_tmp_file' => false,
             'allow_non_image_files' => false,
+			'max_file_size' => 3145728, /* in bytes */
             'images_size' => array(
-                'original' => true,
+                'large' => array(460, null, null),
+				'thumb' => array(230, 246, 'resizeCrop')
             ),
         ),
     );
@@ -62,19 +64,19 @@ class MusicController extends AppController {
     function add() {
         if (!empty($this->request->data)) {
 			$this->removeEmptySongs();
+			print_r($this->request->data);
             $this->Album->create();
 
-            if (!$this->_saveFiles())
-				return;
+            if ($this->_saveFiles()) {
+				unset($this->Album->Song->validate['album_id']);
 
-			unset($this->Album->Song->validate['album_id']);
-
-			// And now we can save it
-			if ($this->Album->saveAll($this->request->data, array('validate' => 'first'))) {
-				$this->Session->setFlash('The album was created succesfully.', 'flash_success');
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash('There was a problem creating the album.', 'flash_failure');
+				// And now we can save it
+				if ($this->Album->saveAll($this->request->data, array('validate' => 'first'))) {
+					$this->Session->setFlash('The album was created succesfully.', 'flash_success');
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash('There was a problem creating the album.', 'flash_failure');
+				}
 			}
         }
 
@@ -223,7 +225,7 @@ class MusicController extends AppController {
 		foreach ($this->request->data['Song'] as $id => $song) {
 			// Then check all of the actual fields
 			$this->Song->create($song);
-			if ($this->Song->isEmpty(array('song.name'), array('delete'))) {
+			if ($this->Song->isEmpty(array('song.name'), array('album_id', 'downloads', 'delete', 'song'))) {
 				unset($this->request->data['Song'][$id]);
 			}
 		}

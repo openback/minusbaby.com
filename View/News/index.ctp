@@ -4,6 +4,7 @@ $id = ($this->request->params['action'] == 'view') ? $this->request->params['pas
 $this->Pixelpod->monobombNavigation('.all-articles', '.inner-articles', 'nav');
 ?>
 <div class="all-articles">
+	<h1>News</h1>
 	<div class="inner-articles">
 <?php
     $currentYear = '';
@@ -12,37 +13,29 @@ $this->Pixelpod->monobombNavigation('.all-articles', '.inner-articles', 'nav');
         $thisPostYear = $this->Time->format('Y', $posts[0]['Post']['date']);
 	}
 
-    foreach($postsList as $post) {
+    foreach($postsList as $post):
         $post = $post['Post'];
         $row = '';
         $year = '';
         $postYear = $this->Time->format('Y', $post['date']);
 		$class = ($id == $post['id']) ? ' current' : null;
 
-        if ($postYear != $currentYear) {
+        if ($postYear != $currentYear):
 			if ($currentYear != '') {
 				echo '</ul></nav>';
 			}
 
-			if (isset($thisPostYear) && ($thisPostYear == $postYear)) {
-				// This is a 'view page, so slight difference'
-				echo '<nav class="posts first-page">';
-			} else {
-				echo '<nav class="posts">';
-			}
-
+			$nav_class = (isset($thisPostYear) && ($thisPostYear == $postYear)) ? ' first-page' : '';
             $currentYear = $postYear;
-			echo $this->html->tag('h1', 'Posts ' . $this->Html->tag('strong', $postYear));
-			echo '<ul>';
-        }
-
-		?>
-			<li><a id="post-<?php echo $post['id']; ?>" href="<?php echo $this->Html->url(array('action' => 'view', $post['id'], $post['slug'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $post['title']; ?></span><?php echo $this->Pixelpod->time(null, $post['date']); ?></a></li>
-		<?php
-	}
-
-	echo '</ul></nav>';
 ?>
+		<nav class="posts<?php echo $nav_class; ?>">
+			<h2><strong><?php echo $postYear; ?></strong></h2>
+			<ul>
+<?php   endif; ?>
+			<li><a id="post-<?php echo $post['id']; ?>" href="<?php echo $this->Html->url(array('action' => 'view', $post['id'], $post['slug'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $post['title']; ?></span><?php echo $this->Pixelpod->time(null, $post['date']); ?></a></li>
+<?php endforeach; ?>
+			</ul>
+		</nav>
 	</div>
 </div>
 <nav class="pager"><a class="back" href="#">&lt;</a><a class="close" href="#">X</a><a class="forward" href="#">&gt;</a></nav>

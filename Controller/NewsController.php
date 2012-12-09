@@ -6,10 +6,11 @@ class NewsController extends AppController {
     public $components = array(
         'Attachment' => array(
             'files_dir' => 'news',
-            'rm_tmp_file' => true,
+            'rm_tmp_file' => false,
             'allow_non_image_files' => false,
+			'max_file_size' => 3145728, /* in bytes */
             'images_size' => array(
-                'original' => true,
+				'large' => array(720, null, null)
             )
         ),
     );
@@ -38,14 +39,14 @@ class NewsController extends AppController {
         $this->autoRender = false;
         $response = array('success' => false);
 
-        if (empty($this->data)) {
+        if (empty($this->request->data)) {
             $response['data'] = array('Error' => 'Empty data');
             $response['code'] = -1;
         } else {
-            $this->Post->create($this->data);
+            $this->Post->create($this->request->data);
 
             if ($this->Post->validates(array('ignore_image' => true))) {
-                $this->set('post', $this->data);
+                $this->set('post', $this->request->data);
                 $this->render('preview');
                 return;
             } else {
@@ -60,19 +61,19 @@ class NewsController extends AppController {
     }
 
     function add() {
-        if (empty($this->data))
+        if (empty($this->request->data))
 			return;
 
 		$this->Pixelpod->redirectIfCancel();
 
-		if (!empty($this->data['Post']['post']['name'])) {
-			if (! $this->Attachment->upload($this->data['Post'])) {
+		if (!empty($this->request->data['Post']['post']['name'])) {
+			if (! $this->Attachment->upload($this->request->data['Post'])) {
 				$this->Session->setFlash('There was a problem saving the image.', 'flash_failure');
 				return;
 			}
 		}
 
-		if ($this->Post->save($this->data)) {
+		if ($this->Post->save($this->request->data)) {
 			$this->Session->setFlash('Your post was successfully created.', 'flash_success');
 			$this->redirect(array('action' => 'view', $this->Post->id, $this->Post->field('slug')));
 		} else {
@@ -81,18 +82,25 @@ class NewsController extends AppController {
     }
 
     function edit($id = null) {
+		if ($this->request->is('ajax')) {
+			return $this->Pixelpod->handleAjaxEdit('Post', $id);
+		}
+
 		$this->Post->id = $id;
         if (!$this->Post->exists())
             throw new NotFoundException();
 
-		if (empty($this->data)) {
-			$this->data = $this->Post->read();
+		if (empty($this->request->data)) {
+			$this->request->data = $this->Post->read();
 			return;
 		}
 
 		$this->Pixelpod->redirectIfCancel(array('action' => 'view', $id, $this->Post->field('slug')));
 
-		if (!empty($this->data['Post']['delete_image'])) {
+		$this->log(1);
+		$this->log($this->request->data);
+
+		if (!empty($this->request->data['Post']['delete_image'])) {
 			// need to delete the image, so make sure we grab the original
 			$originalPost = $this->Post->findById($id);
 
@@ -102,19 +110,21 @@ class NewsController extends AppController {
 			}
 
 			// Remove the image from the new data
-			$this->data['Post']['post_file_path'] = null;
-			$this->data['Post']['post_file_name'] = null;
-			$this->data['Post']['post_file_size'] = null;
-			$this->data['Post']['content_type'] = null;
-
-		} elseif (!empty($this->data['Post']['post']['name'])) {
-			if (!$this->Attachment->upload($this->data['Post'])) {
-				$this->Session->setFlash('There was an error saving the image.','flash_failure');
+			$this->request->data['Post']['post_file_path'] = null;
+			$this->request->data['Post']['post_file_name'] = null;
+			$this->request->data['Post']['post_file_size'] = null;
+			$this->request->data['Post']['content_type'] = null;
+		} elseif (!empty($this->request->data['Post']['post']['name'])) {
+			if (!$this->Attachment->upload($this->request->data['Post'])) {
+				$this->Session->setFlash("There was an error saving the image: {$this->Post->validationErrors['post_file_name']}",'flash_failure');
 				return;
 			}
 		}
 
-		if ($this->Post->save($this->data)) {
+		$this->log(2);
+		$this->log($this->request->data);
+
+		if ($this->Post->save($this->request->data)) {
 			$this->Session->setFlash('The post was updated successfully.','flash_success');
 			$this->redirect(array('action' => 'view', $id, $this->Post->field('slug')));
 		} else {

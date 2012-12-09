@@ -280,10 +280,13 @@
         return e.editor.on('blur', function(ee) {
           var $el, $form, data, editor, model, url;
           editor = ee.editor;
+          if (!editor.editable().isInline()) {
+            return;
+          }
           if (editor.checkDirty()) {
             $el = $(editor.element.$);
             model = $el.attr('data-model');
-            $form = $el.prev();
+            $form = $el.next();
             $('[name="data[' + model + '][id]"]', $form).val($el.attr('data-id'));
             $('[name="data[' + model + '][' + $el.attr('data-field') + ']"]', $form).val(ee.editor.getData());
             data = $form.serialize();
@@ -294,7 +297,10 @@
               data: data,
               dataType: 'json',
               success: function(response) {
-                return console.log('RESPONSE: ', response);
+                console.log('RESPONSE: ', response);
+                if (!response.success) {
+                  return alert('Sorry, there was a problem!');
+                }
               }
             });
           }
@@ -320,6 +326,13 @@
         if ($field.text() === $field.attr('data-label')) {
           return $field.text('');
         }
+      });
+    }
+    if ($.fn.datepicker) {
+      $('.datepicker').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd"
       });
     }
     if ($.fn.datetimepicker) {

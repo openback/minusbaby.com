@@ -49,7 +49,7 @@ class Event extends AppModel {
 
 	public $findMethods = array(
 		'current' => true,
-		'past' => true
+		'eventList' => true
 	);
 
     var $order = 'start_time DESC';
@@ -64,11 +64,8 @@ class Event extends AppModel {
 		return $results;
 	}
 
-    protected function _findPast($state, $query, $results = array()) {
+    protected function _findeventList($state, $query, $results = array()) {
 		if ($state == 'before') {
-			$query['conditions'] = array(
-				'start_time <' => date('Y-m-d H:i:s', strtotime('-4 hour')),
-			);
 			$query['fields'] = array('start_time', 'title');
 			$query['recursive'] = 0;
 			return $query;

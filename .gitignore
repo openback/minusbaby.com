@@ -15,5 +15,6 @@ webroot/attachments/events/*
 webroot/attachments/mp3/*
 webroot/attachments/news/*
 webroot/attachments/photos/*
+webroot/attachments/tmp/*
 webroot/audio/*
 

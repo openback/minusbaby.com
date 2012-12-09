@@ -38,6 +38,8 @@
 
 
 (function() {
+  "methods:nomunge, private_: nomunge";
+
   var $, methods, private_;
 
   $ = jQuery;

@@ -13,6 +13,9 @@
 	$address[] = $event['Venue']['country'];
 
 	$address = str_replace(', ,', ',', implode(', ', $address));
+	if (strpos($address, ', ') === 0) {
+		$address = substr($address, 2);
+	}
 
 	$participants = 'crashfaster';
 
@@ -52,7 +55,7 @@
 	</div>
 	<div class="participants"><?php echo $participants; ?></div>
 	<figure>
-		<?php echo $this->Html->image('/attachments/events/original/'.$event['Event']['event_file_path'], array('width' => 460)); ?>
+		<?php echo $this->Html->image('/attachments/tmp/'.$event['Event']['event_file_path'], array('width' => 460)); ?>
 		<figcaption><?php echo $this->Pixelpod->makeEditable('div', $event, 'events', 'Event', 'description'); ?></figcaption>
 	</figure>
 <?php if (AuthComponent::user('id') != null) { ?>

@@ -40,8 +40,10 @@ class AppModel extends Model {
 			if (in_array($field, $ignoreFields))
 				continue;
 
-			if (Dot::get($this->data[$this->name], $field) != null)
+			if (Dot::get($this->data[$this->name], $field) != null) {
+				echo "Field: {$field}\n";
 				return false;
+			}
 		}
 
 		return true;
