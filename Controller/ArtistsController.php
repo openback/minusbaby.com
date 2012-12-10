@@ -17,16 +17,17 @@ class ArtistsController extends AppController {
 			$this->Pixelpod->redirectIfCancel(array('controller' => 'about'));
 
 			$deleteSuccessful = true;
-
 			$toDelete = array();
 			$artists = array();
 
 			foreach($this->request->data['Artist'] as $artist) {
+				$this->Artist->create($artist);
+
+				if ($this->Artist->isEmpty(null, array('hidden', 'sort_order', 'show_in_contact')))
+					continue;
+
 				if (array_key_exists('delete', $artist) && $artist['delete']) {
-					if (!$this->Artist->delete($artist['id'])) {
-						if (!$deleteSuccessful) {
-							$this->Session->setFlash('Not all Artists were deleted succesfully. Please try again.', 'error');
-						}
+					if (!$this->Artist->delete()) {
 						$deleteSuccessful = false;
 						// it didn't delete, so leave it in our data array
 						$artists[] = $artist;
@@ -38,8 +39,21 @@ class ArtistsController extends AppController {
 
 			$this->request->data['Artist'] = $artists;
 
-			if ($this->Artist->saveMany($this->request->data['Artist']) && $deleteSuccessful) {
-				$this->Session->setFlash('The Artists were saved successfully.');
+			if (!$deleteSuccessful) {
+				$this->Session->setFlash('Not all Artists were deleted succesfully. Please try again.', 'error');
+				return;
+			}
+
+			if (!empty($artists)) {
+				if ($this->Artist->saveMany($this->request->data['Artist']) && $deleteSuccessful) {
+					$this->Session->setFlash('The Artists were saved successfully.');
+					$this->redirect(array('controller' => 'about'));
+				} else {
+					$this->Session->setFlash('There was a problem saving the artist. Please try again.', 'error');
+				}
+			} else {
+				$this->Session->setFlash('The artists were saved successfully.');
+				$this->redirect(array('controller' => 'about'));
 			}
 		} else {
 			$artists = $this->Artist->find('all');

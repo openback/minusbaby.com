@@ -5,7 +5,10 @@
 	<table class="sites">
 		<thead><td></td><td>Name</td><td>URL</td><td>Hide</td><td>Delete</td></thead>
 		<tbody>
-		<?php foreach ($this->request->data['Site'] as $idx => $site): ?>
+			<?php
+				if (!empty($this->request->data['Site'])) {
+					foreach ($this->request->data['Site'] as $idx => $site):
+			?>
 			<tr>
 				<td><div class="drag"></div></td>
 				<td>
@@ -25,7 +28,21 @@
 					<?php } ?>
 				</td>
 			</tr>
-		<?php endforeach; ?>
+			<?php
+					endforeach;
+				} else {
+			?>
+			<tr>
+				<td><div class="drag"></div></td>
+				<td>
+					<?php echo $this->Form->input("Site.0.sort_order", array('label' => false, 'div' => false, 'class' => 'hidden', 'value' => 0)); ?>
+					<?php echo $this->Form->input("Site.0.name", array('label' => false)); ?>
+				</td>
+				<td><?php echo $this->Form->input("Site.0.url", array('type' => 'url', 'label' => false)); ?></td>
+				<td><?php echo $this->Form->input("Site.0.hidden", array('type' => 'checkbox', 'label' => false)); ?>
+				<td></td>
+			</tr>
+			<?php } ?>
 		</tbody>
 	</table>
 	<a href="#" class="add-row-from-table wide-link" data-table-selector=".sites">Add Site</a>

@@ -59,6 +59,7 @@
 		?>
 	  </head>
 	  <body>
+		<?php /** We're not using this yet
 		<div id="monobomb">
 			<nav>
 				<a class="label" href="http://monobomb.com"><span class="logo"></span>monobomb records</a>
@@ -77,6 +78,7 @@
 				</div>
 			</nav>
 		</div>
+		 */ ?>
 		<div class="wrapper">
 			<nav class="main">
 				<ul class="main-menu">

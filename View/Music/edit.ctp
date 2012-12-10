@@ -80,8 +80,8 @@
 			<thead><tr><th>URL or filename</th><th>#</th><th>Length</th><th>Artist</th><th>Title</th><th>Upload</th><th class="remove">X</th></tr></thead>
 			<tbody>
 <?php
-if (!empty($this->data['Song'])) {
-    foreach($this->data['Song'] as $index => $song) {
+if (!empty($this->request->data['Song'])) {
+    foreach($this->request->data['Song'] as $index => $song) {
 ?>
 				<tr>
 					<td>
