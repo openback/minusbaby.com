@@ -155,7 +155,7 @@ class EventsController extends AppController {
     }
 
     function delete($id) {
-        $event = $this->Event->findbyId($id);
+        $event = $this->Event->findById($id);
         $filename = $event['Event']['event_file_path'];
 
         if ($this->Event->delete($id)) {

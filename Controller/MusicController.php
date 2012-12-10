@@ -1,19 +1,27 @@
 <?php
 class MusicController extends AppController {
-    var $uses = array('Album', 'Song');
-    var $helpers = array('Time', 'CountryList');
-    var $components = array(
-        'Attachment' => array(
-            'files_dir' => 'album-covers',
-            'rename_files' => true,
-            'rm_tmp_file' => false,
-            'allow_non_image_files' => false,
-			'max_file_size' => 3145728, /* in bytes */
-            'images_size' => array(
-                'large' => array(460, null, null),
-				'thumb' => array(230, 246, 'resizeCrop')
-            ),
-        ),
+    public $uses = array('Album', 'Song');
+    public $helpers = array('Time', 'CountryList');
+    private $fullAttachmentConfig = array(
+		'files_dir' => 'album-covers',
+		'rename_files' => true,
+		'rm_tmp_file' => false,
+		'allow_non_image_files' => false,
+		'max_file_size' => 3145728, /* in bytes */
+		'images_size' => array(
+			'large' => array(460, null, null),
+			'thumb' => array(230, 246, 'resizeCrop')
+		)
+    );
+    private $thumbAttachmentConfig = array(
+		'files_dir' => 'album-covers',
+		'rename_files' => true,
+		'rm_tmp_file' => false,
+		'allow_non_image_files' => false,
+		'max_file_size' => 3145728, /* in bytes */
+		'images_size' => array(
+			'thumb' => array(230, 246, 'resizeCrop')
+		)
     );
 
     function index() {
@@ -64,7 +72,6 @@ class MusicController extends AppController {
     function add() {
         if (!empty($this->request->data)) {
 			$this->removeEmptySongs();
-			print_r($this->request->data);
             $this->Album->create();
 
             if ($this->_saveFiles()) {
@@ -116,30 +123,42 @@ class MusicController extends AppController {
         $songs_to_delete = array();
 
         if (isset($this->request->data['Album']['delete_cover'])) {
+			$this->Attachment = $this->Components->load('Attachment', $this->fullAttachmentConfig);
             $this->Attachment->delete_files($this->request->data['Album']['cover_file_path']);
-            $this->Attachment->delete_files($this->request->data['Album']['thumbnail_file_path']);
 
             $this->request->data['Album']['cover_file_path'] = null;
             $this->request->data['Album']['cover_file_name'] = null;
             $this->request->data['Album']['cover_file_size'] = null;
             $this->request->data['Album']['cover_content_type'] = null;
+			$this->Components->unload('Attachment');
+
+			$this->Attachment = $this->Components->load('Attachment', $this->thumbAttachmentConfig);
+            $this->Attachment->delete_files($this->request->data['Album']['thumbnail_file_path']);
             $this->request->data['Album']['thumbnail_file_path'] = null;
             $this->request->data['Album']['thumbnail_file_name'] = null;
             $this->request->data['Album']['thumbnail_file_size'] = null;
             $this->request->data['Album']['thumbnail_content_type'] = null;
         } else {
             if (!empty($this->request->data['Album']['cover']['name'])) {
+				$this->Attachment = $this->Components->load('Attachment', $this->fullAttachmentConfig);
+
                 if(!$this->Attachment->upload($this->request->data['Album'],'cover')) {
                     $this->Session->setFlash('There was a problem saving the cover.', 'flash_failure');
                     return false;
                 }
+
+				$this->Components->unload('Attachment');
             }
 
             if (!empty($this->request->data['Album']['thumbnail']['name'])) {
+				$this->Attachment = $this->Components->load('Attachment', $this->thumbAttachmentConfig);
+
                 if (!$this->Attachment->upload($this->request->data['Album'], 'thumbnail')) {
                     $this->Session->setFlash('There was a problem saving the thumbnail.', 'flash_failure');
                     return false;
                 }
+
+				$this->Components->unload('Attachment');
             }
         }
 

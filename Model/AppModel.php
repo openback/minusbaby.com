@@ -41,7 +41,6 @@ class AppModel extends Model {
 				continue;
 
 			if (Dot::get($this->data[$this->name], $field) != null) {
-				echo "Field: {$field}\n";
 				return false;
 			}
 		}

@@ -133,7 +133,7 @@ class NewsController extends AppController {
     }
 
     function delete($id) {
-        $post = $this->Post->findbyId($id);
+        $post = $this->Post->findById($id);
         $filename = $post['Post']['post_file_path'];
 
         if ($this->Post->delete($id)) {

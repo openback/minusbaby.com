@@ -139,6 +139,9 @@
               $article.hide();
               $(article_selector).replaceWith($article);
               $loading.fadeOut('fast');
+              $('> .admin', $content).animate({
+                opacity: 1
+              });
               return $article.fadeIn(function() {
                 var height;
                 height = $article.height();

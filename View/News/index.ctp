@@ -2,6 +2,8 @@
 $id = ($this->request->params['action'] == 'view') ? $this->request->params['pass'][0] : null;
 
 $this->Pixelpod->monobombNavigation('.all-articles', '.inner-articles', 'nav');
+
+if (!empty($postsList)) {
 ?>
 <div class="all-articles">
 	<h1>News</h1>
@@ -40,6 +42,9 @@ $this->Pixelpod->monobombNavigation('.all-articles', '.inner-articles', 'nav');
 </div>
 <nav class="pager"><a class="back" href="#">&lt;</a><a class="close" href="#">X</a><a class="forward" href="#">&gt;</a></nav>
 <a class="more" href="#">MORE</a>
+<?php
+}
+?>
 <?php if (AuthComponent::user('id') != null): ?>
 <div class="admin">
 	<a href="<?php echo $this->Html->url(array('action' => 'add')); ?>" class="wide-link">NEW POST</a>

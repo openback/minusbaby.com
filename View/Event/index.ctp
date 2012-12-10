@@ -1,5 +1,5 @@
 <?php
-$start_open = (empty($current))? ' start-open' : '';
+$start_open = (empty($current) && !empty($eventList))? ' start-open' : '';
 $id = ($this->request->params['action'] == 'view') ? $this->request->params['pass'][0] : null;
 
 $this->Pixelpod->monobombNavigation('.all-events', '.past-events', 'nav');
@@ -57,7 +57,7 @@ if (empty($current)) {
 	}
 }
 
-if ($this->Session->check('Auth.User')) {
+if (AuthComponent::user('id') != null) {
 ?>
 <div class="admin <?php echo $start_open; ?>">
 	<a href="<?php echo $this->Html->url(array('action' => 'add')); ?>" class="wide-link">ADD NEW EVENT</a>

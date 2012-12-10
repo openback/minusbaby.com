@@ -143,6 +143,7 @@ bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
 							$article.hide()
 							$(article_selector).replaceWith($article)
 							$loading.fadeOut('fast')
+							$('> .admin', $content).animate {opacity: 1}
 							$article.fadeIn =>
 								height = $article.height()
 								$content.stop().animate

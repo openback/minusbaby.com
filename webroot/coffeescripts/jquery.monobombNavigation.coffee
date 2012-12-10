@@ -331,6 +331,9 @@ methods =
 		if data.closed and ($first_page = this.find('.first-page')).length
 			methods.moveToPage.call(this, $first_page, true)
 
+		if data.nav_count < 2
+			data.$more.hide()
+
 		methods.setButtons.apply(this)
 
 		# Set up our navigation events

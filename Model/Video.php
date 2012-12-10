@@ -75,7 +75,6 @@ EOV;
 			} elseif (strpos($this->data['Video']['url'], 'vimeo') !== false) {
 				$vimeo_id = (int) substr(parse_url($this->data['Video']['url'], PHP_URL_PATH), 1);
 				$video = unserialize(file_get_contents("http://vimeo.com/api/v2/video/$vimeo_id.php"));
-				print_r($video);
 				$this->data['Video']['thumbnail_url'] =  $video[0]['thumbnail_medium'];
 				$this->data['Video']['title'] =  $video[0]['title'];
 				$this->data['Video']['description'] =  $video[0]['description'];

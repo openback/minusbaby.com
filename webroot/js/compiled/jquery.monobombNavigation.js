@@ -343,6 +343,9 @@
       if (data.closed && ($first_page = this.find('.first-page')).length) {
         methods.moveToPage.call(this, $first_page, true);
       }
+      if (data.nav_count < 2) {
+        data.$more.hide();
+      }
       methods.setButtons.apply(this);
       data.$more.click(function() {
         methods.openToPage.apply(_this);
