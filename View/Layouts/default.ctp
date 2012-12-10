@@ -9,7 +9,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<?php echo $this->Html->charset(); ?>
-		<title><?php SITE_TITLE; ?> &bull; <?php echo $title_for_layout?></title>
+		<title><?php echo SITE_TITLE; ?> &bull; <?php echo $title_for_layout?></title>
 		<meta name="description" content="">
 		<meta name="author" content="Richard Caraballo,Timothy Caraballo">
 		<meta name="keywords" content="<?php echo DEFAULT_ARTIST; ?>,monobomb,chiptune,music,label,chipmusic,xix">

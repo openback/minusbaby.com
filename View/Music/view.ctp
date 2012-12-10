@@ -26,6 +26,8 @@
 		<dd><?php echo $this->Pixelpod->time($album['Album']['release_date']); ?></dd>
 		<dt>Artist</dt>
 		<dd><?php echo $album['Album']['artist']; ?></dd>
+		<dt>Label</dt>
+		<dd><?php echo $this->Pixelpod->link_if(!empty($album['Album']['label_url']), $album['Album']['label'], $album['Album']['label_url'], array('escape' => false)); ?></dd>
 		<?php if (count($album['Song'])) { ?>
 		<dt>Listen</dt>
 		<dd>

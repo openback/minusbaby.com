@@ -35,8 +35,6 @@
 				);
 			?>
 		</div>
-		<?php // echo $this->Form->input('label'); ?>
-		<?php // echo $this->Form->input('label_url', array('type' => 'text', 'label' => 'Label URL')); ?>
 		<?php // echo $this->Form->input('catalog_number'); ?>
 		<div class="col-2">
 			<?php echo $this->Form->input('release_date',
@@ -59,6 +57,10 @@
 					);
 				?>
 			</div>
+		</div>
+		<div class="col-2">
+			<?php echo $this->Form->input('label'); ?>
+			<?php echo $this->Form->input('label_url', array('type' => 'url', 'label' => 'Label URL')); ?>
 		</div>
 		<?php // echo $this->Form->input('formats'); ?>
 		<?php // echo $this->CountryList->select('Album.country',
