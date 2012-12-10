@@ -302,6 +302,23 @@ LOCK TABLES `videos` WRITE;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+--
+-- Table structure for table `performers`
+--
+
+DROP TABLE IF EXISTS `performers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `performers` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `event_id` int(32) NOT NULL DEFAULT '0',
+  `name` varchar(140) NOT NULL DEFAULT '',
+  `url` text,
+  `role` enum('artist','visualist') DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
