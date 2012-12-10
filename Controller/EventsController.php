@@ -1,7 +1,7 @@
 <?php
 class EventsController extends AppController {
     public $name = 'Event';
-    public $uses = array('Event','Performer', 'Venue');
+    public $uses = array('Event', 'Venue');
     public $helpers = array('CountryList', 'Time', 'Text');
     public $components = array(
         'Attachment' => array(
@@ -119,7 +119,7 @@ class EventsController extends AppController {
 		if (isset($this->request->data['Performer'])) {
 			foreach($this->request->data['Performer'] as $index => &$performer) {
 				if (isset($performer['delete']) && $performer['delete']) {
-					if ($this->Performer->delete($performer['id'])) {
+					if ($this->Event->Performer->delete($performer['id'])) {
 						// remove it from the data so it doesn't get created again
 						unset($this->request->data['Performer'][$index]);
 					} else {
@@ -176,8 +176,8 @@ class EventsController extends AppController {
 			return;
 		}
 		foreach($this->request->data['Performer'] as $idx => $performer) {
-			$this->Performer->create($performer);
-			if ($this->Performer->isEmpty(null, array('event_id', 'role', 'delete'))) {
+			$this->Event->Performer->create($performer);
+			if ($this->Event->Performer->isEmpty(null, array('event_id', 'role', 'delete'))) {
 				unset($this->request->data['Performer'][$idx]);
 			}
 		}
