@@ -2,9 +2,9 @@
 App::uses('CakeEmail', 'Network/Email');
 
 class ContactController extends AppController {
-    var $name = 'Contact';
-	var $uses = array('Artist', 'Contact', 'Site');
-    var $components = array(
+    public $name = 'Contact';
+	public $uses = array('Artist', 'Contact', 'Site');
+    public $components = array(
         'MathCaptcha' => array(
             'maxnumber' => 10,
         ),
@@ -17,12 +17,12 @@ class ContactController extends AppController {
 			if ($this->MathCaptcha->validates($this->request->data['Contact']['captcha'])) {
 				if ($this->Contact->validates()) {
 					$email = new CakeEmail('mailer');
-                    $email->from($this->request->data['Contact']['email']);
-                    $email->replyTo($this->request->data['Contact']['email']);
-                    $email->subject(DEFAULT_ARTIST.'.com message from ' . $this->request->data['Contact']['name']);
+                    $email->replyTo(array($this->request->data['Contact']['email'] => $this->request->data['Contact']['name']));
+					$email->subject($this->request->data['Contact']['subject']);
+					$body_pre = "The following was sent from the " . DEFAULT_ARTIST . ".com contact form:\n";
 
 					try {
-						if ($email->send($this->request->data['Contact']['body'])) {
+						if ($email->send($body_pre . $this->request->data['Contact']['body'])) {
 							$this->Session->setFlash('Thanks for your email!', 'flash_success');
 						} else {
 							$this->data['Contact']['captcha'] = null;
