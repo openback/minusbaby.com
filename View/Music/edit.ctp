@@ -5,52 +5,72 @@
 		<?php echo $this->Form->input('id'); ?>
 		<?php echo $this->Form->hidden('cover_file_path'); ?>
 		<?php echo $this->Form->hidden('thumbnail_cover_path'); ?>
-		<?php echo $this->Form->input('title'); ?>
-		<?php echo $this->Form->input('artist'); ?>
-		<div class="input select">
-			<label for="AlbumType">Type</label>
-			<?php echo $this->Form->select('type',
+		<div class="col-2">
+			<?php echo $this->Form->input('title'); ?>
+			<?php echo $this->Form->input('artist'); ?>
+		</div>
+		<div class="flier">
+			<?php echo $this->Form->input('cover', array('type' => 'file', 'label' => 'Cover')); ?>
+			<?php echo $this->Form->input('delete_cover',
 					array(
-						'EP' => 'EP',
-						'LP' => 'LP',
-						'Compilation' => 'Compilation',
-						'Appears on' => 'Appears on'
-					),
-					array('empty' => false)
+						'type' => 'checkbox',
+						'value' => 1,
+						'hiddenField' => false,
+						'label' => 'Delete Cover',
+						'class' => 'delete',
+					)
 				);
 			?>
 		</div>
-		<?php echo $this->Form->input('cover', array('type' => 'file', 'label' => 'Cover')); ?>
-		<?php echo $this->Form->input('thumbnail', array('type' => 'file', 'label' => 'Thumbnail')); ?>
-		<?php echo $this->Form->input('delete_cover',
-				array(
-					'type' => 'checkbox',
-					'value' => 1,
-					'hiddenField' => false,
-					'label' => 'Delete Cover',
-					'class' => 'delete',
-				)
-			);
+		<div class="flier">
+			<?php echo $this->Form->input('thumbnail', array('type' => 'file', 'label' => 'Thumbnail')); ?>
+			<?php echo $this->Form->input('delete_thumbnail',
+					array(
+						'type' => 'checkbox',
+						'value' => 1,
+						'hiddenField' => false,
+						'label' => 'Delete Thumb',
+						'class' => 'delete',
+					)
+				);
+			?>
+		</div>
+		<?php // echo $this->Form->input('label'); ?>
+		<?php // echo $this->Form->input('label_url', array('type' => 'text', 'label' => 'Label URL')); ?>
+		<?php // echo $this->Form->input('catalog_number'); ?>
+		<div class="col-2">
+			<?php echo $this->Form->input('release_date',
+					array(
+						'type' => 'text',
+						'class' => 'datepicker'
+					)
+				);
+			?>
+			<div class="input select">
+				<label for="AlbumType">Type</label>
+				<?php echo $this->Form->select('type',
+						array(
+							'EP' => 'EP',
+							'LP' => 'LP',
+							'Compilation' => 'Compilation',
+							'Appears on' => 'Appears on'
+						),
+						array('empty' => false)
+					);
+				?>
+			</div>
+		</div>
+		<?php // echo $this->Form->input('formats'); ?>
+		<?php // echo $this->CountryList->select('Album.country',
+			  //   	array(
+			  //   		'label' => 'Country',
+			  //   	)
+			  //   );
 		?>
-		<?php echo $this->Form->input('label'); ?>
-		<?php echo $this->Form->input('label_url', array('type' => 'text', 'label' => 'Label URL')); ?>
-		<?php echo $this->Form->input('catalog_number'); ?>
-		<?php echo $this->Form->input('release_date',
-				array(
-					'type' => 'text',
-					'class' => 'datepicker'
-				)
-			);
-		?>
-		<?php echo $this->Form->input('formats'); ?>
-		<?php echo $this->CountryList->select('Album.country',
-				array(
-					'label' => 'Country',
-				)
-			);
-		?>
-		<?php echo $this->Form->input('url', array('type' => 'text', 'label' => 'Album URL')); ?>
-		<?php echo $this->Form->input('purchase_url', array('type' => 'text', 'label' => 'Purchase URL')); ?>
+		<div class="col-2">
+			<?php echo $this->Form->input('url', array('type' => 'text', 'label' => 'Album URL')); ?>
+			<?php echo $this->Form->input('purchase_url', array('type' => 'text', 'label' => 'Purchase URL')); ?>
+		</div>
 		<?php echo $this->Form->input('license'); ?>
 		<?php echo $this->Fck->input('Album.comments'); ?>
 	</fieldset>

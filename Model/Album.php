@@ -22,9 +22,6 @@ class Album extends AppModel {
         'release_date' => array(
             'rule' => 'date',
         ),
-        'formats' => array(
-            'rule' => 'notEmpty',
-        ),
     );
 
 	public $order = 'Album.release_date DESC';
