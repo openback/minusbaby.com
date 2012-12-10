@@ -19,7 +19,7 @@ class ContactController extends AppController {
 					$email = new CakeEmail('mailer');
                     $email->from($this->request->data['Contact']['email']);
                     $email->replyTo($this->request->data['Contact']['email']);
-                    $email->subject('crashfaster.com message from ' . $this->request->data['Contact']['name']);
+                    $email->subject(DEFAULT_ARTIST.'.com message from ' . $this->request->data['Contact']['name']);
 
 					try {
 						if ($email->send($this->request->data['Contact']['body'])) {

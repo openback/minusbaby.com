@@ -17,7 +17,7 @@
 		$address = substr($address, 2);
 	}
 
-	$participants = 'crashfaster';
+	$participants = DEFAULT_ARTIST;
 
 	for($i = 0; $i < count($event['Artist']); $i++) {
 		if (($i + 1) == count($event['Artist'])) {

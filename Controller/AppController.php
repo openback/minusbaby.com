@@ -72,5 +72,6 @@ class AppController extends Controller {
         /* general */
         $this->set('controller_name', '');
 		$this->set('menu', Configure::read('Menu'));
+		$this->set('monobomb', Configure::read('Monobomb'));
     }
 }

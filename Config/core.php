@@ -19,6 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+require_once(ROOT.DS.APP_DIR.DS.'Config'.DS.'site.php');
 /**
  * CakePHP Debug Level:
  *
@@ -35,7 +36,7 @@
 Configure::write('debug', 0);
 
 if(isset($_SERVER['SERVER_NAME'])){
-    if ($_SERVER['SERVER_NAME'] == 'crashfaster.dev') {
+    if ($_SERVER['SERVER_NAME'] == DEFAULT_ARTIST.'.dev') {
         Configure::write('debug', 2);
     }
 }
@@ -184,7 +185,6 @@ if(isset($_SERVER['SERVER_NAME'])){
             'timeout' => 1440
 	));
 
-	require_once(ROOT.DS.APP_DIR.DS.'Config'.DS.'security.php');
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
  * Will append a querystring parameter containing the time the file was modified. This is

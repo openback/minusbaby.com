@@ -9,10 +9,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<?php echo $this->Html->charset(); ?>
-		<title>Crashfaster &bull; <?php echo $title_for_layout?></title>
+		<title><?php SITE_TITLE; ?> &bull; <?php echo $title_for_layout?></title>
 		<meta name="description" content="">
 		<meta name="author" content="Richard Caraballo,Timothy Caraballo">
-		<meta name="keywords" content="crashfaster,monobomb,chiptune,music,label,chipmusic,crashfaster,minusbaby,xix">
+		<meta name="keywords" content="<?php echo DEFAULT_ARTIST; ?>,monobomb,chiptune,music,label,chipmusic,xix">
 		<meta name="generator"  content="vim 7.3.125">
 		<meta name="dcterms.language"   content="en-US">
 		<meta name="dcterms.license"  content="http://creativecommons.org/licenses/by-nc-nd/3.0/">
@@ -65,14 +65,13 @@
 				Artist:
 				<div class="selector-wrapper">
 					<div class="viewing">
-						<span class="color"></span>crashfaster<span class="arrow"></span>
+						<span class="color"></span><?php echo DEFAULT_ARTIST; ?><span class="arrow"></span>
 						<ul>
-							<li><a href="http://awkwardterrible.tumblr.com"><span class="awkward arrow"></span>Awkward Terrible</a></li>
-							<li><a href="http://spacetownsavior.bandcamp.com"><span class="savior arrow"></span>Space Town Savior</a></li>
-							<li><a href="http://encowell.com"><span class="cowell arrow"></span>E.N. Cowell</a></li>
-							<li><a href="#"><span class="tracer arrow"></span>TRACER</a></li>
-							<li><a href="http://minusbaby.com"><span class="minusbaby arrow"></span>minusbaby</a></li>
-							<li><a href="http://zenalbatross.net"><span class="zen arrow"></span>Zen Albatross</a></li>
+						<?php foreach($monobomb as $mArtist):
+								if ($mArtist['name'] == DEFAULT_ARTIST) { continue; }
+						?>
+							<li><a href="<?php echo $mArtist['url']; ?>"><span class="<?php echo $mArtist['class']; ?> arrow"></span><?php echo $mArtist['name']; ?></a></li>
+						<?php endforeach; ?>
 						</ul>
 					</div>
 				</div>
@@ -81,7 +80,7 @@
 		<div class="wrapper">
 			<nav class="main">
 				<ul class="main-menu">
-					<li class="main-logo"><a href="/"<?php if ($controller_name == 'news') echo ' class="current"'; ?>><?php echo $this->Html->image('crashfaster_logo_64x11.png', array('width' => 64, 'height' => 11, 'alt' => 'crashfaster')); ?></a></li>
+					<li class="main-logo"><a href="/"<?php if ($controller_name == 'news') echo ' class="current"'; ?>><?php echo $this->Html->image(NEWS_LOGO, array('width' => 64, 'height' => 11, 'alt' => DEFAULT_ARTIST)); ?></a></li>
 					<?php
 						foreach($menu as $menuItem) {
 							if ($menuItem['controller'] == $controller_name) {
@@ -106,7 +105,7 @@
 			<div id="push">&nbsp;</div>
 		</div>
 		<footer>
-			<?php echo $this->Html->image('crashfaster_logo_footer.png', array('width' => 495, 'height' => 68, 'alt' => 'crashfaster', 'class' => 'footer-logo')); ?>
+			<?php echo $this->Html->image(FOOTER_IMAGE, array('alt' => DEFAULT_ARTIST, 'class' => 'footer-logo')); ?>
 			<span class="copy">This website and its content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 Unported License</a>.</span>
 		</footer>
 		<?php echo $this->fetch('footJs'); ?>

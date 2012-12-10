@@ -88,7 +88,6 @@ Inflector::rules('plural',
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
- Configure::load('config');
  CakePlugin::load('DebugKit');
  CakePlugin::load('UploadPack');
  CakePlugin::load('AssetCompress');
@@ -97,7 +96,6 @@ Inflector::rules('plural',
 
 
 /** GLOBALS *******************************************/
-
 /**
  * Format the filename a specific way before uploading and attaching.
  *
