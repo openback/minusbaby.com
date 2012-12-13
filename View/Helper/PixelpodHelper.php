@@ -253,7 +253,7 @@ class PixelpodHelper extends AppHelper {
 	}
 
 	public function monobombNavigation($main_nav_wrapper, $inner_nav_wrapper, $inner_elements, $controls_nav = '.pager', $visible_columns = 4) {
-		$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'pageJs'));
+		// $this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'pageJs'));
 		$this->Html->scriptBlock(
 			'$(".content").monobombNavigator({'
 				.'main_nav_wrapper: "'.$main_nav_wrapper.'",'

@@ -24,35 +24,36 @@
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 
 		<![endif]-->
-		<!--[if IE]>
-			<?php $this->Html->css('ie', null, array('media' => 'screen, projection', 'inline' => false)); ?>
-			<link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
-		<![endif]-->
-		<!-- The following adds an ie10 to the html element if ie10 -->
-		<!--[if !IE]><!--><script>if(/*@cc_on!@*/false){document.documentElement.className+=' ie11';}</script><!--<![endif]-->
 		<?php
 			$this->Html->css('screen', null, array('media' => 'screen, projection', 'inline' => false));
 			$this->Html->css('print', null, array('media' => 'print', 'inline' => false));
 			$this->Html->css('custom-theme/jquery-ui-1.9.1.custom', null, array('inline' => false));
-			// $this->Html->css('jquery.lightbox-0.5', 'stylesheet', array('inline' => false));
-			// $this->Html->css('tipsy', 'stylesheet', array('inline' => false));
-			// $this->Html->script('jquery.scrollTo-1.4.2-min.js', false);
-			// $this->Html->script('jquery.localscroll-1.2.7-min', false);
 			// $this->Html->script('jquery.easing.1.3', false);
 			// $this->Html->script('jquery.cookie', false);
-			// $this->Html->script('jquery.lightbox-0.5', false);
-			// $this->Html->script('jquery.tipsy', false);
-			$this->Html->script('jquery-1.8.3.min', array('block' => 'footJs'));
-			// $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', array('block' => 'footJs'));
-			$this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
-			$this->Html->script('respond.min', array('block' => 'footJs'));
+			// $this->Html->script('jquery-1.8.3.min', array('block' => 'footJs'));
+			$this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array('block' => 'footJs'));
+			// $this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
+			// $this->Html->script('respond.min', array('block' => 'footJs'));
 
 			if (AuthComponent::user('id') != null) {
+				if (Configure::read('debug') != 0) {
+					$this->Html->script('admin.min', array('block' => 'footJs'));
+				} else {
+					$this->Html->script('admin', array('block' => 'footJs'));
+				}
 				$this->Html->script('ckeditor/ckeditor', array('block' => 'footJs'));
-				$this->Html->script('jquery-ui-timepicker-addon', array('block' => 'footJs'));
 			}
 
-			$this->Html->script('compiled/application', array('block' => 'footJs'));
+			if (Configure::read('debug') != 0) {
+				$this->Html->script('application.min', array('block' => 'footJs'));
+			} else {
+				$this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
+				$this->Html->script('jquery.jplayer.min', array('block' => 'footJs'));
+				$this->Html->script('jquery.tools.min', array('block' => 'footJs'));
+				$this->Html->script('respond.min', array('block' => 'footJs'));
+				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'pageJs'));
+				$this->Html->script('compiled/application', array('block' => 'footJs'));
+			}
 
 			echo $this->fetch('css');
 			echo $this->html->script('modernizr.custom.46313.js', true);
