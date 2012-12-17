@@ -33,6 +33,7 @@ require_once(ROOT.DS.APP_DIR.DS.'Config'.DS.'site.php');
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
+
 Configure::write('debug', 0);
 
 if(isset($_SERVER['SERVER_NAME'])){
@@ -40,7 +41,6 @@ if(isset($_SERVER['SERVER_NAME'])){
         Configure::write('debug', 2);
     }
 }
-
 /**
  * Configure the Error handler used to handle errors for your application.  By default
  * ErrorHandler::handleError() is used.  It will display errors using Debugger, when debug > 0

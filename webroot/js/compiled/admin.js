@@ -1,5 +1,5 @@
 (function() {
-  var addRowFromTable, bindNavigatorLinks;
+  var addRowFromTable;
 
   $.fn.trInsertSlideDown = function(row, duration, cb) {
     var $row;
@@ -63,83 +63,7 @@
     return $table.trInsertSlideDown($row);
   };
 
-  bindNavigatorLinks = function(outer_wrapper_selector, article_selector, model_name) {
-    var $content, $loading, $outer_wrapper,
-      _this = this;
-    $outer_wrapper = $(outer_wrapper_selector);
-    $content = $('.content');
-    $loading = $content.find('> .loading');
-    History.Adapter.bind(window, 'statechange', function() {
-      var $articles, $current, $page, id, split_url, state;
-      state = History.getState();
-      split_url = state.url.split('/');
-      id = split_url[split_url.length - 2];
-      if (isNaN(id)) {
-        $outer_wrapper.find('.current').removeClass('current');
-        $('.pager').addClass('start-open');
-        $content.monobombNavigator('hideClose').monobombNavigator('openToPage', 1);
-        return;
-      } else {
-        $content.monobombNavigator('showClose');
-      }
-      $outer_wrapper.find('.current').removeClass('current');
-      $current = $('#' + model_name + '-' + id);
-      $current.addClass('current');
-      $page = $current.closest('nav');
-      if ($content.monobombNavigator('isOpen')) {
-        $content.monobombNavigator('closeToPage', $page, false, function() {
-          return $('.start-open').removeClass('start-open');
-        });
-      } else {
-        $content.monobombNavigator('moveToPage', $page, true);
-      }
-      $articles = $(article_selector);
-      $loading.fadeIn('fast');
-      return $articles.fadeOut(function() {
-        var article, _i, _len, _ref;
-        _ref = $articles.slice(1);
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          article = _ref[_i];
-          $(article).remove();
-        }
-        return $.ajax({
-          type: 'GET',
-          url: state.url + '.json',
-          success: function(response) {
-            var $article,
-              _this = this;
-            if (response.success) {
-              $article = $(response.data);
-              $article.hide();
-              $(article_selector).replaceWith($article);
-              $loading.fadeOut('fast');
-              $('> .admin', $content).animate({
-                opacity: 1
-              });
-              return $article.fadeIn(function() {
-                var height;
-                height = $article.height();
-                return $content.stop().animate({
-                  height: height + 140 + 'px'
-                });
-              });
-            }
-          }
-        });
-      });
-    });
-    return $outer_wrapper.delegate('a', 'click', function() {
-      var $this;
-      if (!$('.content').monobombNavigator('isAnimating')) {
-        $this = $(this);
-        History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'));
-      }
-      return false;
-    });
-  };
-
   $(document).ready(function() {
-    var $past_events;
     if (typeof CKEDITOR !== "undefined" && CKEDITOR !== null) {
       CKEDITOR.on('instanceCreated', function(e) {
         var $element, editor, element;
@@ -292,10 +216,6 @@
         return ui;
       }
     });
-    $past_events = $('.past-events');
-    if ($past_events.length && typeof History.Adapter !== 'undefined') {
-      bindNavigatorLinks('nav.events', 'article.event', 'event');
-    }
     if (jQuery.fn.autocomplete) {
       $('input#EventTitle').autocomplete({
         source: '/events/autocomplete/title.json'
