@@ -1,10 +1,5 @@
 # README
-
 ## TODO
-* Better error handling/messages
-* Image uploading: Edit Attachment component to just copy the image without resampling if it's already
-  the proper width
-* Push site title in Javascript dynamically
 
 ## Known Bugs
 * Attachments: Certain validations on attachments don't display

@@ -310,7 +310,7 @@ methods =
 		data.$forward           = data.$controls_nav.find(settings.forward_selector)
 		data.$actual_navs       = data.$inner_nav_wrapper.find(settings.inner_elements)
 		data.nav_count          = data.$actual_navs.length
-		data.original_left      = 960 - $(data.$actual_navs[1]).width()
+		data.original_left      = 960 - $(data.$actual_navs[0]).width()
 		# holds the page of the currently viewed article
 		data.viewing            = 1
 		# holds the first page visible when opened

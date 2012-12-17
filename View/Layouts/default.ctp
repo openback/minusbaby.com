@@ -25,38 +25,42 @@
 
 		<![endif]-->
 		<?php
-			$this->Html->css('screen', null, array('media' => 'screen, projection', 'inline' => false));
-			$this->Html->css('print', null, array('media' => 'print', 'inline' => false));
+			if (Configure::read('debug') == 0) {
+				$this->Html->css('min/screen', null, array('media' => 'screen, projection', 'inline' => false));
+				$this->Html->css('min/print', null, array('media' => 'print', 'inline' => false));
+			} else {
+				$this->Html->css('screen', null, array('media' => 'screen, projection', 'inline' => false));
+				$this->Html->css('print', null, array('media' => 'print', 'inline' => false));
+			}
 			$this->Html->css('custom-theme/jquery-ui-1.9.1.custom', null, array('inline' => false));
-			// $this->Html->script('jquery.easing.1.3', false);
-			// $this->Html->script('jquery.cookie', false);
-			// $this->Html->script('jquery-1.8.3.min', array('block' => 'footJs'));
+			echo $this->html->script('modernizr.custom.46313.js', true);
 			$this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array('block' => 'footJs'));
+			$this->Html->script('http://code.jquery.com/ui/1.9.2/jquery-ui.js', array('block' => 'footJs'));
 			// $this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
-			// $this->Html->script('respond.min', array('block' => 'footJs'));
 
 			if (AuthComponent::user('id') != null) {
-				if (Configure::read('debug') != 0) {
-					$this->Html->script('admin.min', array('block' => 'footJs'));
-				} else {
-					$this->Html->script('admin', array('block' => 'footJs'));
-				}
 				$this->Html->script('ckeditor/ckeditor', array('block' => 'footJs'));
 			}
 
-			if (Configure::read('debug') != 0) {
+
+			if (Configure::read('debug') == 0) {
 				$this->Html->script('application.min', array('block' => 'footJs'));
 			} else {
-				$this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
 				$this->Html->script('jquery.jplayer.min', array('block' => 'footJs'));
-				$this->Html->script('jquery.tools.min', array('block' => 'footJs'));
-				$this->Html->script('respond.min', array('block' => 'footJs'));
-				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'pageJs'));
+				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'footJs'));
 				$this->Html->script('compiled/application', array('block' => 'footJs'));
 			}
 
+			if (AuthComponent::user('id') != null) {
+				if (Configure::read('debug') == 0) {
+					$this->Html->script('admin.min', array('block' => 'footJs'));
+				} else {
+					$this->Html->script('jquery-ui-timepicker-addon', array('block' => 'footJs'));
+					$this->Html->script('compiled/admin', array('block' => 'footJs'));
+				}
+			}
+
 			echo $this->fetch('css');
-			echo $this->html->script('modernizr.custom.46313.js', true);
 		?>
 	  </head>
 	  <body>

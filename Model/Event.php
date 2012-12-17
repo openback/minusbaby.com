@@ -40,7 +40,10 @@ class Event extends AppModel {
             'rule' => 'notEmpty'
         ),
         'external_url' => array(
-            'rule' => 'url',
+			'url' => array(
+				'rule' => array('url'),
+				'allowEmpty' => true,
+			)
         ),
         'venue_id' => array(
             'rule' => 'numeric',
