@@ -18,7 +18,7 @@ done
 exit
 */
 
-var git_dir = process.env.GIT_DIR
+var git_dir = process.env.GIT_DIR + '/..';
 var js_dir = git_dir + '/webroot/js/';
 var css_dir = git_dir + '/webroot/css/';
 
@@ -159,6 +159,7 @@ function compileCSS() {
 	).on('exit', function(code) {
 		if (code !== 0) {
 			deferred.reject('Compass error: ' + code);
+			exit(1);
 		}
 	});
 
@@ -182,12 +183,14 @@ when(packJs(),
 
 			stream.on('error', function (err) {
 				console.log('Error writing to ', filename, ': ', err);
+				exit(1);
 			});
 
 		}
 	},
 	function (err) {
 		console.log('error: ', err);
+		exit(err);
 	}
 )
 
