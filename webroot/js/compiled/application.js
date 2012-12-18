@@ -96,7 +96,7 @@
       var $this;
       if (!$('.content').monobombNavigator('isAnimating')) {
         $this = $(this);
-        History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'));
+        History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'));
       }
       return false;
     });

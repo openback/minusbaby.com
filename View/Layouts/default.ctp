@@ -51,6 +51,7 @@
 			} else {
 				$this->Html->script('jquery.history', array('block' => 'notIEJs'));
 				$this->Html->script('jquery.jplayer.min', array('block' => 'footJs'));
+				$this->Html->script('compiled/siteConfig', array('block' => 'footJs'));
 				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'footJs'));
 				$this->Html->script('compiled/application', array('block' => 'footJs'));
 				$this->Html->script('compiled/music', array('block' => 'footJs'));

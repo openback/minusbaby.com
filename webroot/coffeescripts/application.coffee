@@ -85,7 +85,7 @@ bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
 	$outer_wrapper.delegate('a', 'click', ->
 		if not $('.content').monobombNavigator('isAnimating')
 			$this = $(this)
-			History.pushState(null, 'Crashfaster • ' + $this.find('.title').text(), $this.attr('href'))
+			History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'))
 
 		false
 	)
