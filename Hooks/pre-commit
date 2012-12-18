@@ -1,7 +1,7 @@
 #!/bin/bash
 return_error() {
-	echo "Pre-Commit Error: Failed to recompile compressed $1.\n";
-	echo "Please run 'build.sh' from the repository root.\n";
+	echo -e "\e[00;31mPre-Commit Error:\e[00m Failed to recompile compressed $1.";
+	echo "Please run 'build.sh' from the repository root.";
 	if [ -z "$2" ]; then
 		exit 1;
 	else
