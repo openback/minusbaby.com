@@ -1,196 +1,45 @@
-#!/usr/bin/env node
-"use strict";
-/*
-if git-rev-parse --verify HEAD >/dev/null 2>&1; then
+#!/bin/bash
+return_error() {
+	echo "Pre-Commit Error: Failed to recompile compressed $1.\n";
+	echo "Please run 'build.sh' from the repository root.\n";
+	if [ -z "$2" ]; then
+		exit 1;
+	else
+		exit $2;
+	fi
+}
+
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
     against=HEAD
 else
     against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-for FILE in `git diff-index --check --name-status $against -- | cut -c3-` ; do
-    # Check if the file contains 'debugger'
-    if [ "grep 'debugger' $FILE" ]
-    then
-        echo $FILE ' contains debugger!'
-        exit 1
-    fi
-done
-exit
-*/
+# Grab the changed file list
+fl=`git diff-index --name-status $against -- | cut -c3-` ;
 
-var git_dir = process.env.GIT_DIR + '/..';
-var js_dir = git_dir + '/webroot/js/';
-var css_dir = git_dir + '/webroot/css/';
+# Check if a file in the js directory exists
+echo "$fl"|grep -q "webroot/js/"
 
-var css = {
-	'screen.min': [
-		'screen'
-	],
-	'ie.min': [
-		'ie'
-	],
-	'print.min': [
-		'print'
-	]
-};
+if [ $? -eq 0 ]; then
+	# We've modified a Javascript file. Make sure we have new minified ones as well
+	echo "$fl"|grep -q "webroot/cjs/"
 
-var js = {
-	'application.min': [
-		'jquery.jplayer.min',
-		'jquery.easing.1.3',
-		'jquery.cookie',
-		'compiled/jquery.monobombNavigation',
-		'compiled/application',
-		'compiled/music',
-	],
+	if [ $? -ne 0 ]; then
+		return_error "javscript" 1;
+	fi
+fi
 
-	'admin.min': [
-		'compiled/admin',
-		'jquery-ui-timepicker-addon',
-	]
-};
+# Check if a file in the css directory exists
+echo "$fl"|grep -q "webroot/css/"
 
-var fs = require('fs');
-var when = require('when');
-var wd = require('path').dirname(require.main.filename);
-var childProcess = require('child_process');
-var i, packed_file;
+if [ $? -eq 0 ]; then
+	# We've modified a stylesheet. Make sure we have new minified ones as well
+	echo "$fl"|grep -q "webroot/ccss/"
 
-function fillPath(pre, suf, arr) {
-	var i;
+	if [ $? -ne 0 ]; then
+		return_error "stylesheets" 2;
+	fi
+fi
 
-	for (i = 0; i < arr.length; i += 1) {
-		arr[i] = pre + arr[i] + suf;
-	}
-
-	return arr;
-}
-
-function packJs() {
-	var deferreds = [];
-
-	for (packed_file in js) {
-		if (js.hasOwnProperty(packed_file)) {
-			// Fill the filenames out
-			js[packed_file] = fillPath(js_dir, '.js', js[packed_file]);
-
-			// concatenate them
-			deferreds.push(when.join(
-				packed_file,
-				packFiles(js[packed_file], 'js')
-			));
-		}
-	}
-
-	return when.all(deferreds);
-}
-
-function packFiles(filenames, type) {
-	var deferred = when.defer();
-	var args, catted, command;
-
-	if (filenames.length == 0) {
-		deferred.resolve('');
-	} else {
-		when(catFiles(filenames),
-			function (combined) {
-				var out = '';
-				var yui = childProcess.spawn('yuicompressor', ['--nomunge', '--type', type], {stdio:'pipe'});
-
-				yui.stdin.end(combined);
-
-				yui.stdout.on('data', function (data) {
-					out += data.toString();
-				});
-
-				yui.on('exit', function (code) {
-					if (code != 0) {
-						deferred.reject(code);
-					}
-
-					deferred.resolve(out);
-				});
-			},
-			function (err) {
-				deferred.reject(err);
-			}
-		);
-	}
-
-	return deferred.promise;
-}
-
-function catFiles(filenames) {
-	var deferred = when.defer();
-
-	childProcess.exec('cat ' + filenames.join(' '),
-		{maxBuffer: 1024 * 1024 },
-		function (error, stdout, stderr) {
-			if (error) {
-				deferred.reject(error);
-			}
-
-			deferred.resolve(stdout);
-		}
-	).on('exit', function (code) {
-		if (code !== 0) {
-			deferred.reject(code);
-		}
-	});
-
-	return deferred.promise;
-}
-
-function compileCSS() {
-	var deferred = when.defer();
-	var webroot = git_dir + '/webroot';
-
-	childProcess.exec('compass compile -c prod.rb --force',
-		{cwd: webroot},
-		function (error, stdout, stderr) {
-			if (error) {
-				deferred.reject(stderr);
-				return;
-			}
-
-			console.log('Wrote CSS');
-			deferred.resolve();
-		}
-	).on('exit', function(code) {
-		if (code !== 0) {
-			deferred.reject('Compass error: ' + code);
-			exit(1);
-		}
-	});
-
-	return deferred.promise;
-};
-
-//--------- START --------------//
-compileCSS();
-
-when(packJs(),
-	function(packed) {
-		var i, filename, contents, stream;
-
-		for(i = 0; i < packed.length; i += 1) {
-			filename = js_dir + packed[i][0] + '.js';
-			contents = packed[i][1] + packed[i][2];
-
-			console.log('Writing ', filename);
-			stream = fs.createWriteStream(filename, {flags:'w'});
-			stream.end(packed[i][1] + packed[i][2]);
-
-			stream.on('error', function (err) {
-				console.log('Error writing to ', filename, ': ', err);
-				exit(1);
-			});
-
-		}
-	},
-	function (err) {
-		console.log('error: ', err);
-		exit(err);
-	}
-)
-
+exit 0

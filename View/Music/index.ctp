@@ -1,6 +1,4 @@
 <?php
-	$this->Html->script('compiled/music', array('block' => 'pageJs'));
-
 	$no_albums = true;
 
 	if (!empty($lps)) {

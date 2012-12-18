@@ -182,4 +182,3 @@ $(document).ready ->
 
 	if $past_events.length and typeof History.Adapter isnt 'undefined'
 		bindNavigatorLinks('nav.events', 'article.event', 'event')
-

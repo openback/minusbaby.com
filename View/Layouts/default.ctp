@@ -32,23 +32,28 @@
 				$this->Html->css('screen', null, array('media' => 'screen, projection', 'inline' => false));
 				$this->Html->css('print', null, array('media' => 'print', 'inline' => false));
 			}
+
 			$this->Html->css('custom-theme/jquery-ui-1.9.1.custom', null, array('inline' => false));
+
+			echo $this->fetch('css');
+
 			echo $this->html->script('modernizr.custom.46313.js', true);
-			$this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array('block' => 'footJs'));
-			$this->Html->script('http://code.jquery.com/ui/1.9.2/jquery-ui.js', array('block' => 'footJs'));
-			// $this->Html->script('jquery-ui-1.9.2.custom.min', array('block' => 'footJs'));
+			$this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array('block' => 'libJs'));
+			$this->Html->script('http://code.jquery.com/ui/1.9.2/jquery-ui.js', array('block' => 'libJs'));
 
 			if (AuthComponent::user('id') != null) {
 				$this->Html->script('ckeditor/ckeditor', array('block' => 'footJs'));
 			}
 
-
 			if (Configure::read('debug') == 0) {
-				$this->Html->script('application.min', array('block' => 'footJs'));
+				$this->Html->script('/cjs/application.min', array('block' => 'notIEJs'));
+				$this->Html->script('/cjs/application.ie.min', array('block' => 'IEJs'));
 			} else {
+				$this->Html->script('jquery.history', array('block' => 'notIEJs'));
 				$this->Html->script('jquery.jplayer.min', array('block' => 'footJs'));
 				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'footJs'));
 				$this->Html->script('compiled/application', array('block' => 'footJs'));
+				$this->Html->script('compiled/music', array('block' => 'footJs'));
 			}
 
 			if (AuthComponent::user('id') != null) {
@@ -59,8 +64,6 @@
 					$this->Html->script('compiled/admin', array('block' => 'footJs'));
 				}
 			}
-
-			echo $this->fetch('css');
 		?>
 	  </head>
 	  <body>
@@ -115,16 +118,18 @@
 			<?php echo $this->Html->image(FOOTER_IMAGE, array('alt' => DEFAULT_ARTIST, 'class' => 'footer-logo')); ?>
 			<span class="copy">This website and its content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 Unported License</a>.</span>
 		</footer>
-		<?php echo $this->fetch('footJs'); ?>
+		<?php echo $this->fetch('libJs'); ?>
+
 		<!--[if !IE]> -->
-			<?php echo $this->Html->script('jquery.history'); ?>
+			<?php echo $this->fetch('notIEJs'); ?>
 
 		<!-- <![endif]-->
-
-		<!--[if (gte IE 6)&(lte IE 8)]>
-			<?php echo $this->Html->script('selectivizr-min'); ?>
+		<!--[if IE]>
+			<?php echo $this->fetch('IEJs'); ?>
 
 		<![endif]-->
+
+		<?php echo $this->fetch('footJs'); ?>
 		<?php echo $this->fetch('pageJs'); ?>
 	</body>
 </html>

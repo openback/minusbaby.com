@@ -70,6 +70,8 @@ class MusicController extends AppController {
     }
 
     function add() {
+		$this->Pixelpod->redirectIfCancel(array('action' => 'index'));
+
         if (!empty($this->request->data)) {
 			$this->removeEmptySongs();
             $this->Album->create();
