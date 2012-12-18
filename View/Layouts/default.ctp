@@ -38,7 +38,7 @@
 			echo $this->fetch('css');
 
 			echo $this->html->script('modernizr.custom.46313.js', true);
-			$this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', array('block' => 'libJs'));
+			$this->Html->script('http://code.jquery.com/jquery-1.8.3.js', array('block' => 'libJs'));
 			$this->Html->script('http://code.jquery.com/ui/1.9.2/jquery-ui.js', array('block' => 'libJs'));
 
 			if (AuthComponent::user('id') != null) {
