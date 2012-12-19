@@ -651,7 +651,7 @@ nav.pager {
 footer {
 	background-color: #313131;
 	border-top: 9px solid #1d1d1d;
-	height: 287px;
+	height: $footer-height;
 	padding: 64px 0;
 	position: relative;
 	text-align: center;
@@ -674,8 +674,6 @@ footer {
 
 	.footer-logo {
 		display: inline-block;
-		width: 495px;
-		height: 66px;
 		margin-bottom: 64px;
 	}
 
@@ -1442,3 +1440,6 @@ li.jp-playlist-current {
 		width: 70%;
 	}
 }
+
+
+@import "site"
