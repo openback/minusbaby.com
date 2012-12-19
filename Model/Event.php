@@ -55,6 +55,10 @@ class Event extends AppModel {
 		'eventList' => true
 	);
 
+	public $virtualFields = array(
+		'has_content' => "IF((event_file_name='' OR event_file_name IS NULL) AND (description='' OR description IS NULL), 0, 1)"
+	);
+
     var $order = 'start_time DESC';
 
 	protected function _findCurrent($state, $query, $results = array()) {
@@ -69,7 +73,7 @@ class Event extends AppModel {
 
     protected function _findeventList($state, $query, $results = array()) {
 		if ($state == 'before') {
-			$query['fields'] = array('start_time', 'title');
+			$query['fields'] = array('start_time', 'title', 'has_content');
 			$query['recursive'] = 0;
 			return $query;
 		}
@@ -85,6 +89,17 @@ class Event extends AppModel {
         }
         return true;
     }
+
+	/*
+	public function afterFind(array $results, $primary = false) {
+		print_r($results);
+		foreach ($results as $key => $val) {
+			$val['Event']['has_content'] = !(empty($val['Event']['description']) && empty($val['Event']['event_file_name']));
+		}
+
+		return $results;
+	}
+	 */
 
     protected function isCurrent() {
         $dif = (time() - strtotime($this->data['Event']['start_time']))/86400;

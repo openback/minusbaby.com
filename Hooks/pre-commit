@@ -19,7 +19,7 @@ fi
 fl=`git diff-index --name-status $against -- | cut -c3-` ;
 
 # Check if a file in the js directory exists
-echo "$fl"|grep -q "webroot/js/"
+echo "$fl"|grep -q "webroot/js/\|webroot/coffee/"
 
 if [ $? -eq 0 ]; then
 	# We've modified a Javascript file. Make sure we have new minified ones as well
@@ -31,7 +31,7 @@ if [ $? -eq 0 ]; then
 fi
 
 # Check if a file in the css directory exists
-echo "$fl"|grep -q "webroot/css/"
+echo "$fl"|grep -q "webroot/css/\|webroot/sass/"
 
 if [ $? -eq 0 ]; then
 	# We've modified a stylesheet. Make sure we have new minified ones as well

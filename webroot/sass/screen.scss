@@ -877,6 +877,7 @@ footer {
 nav.articles,
 nav.posts,
 nav.events {
+	li > div,
 	a {
 		@include link-colors($normal-text, $link, $link, $normal-text, $link);
 		display: block;
@@ -890,7 +891,9 @@ nav.events {
 			position: absolute;
 			left: -24px;
 		}
+	}
 
+	a {
 		&:hover,
 		&:active,
 		&.current {
@@ -903,6 +906,10 @@ nav.events {
 	li {
 		@include smaller-text;
 		margin-bottom: 24px;
+
+		> div:hover {
+			color: $normal-text;
+		}
 	}
 }
 
