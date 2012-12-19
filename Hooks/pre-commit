@@ -1,0 +1,45 @@
+#!/bin/bash
+return_error() {
+	echo -e "\e[00;31mPre-Commit Error:\e[00m Failed to recompile compressed $1.";
+	echo "Please run 'build.sh' from the repository root.";
+	if [ -z "$2" ]; then
+		exit 1;
+	else
+		exit $2;
+	fi
+}
+
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
+    against=HEAD
+else
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+# Grab the changed file list
+fl=`git diff-index --name-status $against -- | cut -c3-` ;
+
+# Check if a file in the js directory exists
+echo "$fl"|grep -q "webroot/js/"
+
+if [ $? -eq 0 ]; then
+	# We've modified a Javascript file. Make sure we have new minified ones as well
+	echo "$fl"|grep -q "webroot/cjs/"
+
+	if [ $? -ne 0 ]; then
+		return_error "javscript" 1;
+	fi
+fi
+
+# Check if a file in the css directory exists
+echo "$fl"|grep -q "webroot/css/"
+
+if [ $? -eq 0 ]; then
+	# We've modified a stylesheet. Make sure we have new minified ones as well
+	echo "$fl"|grep -q "webroot/ccss/"
+
+	if [ $? -ne 0 ]; then
+		return_error "stylesheets" 2;
+	fi
+fi
+
+exit 0

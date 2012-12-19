@@ -1,0 +1,20 @@
+{
+  "author": "Timothy Caraballo <tim@pixelpod.net> (http://pixelpod.net/)",
+  "name": "Crashfaster.com",
+  "version": "0.8.0",
+  "homepage": "http://crashfaster.com/",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/openback/crashfaster.com.git"
+  },
+  "main": "build/server",
+  "engines": {
+    "node": "~0.6.11"
+  },
+  "dependencies": {
+    "buildr": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
+}

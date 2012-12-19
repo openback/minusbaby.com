@@ -1,0 +1,438 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/**
+<span class='line'>  3</span>  * @fileOverview monobombNavigator jQuery plugin
+<span class='line'>  4</span>  *               Format:
+<span class='line'>  5</span>  *               &lt;div .content>
+<span class='line'>  6</span>  *                 &lt;div .admin />?
+<span class='line'>  7</span>  *                 &lt;div .all_events>
+<span class='line'>  8</span>  *                 	&lt;div .past-events>
+<span class='line'>  9</span>  *                 		&lt;nav .event>+
+<span class='line'> 10</span>  *                 	&lt;/div>
+<span class='line'> 11</span>  *                 &lt;/div>
+<span class='line'> 12</span>  *                 &lt;nav .pager>&lt;a .back />&lt;a .close />&lt;a .forward />&lt;/nav>
+<span class='line'> 13</span>  *                 &lt;a .more />
+<span class='line'> 14</span>  *               &lt;/div>
+<span class='line'> 15</span>  * @version 0.90
+<span class='line'> 16</span>  * @author Timothy Caraballo http://pixelpod.net
+<span class='line'> 17</span>  * @requires jQuery
+<span class='line'> 18</span> */</span><span class="WHIT">
+<span class='line'> 19</span> 
+<span class='line'> 20</span> 
+<span class='line'> 21</span> </span><span class="COMM">/**
+<span class='line'> 22</span>  * See &lt;a href="http://jquery.com">http://jquery.com&lt;/a>.
+<span class='line'> 23</span>  * @name $
+<span class='line'> 24</span>  * @class
+<span class='line'> 25</span>  * See the jQuery Library  (&lt;a href="http://jquery.com">http://jquery.com&lt;/a>) for full details.  This just
+<span class='line'> 26</span>  * documents the function and classes that are added to jQuery by this plug-in.
+<span class='line'> 27</span> */</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> 
+<span class='line'> 30</span> </span><span class="COMM">/**
+<span class='line'> 31</span>  * See &lt;a href="http://jquery.com">http://jquery.com&lt;/a>
+<span class='line'> 32</span>  * @name fn
+<span class='line'> 33</span>  * @class
+<span class='line'> 34</span>  * See the jQuery Library  (&lt;a href="http://jquery.com">http://jquery.com&lt;/a>) for full details.  This just
+<span class='line'> 35</span>  * documents the function and classes that are added to jQuery by this plug-in.
+<span class='line'> 36</span>  * @memberOf $
+<span class='line'> 37</span> */</span><span class="WHIT">
+<span class='line'> 38</span> 
+<span class='line'> 39</span> 
+<span class='line'> 40</span> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">  </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">methods</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">private_</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> 
+<span class='line'> 43</span> </span><span class="WHIT">  </span><span class="NAME">$</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> 
+<span class='line'> 45</span> </span><span class="WHIT">  </span><span class="NAME">methods</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 47</span>     	 * @lends $.fn.monobombNavigator
+<span class='line'> 48</span>     */</span><span class="WHIT">
+<span class='line'> 49</span> 
+<span class='line'> 50</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 51</span>     	 * Moves so that the first or specified page is the leftmost visible page
+<span class='line'> 52</span>     	 *
+<span class='line'> 53</span>     	 * @example $(element).monobombNavigator('moveToPage', 2)
+<span class='line'> 54</span>     	 *
+<span class='line'> 55</span>     	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+<span class='line'> 56</span>     	 * @param {bool} [force] Whether to still move even if the nav is closed
+<span class='line'> 57</span>     	 * @param {function} [callback] Callback
+<span class='line'> 58</span>     	 *
+<span class='line'> 59</span>     	 * @returns {object} Jquery object
+<span class='line'> 60</span>     */</span><span class="WHIT">
+<span class='line'> 61</span> 
+<span class='line'> 62</span> </span><span class="WHIT">    </span><span class="NAME">moveToPage</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">force</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$nav</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">time</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">        </span><span class="NAME">callback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">        </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">force</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">        </span><span class="NAME">callback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">force</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">        </span><span class="NAME">force</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.closed</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">force</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">page</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">        </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">      </span><span class="NAME">time</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">force</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'slow'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">      </span><span class="NAME">$nav</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">private_.getPageObject.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">      </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">private_.getPageNumber.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">      </span><span class="NAME">data.first_page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT">      </span><span class="NAME">data.$inner_nav_wrapper.stop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">animate</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">        </span><span class="NAME">left</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'-'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">$nav.position</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">left</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'px'</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">time</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">      </span><span class="NAME">methods.setButtons.apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 90</span>     	 * Opens so that the current or specified page is the leftmost visible page
+<span class='line'> 91</span>     	 *
+<span class='line'> 92</span>     	 * @example $(element).monobombNavigator('openToPage', 2)
+<span class='line'> 93</span>     	 *
+<span class='line'> 94</span>     	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+<span class='line'> 95</span>     	 * @param {function} [callback] Callback
+<span class='line'> 96</span>     	 *
+<span class='line'> 97</span>     	 * @returns {object} Jquery object
+<span class='line'> 98</span>     */</span><span class="WHIT">
+<span class='line'> 99</span> 
+<span class='line'>100</span> </span><span class="WHIT">    </span><span class="NAME">openToPage</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">      </span><span class="NAME">data.$more.fadeOut</span><span class="PUNC">(</span><span class="STRN">'slow'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">      </span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'> article'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">add</span><span class="PUNC">(</span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'.admin'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">stop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">animate</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">        </span><span class="NAME">opacity</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'slow'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">      </span><span class="NAME">data.$controls_nav.fadeIn</span><span class="PUNC">(</span><span class="STRN">'slow'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">      </span><span class="NAME">data.$main_nav_wrapper.stop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">animate</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">        </span><span class="NAME">left</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'slow'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">      </span><span class="NAME">data.closed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">      </span><span class="NAME">methods.moveToPage.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>116</span>     	 * Closes the navigator back to its original spot with the current or specified
+<span class='line'>117</span>     	 * page staying visible
+<span class='line'>118</span>     	 *
+<span class='line'>119</span>     	 * @example $(element).monobombNavigator('closeToPage', 2, false)
+<span class='line'>120</span>     	 *
+<span class='line'>121</span>     	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+<span class='line'>122</span>     	 * @param {boolean} [show_articles] Should we redisplay the articles?
+<span class='line'>123</span>     	 * @param {function} [callback] Callback
+<span class='line'>124</span>     	 *
+<span class='line'>125</span>     	 * @returns {object} Jquery object
+<span class='line'>126</span>     */</span><span class="WHIT">
+<span class='line'>127</span> 
+<span class='line'>128</span> </span><span class="WHIT">    </span><span class="NAME">closeToPage</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">show_articles</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.$main_nav_wrapper.position</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">left</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">data.original_left</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'boolean'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">        </span><span class="NAME">callback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">fade</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">articles</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">        </span><span class="NAME">show_articles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">        </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">        </span><span class="NAME">callback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">        </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">        </span><span class="NAME">show_articles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">show_articles</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">        </span><span class="NAME">callback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">show_articles</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">        </span><span class="NAME">show_articles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">show_articles</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'boolean'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">        </span><span class="NAME">show_articles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">      </span><span class="NAME">methods.moveToPage.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">      </span><span class="NAME">data.$controls_nav.fadeOut</span><span class="PUNC">(</span><span class="STRN">'slow'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">      </span><span class="NAME">data.$more.fadeIn</span><span class="PUNC">(</span><span class="STRN">'fast'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">show_articles</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">        </span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'> article'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">add</span><span class="PUNC">(</span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'.admin'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">stop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">animate</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">          </span><span class="NAME">opacity</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">100</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'fast'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">      </span><span class="NAME">data.$main_nav_wrapper.stop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">animate</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">        </span><span class="NAME">left</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">data.original_left</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'px'</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'slow'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">      </span><span class="NAME">data.closed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>166</span>     	 * Scrolls the navigator one full page back
+<span class='line'>167</span>     	 *
+<span class='line'>168</span>     	 * @example $(element).monobombNavigator('back')
+<span class='line'>169</span>     	 *
+<span class='line'>170</span>     	 * @param {function} [callback] Callback
+<span class='line'>171</span>     	 *
+<span class='line'>172</span>     	 * @returns {object} Jquery object
+<span class='line'>173</span>     */</span><span class="WHIT">
+<span class='line'>174</span> 
+<span class='line'>175</span> </span><span class="WHIT">    </span><span class="NAME">back</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">callback</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.$inner_nav_wrapper.is</span><span class="PUNC">(</span><span class="STRN">':animated'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">      </span><span class="NAME">methods.moveToPage.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data.first_page</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">data.settings.visible_columns</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>185</span>     	 * Scrolls the navigator one full page forward
+<span class='line'>186</span>     	 *
+<span class='line'>187</span>     	 * @example $(element).monobombNavigator('forward')
+<span class='line'>188</span>     	 *
+<span class='line'>189</span>     	 * @param {function} [callback] Callback
+<span class='line'>190</span>     	 *
+<span class='line'>191</span>     	 * @returns {object} Jquery object
+<span class='line'>192</span>     */</span><span class="WHIT">
+<span class='line'>193</span> 
+<span class='line'>194</span> </span><span class="WHIT">    </span><span class="NAME">forward</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">callback</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">maxFirstPage</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">newPage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.$inner_nav_wrapper.is</span><span class="PUNC">(</span><span class="STRN">':animated'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">      </span><span class="NAME">newPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.first_page</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">data.settings.visible_columns</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>201</span> </span><span class="WHIT">      </span><span class="NAME">maxFirstPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.nav_count</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">data.settings.visible_columns</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">newPage</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">maxFirstPage</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">        </span><span class="NAME">newPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">maxFirstPage</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">      </span><span class="NAME">methods.moveToPage.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">newPage</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>209</span>     	 * Sets the control's buttons according to availability of pages
+<span class='line'>210</span>     	 *
+<span class='line'>211</span>     	 * @example $(element).monobombNavigator('setButtons')
+<span class='line'>212</span>     	 *
+<span class='line'>213</span>     	 * @returns {object} Jquery object
+<span class='line'>214</span>     */</span><span class="WHIT">
+<span class='line'>215</span> 
+<span class='line'>216</span> </span><span class="WHIT">    </span><span class="NAME">setButtons</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.nav_count</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">data.first_page</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">data.settings.visible_columns</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">        </span><span class="NAME">data.$forward.removeClass</span><span class="PUNC">(</span><span class="STRN">'disabled'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">        </span><span class="NAME">data.$forward.addClass</span><span class="PUNC">(</span><span class="STRN">'disabled'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.first_page</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">        </span><span class="NAME">data.$back.removeClass</span><span class="PUNC">(</span><span class="STRN">'disabled'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">        </span><span class="NAME">data.$back.addClass</span><span class="PUNC">(</span><span class="STRN">'disabled'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>232</span>     	 * Hides the control's close buttons
+<span class='line'>233</span>     	 *
+<span class='line'>234</span>     	 * @example $(element).monobombNavigator('hideClose')
+<span class='line'>235</span>     	 *
+<span class='line'>236</span>     	 * @returns {object} Jquery object
+<span class='line'>237</span>     */</span><span class="WHIT">
+<span class='line'>238</span> 
+<span class='line'>239</span> </span><span class="WHIT">    </span><span class="NAME">hideClose</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">      </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">$close.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>244</span>     	 * Shows the control's close buttons
+<span class='line'>245</span>     	 *
+<span class='line'>246</span>     	 * @example $(element).monobombNavigator('showClose')
+<span class='line'>247</span>     	 *
+<span class='line'>248</span>     	 * @returns {object} Jquery object
+<span class='line'>249</span>     */</span><span class="WHIT">
+<span class='line'>250</span> 
+<span class='line'>251</span> </span><span class="WHIT">    </span><span class="NAME">showClose</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">      </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">$close.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>256</span>     	 * @example $(element).monobombNavigator('isAnimating')
+<span class='line'>257</span>     	 *
+<span class='line'>258</span>     	 * @returns {boolean} Whether the nav is animating
+<span class='line'>259</span>     */</span><span class="WHIT">
+<span class='line'>260</span> 
+<span class='line'>261</span> </span><span class="WHIT">    </span><span class="NAME">isAnimating</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">$inner_nav_wrapper.is</span><span class="PUNC">(</span><span class="STRN">':animated'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>265</span>     	 * @example $(element).monobombNavigator('isOpen')
+<span class='line'>266</span>     	 *
+<span class='line'>267</span>     	 * @returns {boolean} of whether the nav is open
+<span class='line'>268</span>     */</span><span class="WHIT">
+<span class='line'>269</span> 
+<span class='line'>270</span> </span><span class="WHIT">    </span><span class="NAME">isOpen</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">$main_nav_wrapper.position</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">left</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>274</span>     	 * Initializes the navigator
+<span class='line'>275</span>     	 *
+<span class='line'>276</span>     	 * @example $(element).monobombNavigator({
+<span class='line'>277</span>     	 *              main_nav_wrapper: ".members",
+<span class='line'>278</span>     	 *              inner_nav_wrapper: ".collaborator-wrapper",
+<span class='line'>279</span>     	 *              inner_elements: "dl",
+<span class='line'>280</span>     	 *              controls_nav: ".pager",
+<span class='line'>281</span>     	 *              visible_columns: 2
+<span class='line'>282</span>     	 *          })
+<span class='line'>283</span>     	 *
+<span class='line'>284</span>     	 * @param {object} options Various settings for the navigator
+<span class='line'>285</span>     	 * @config {string} main_nav_wrapper Outer wrapper selector
+<span class='line'>286</span>     	 * @config {string} inner_nav_wrapper Inner wrapper selector
+<span class='line'>287</span>     	 * @config {string} inner_elements Page selector
+<span class='line'>288</span>     	 * @config {string} controls_nav Control selector
+<span class='line'>289</span>     	 * @config {string} [more_selector] More button selector ('> .more')
+<span class='line'>290</span>     	 * @config {string} [back_selector] Back button selector '.back')
+<span class='line'>291</span>     	 * @config {string} [close_selector] Close button selector ('.close')
+<span class='line'>292</span>     	 * @config {string} [forward_selector] Forward button selector ('.forward')
+<span class='line'>293</span>     	 * @config {string} [visible_columns] Number of columns visible at once (4)
+<span class='line'>294</span>     	 *
+<span class='line'>295</span>     	 * @returns {object} Jquery object
+<span class='line'>296</span>     	 * @constructs
+<span class='line'>297</span>     */</span><span class="WHIT">
+<span class='line'>298</span> 
+<span class='line'>299</span> </span><span class="WHIT">    </span><span class="NAME">init</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">options</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$first_page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">individual_width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">required_height</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">settings</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">        </span><span class="NAME">_this</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">      </span><span class="NAME">settings</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">        </span><span class="NAME">more_selector</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'> .more'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="WHIT">        </span><span class="NAME">back_selector</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'.back'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="WHIT">        </span><span class="NAME">close_selector</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'.close'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="WHIT">        </span><span class="NAME">forward_selector</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'.forward'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="WHIT">        </span><span class="NAME">visible_columns</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">4</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>308</span> </span><span class="WHIT">        </span><span class="NAME">main_nav_wrapper</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>309</span> </span><span class="WHIT">        </span><span class="NAME">inner_nav_wrapper</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">        </span><span class="NAME">inner_elements</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">        </span><span class="NAME">controls_nav</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="WHIT">      </span><span class="NAME">settings</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$.extend</span><span class="PUNC">(</span><span class="NAME">settings</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">options</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">settings.main_nav_wrapper</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">settings.inner_nav_wrapper</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">settings.controls_nav</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">        </span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="STRN">'[monobombNavigator] Error: required settings not defined.'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">        </span><span class="NAME">settings</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">settings</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">      </span><span class="NAME">data.$main_nav_wrapper</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">settings.main_nav_wrapper</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">      </span><span class="NAME">data.$inner_nav_wrapper</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$main_nav_wrapper.find</span><span class="PUNC">(</span><span class="NAME">settings.inner_nav_wrapper</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">      </span><span class="NAME">data.$controls_nav</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">settings.controls_nav</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">      </span><span class="NAME">data.$more</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="NAME">settings.more_selector</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">      </span><span class="NAME">data.$back</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$controls_nav.find</span><span class="PUNC">(</span><span class="NAME">settings.back_selector</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="WHIT">      </span><span class="NAME">data.$close</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$controls_nav.find</span><span class="PUNC">(</span><span class="NAME">settings.close_selector</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="WHIT">      </span><span class="NAME">data.$forward</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$controls_nav.find</span><span class="PUNC">(</span><span class="NAME">settings.forward_selector</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">      </span><span class="NAME">data.$actual_navs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$inner_nav_wrapper.find</span><span class="PUNC">(</span><span class="NAME">settings.inner_elements</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">      </span><span class="NAME">data.nav_count</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$actual_navs.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">      </span><span class="NAME">data.original_left</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">960</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">data.$actual_navs</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">width</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">      </span><span class="NAME">data.viewing</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">      </span><span class="NAME">data.first_page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">      </span><span class="NAME">data.closed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">data.$main_nav_wrapper.hasClass</span><span class="PUNC">(</span><span class="STRN">'start-open'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">      </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">      </span><span class="NAME">individual_width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">data.$actual_navs</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">outerWidth</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">      </span><span class="NAME">data.$inner_nav_wrapper.width</span><span class="PUNC">(</span><span class="NAME">data.nav_count</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">individual_width</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'px'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">      </span><span class="NAME">required_height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$inner_nav_wrapper.height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">required_height</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">        </span><span class="NAME">this.height</span><span class="PUNC">(</span><span class="NAME">required_height</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">140</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.closed</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$first_page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.find</span><span class="PUNC">(</span><span class="STRN">'.first-page'</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">        </span><span class="NAME">methods.moveToPage.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">$first_page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">      </span><span class="NAME">methods.setButtons.apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">      </span><span class="NAME">data.$more.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">        </span><span class="NAME">methods.openToPage.apply</span><span class="PUNC">(</span><span class="NAME">_this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>349</span> </span><span class="WHIT">      </span><span class="NAME">data.$close.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">        </span><span class="NAME">methods.closeToPage.apply</span><span class="PUNC">(</span><span class="NAME">_this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">      </span><span class="NAME">data.$forward.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">        </span><span class="NAME">methods.forward.apply</span><span class="PUNC">(</span><span class="NAME">_this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">      </span><span class="NAME">data.$back.click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">        </span><span class="NAME">methods.back.apply</span><span class="PUNC">(</span><span class="NAME">_this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>364</span> 
+<span class='line'>365</span> </span><span class="WHIT">  </span><span class="NAME">private_</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>367</span>     	 * @lends $.fn.monobombNavigator
+<span class='line'>368</span>     */</span><span class="WHIT">
+<span class='line'>369</span> 
+<span class='line'>370</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>371</span>     	 * Returns the numberof the specified page
+<span class='line'>372</span>     	 *
+<span class='line'>373</span>     	 * @private
+<span class='line'>374</span>     	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+<span class='line'>375</span>     	 *
+<span class='line'>376</span>     	 * @returns {int} Page number
+<span class='line'>377</span>     */</span><span class="WHIT">
+<span class='line'>378</span> 
+<span class='line'>379</span> </span><span class="WHIT">    </span><span class="NAME">getPageNumber</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$page</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nav</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">page_num</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">_i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">_len</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">_ref</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'object'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>383</span> </span><span class="WHIT">        </span><span class="NAME">$page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">        </span><span class="NAME">page_num</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">        </span><span class="NAME">_ref</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data.$actual_navs</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>386</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">_i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">_len</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">_ref.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">_i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">_len</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">_i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>387</span> </span><span class="WHIT">          </span><span class="NAME">nav</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">_ref</span><span class="PUNC">[</span><span class="NAME">_i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">          </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$page.equals</span><span class="PUNC">(</span><span class="NAME">nav</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">            </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">          </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">          </span><span class="NAME">page_num</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">page_num</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>398</span>     	 * Returns the jQuery object of the specified page
+<span class='line'>399</span>     	 *
+<span class='line'>400</span>     	 * @private
+<span class='line'>401</span>     	 * @param {mixed} [page] Page number (1 indexed) or the actual page itself
+<span class='line'>402</span>     	 *
+<span class='line'>403</span>     	 * @returns {object} Jquery object
+<span class='line'>404</span>     */</span><span class="WHIT">
+<span class='line'>405</span> 
+<span class='line'>406</span> </span><span class="WHIT">    </span><span class="NAME">getPageObject</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">      </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">      </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'object'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">      </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">      </span><span class="NAME">data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.data</span><span class="PUNC">(</span><span class="STRN">'monobombNavigator'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">data.$inner_nav_wrapper.find</span><span class="PUNC">(</span><span class="NAME">data.settings.inner_elements</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">':nth-child('</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">')'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>415</span> 
+<span class='line'>416</span> </span><span class="WHIT">  </span><span class="COMM">/**
+<span class='line'>417</span>    * monobombNavigator - handles navigation
+<span class='line'>418</span>    *
+<span class='line'>419</span>    * @memberOf $.fn
+<span class='line'>420</span>   */</span><span class="WHIT">
+<span class='line'>421</span> 
+<span class='line'>422</span> 
+<span class='line'>423</span> </span><span class="WHIT">  </span><span class="NAME">$.fn.monobombNavigator</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">method</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">methods</span><span class="PUNC">[</span><span class="NAME">method</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">methods</span><span class="PUNC">[</span><span class="NAME">method</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">Array.prototype.slice.call</span><span class="PUNC">(</span><span class="NAME">arguments</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">methods.init.apply</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">arguments</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>429</span> 
+<span class='line'>430</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>431</span> </span></pre></body></html>
