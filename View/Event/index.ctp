@@ -35,7 +35,11 @@ if (!empty($eventList)) {
 			<h2><strong><?php echo $eventYear; ?></strong></h2>
 			<ul>
 <?php   endif; ?>
+<?php   if ($event['has_content'] && (AuthComponent::user('id') == null)): ?>
 			<li><a id="event-<?php echo $event['id']; ?>" href="<?php echo $this->Html->url(array('action' => 'view', $event['id'], $event['title'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $event['title']; ?></span><?php echo $this->Pixelpod->time(null, $event['start_time']); ?></a></li>
+<?php   else: ?>
+			<li><div id="event-<?php echo $event['id']; ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $event['title']; ?></span><?php echo $this->Pixelpod->time(null, $event['start_time']); ?></div></li>
+<?php   endif; ?>
 <?php endforeach; ?>
 			</ul>
 		</nav>
