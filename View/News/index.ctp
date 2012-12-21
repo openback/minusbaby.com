@@ -1,7 +1,7 @@
 <?php
 $id = ($this->request->params['action'] == 'view') ? $this->request->params['pass'][0] : null;
 
-$this->Pixelpod->monobombNavigation('.all-articles', '.inner-articles', 'nav');
+$this->Pixelpod->monobombNavigation('.all-articles', '.inner-articles', 'nav', '.pager', 4, 'article.post', 'post');
 
 if (!empty($postsList)) {
 ?>

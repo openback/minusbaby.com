@@ -274,6 +274,8 @@
     },
     /**
     	 * Initializes the navigator
+    	 * If we're using AJAX for loading the contents of contained links, then
+    	 * pass the article_selector and model name.
     	 *
     	 * @example $(element).monobombNavigator({
     	 *              main_nav_wrapper: ".members",
@@ -293,13 +295,15 @@
     	 * @config {string} [close_selector] Close button selector ('.close')
     	 * @config {string} [forward_selector] Forward button selector ('.forward')
     	 * @config {string} [visible_columns] Number of columns visible at once (4)
+    	 * @config {string} [article_selector] Selector that we'll animate and hold the result of an AJAX request
+    	 * @config {string} [model] Name of the model used in AJAX requests
     	 *
     	 * @returns {object} Jquery object
     	 * @constructs
     */
 
     init: function(options) {
-      var $first_page, data, individual_width, required_height, settings,
+      var $first_page, $loading, data, individual_width, required_height, settings,
         _this = this;
       settings = {
         more_selector: '> .more',
@@ -307,6 +311,8 @@
         close_selector: '.close',
         forward_selector: '.forward',
         visible_columns: 4,
+        article_selector: null,
+        model: null,
         main_nav_wrapper: null,
         inner_nav_wrapper: null,
         inner_elements: null,
@@ -320,6 +326,7 @@
       data = {
         settings: settings
       };
+      data.$content = $('.content');
       data.$main_nav_wrapper = $(settings.main_nav_wrapper);
       data.$inner_nav_wrapper = data.$main_nav_wrapper.find(settings.inner_nav_wrapper);
       data.$controls_nav = $(settings.controls_nav);
@@ -337,8 +344,12 @@
       individual_width = $(data.$actual_navs[1]).outerWidth(true);
       data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px');
       required_height = data.$inner_nav_wrapper.height();
-      if (this.height() < required_height) {
-        this.height(required_height + 140);
+      data.min_height = required_height + 140;
+      console.log('this: ', this.height(), ' min: ', data.min_height);
+      if (this.height() < data.min_height) {
+        this.height(data.min_height);
+      } else {
+        this.height(this.height() + 140);
       }
       if (data.closed && ($first_page = this.find('.first-page')).length) {
         methods.moveToPage.call(this, $first_page, true);
@@ -363,6 +374,77 @@
         methods.back.apply(_this);
         return false;
       });
+      if (data.settings.article_selector && data.settings.model) {
+        $loading = data.$content.find('> .loading');
+        History.Adapter.bind(window, 'statechange', function() {
+          var $articles, $current, $page, id, split_url, state;
+          state = History.getState();
+          split_url = state.url.split('/');
+          id = split_url[split_url.length - 2];
+          if (isNaN(id)) {
+            data.$inner_nav_wrapper.find('.current').removeClass('current');
+            $('.pager').addClass('start-open');
+            data.$content.monobombNavigator('hideClose').monobombNavigator('openToPage', 1);
+            return;
+          } else {
+            data.$content.monobombNavigator('showClose');
+          }
+          data.$inner_nav_wrapper.find('.current').removeClass('current');
+          $current = $('#' + data.settings.model + '-' + id);
+          $current.addClass('current');
+          $page = $current.closest('nav');
+          if (data.$content.monobombNavigator('isOpen')) {
+            data.$content.monobombNavigator('closeToPage', $page, false, function() {
+              return $('.start-open').removeClass('start-open');
+            });
+          } else {
+            data.$content.monobombNavigator('moveToPage', $page, true);
+          }
+          $articles = $(data.settings.article_selector);
+          $loading.fadeIn('fast');
+          return $articles.fadeOut(function() {
+            var article, _i, _len, _ref;
+            _ref = $articles.slice(1);
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              article = _ref[_i];
+              $(article).remove();
+            }
+            return $.ajax({
+              type: 'GET',
+              url: state.url + '.json',
+              success: function(response) {
+                var $article,
+                  _this = this;
+                if (response.success) {
+                  $article = $(response.data);
+                  $article.hide();
+                  $(data.settings.article_selector).replaceWith($article);
+                  $loading.fadeOut('fast');
+                  $('> .admin', data.$content).animate({
+                    opacity: 1
+                  });
+                  return $article.fadeIn(function() {
+                    var height, new_height;
+                    height = $article.height();
+                    new_height = height < data.min_height + 140 ? data.min_height + 140 : height + 140;
+                    return data.$content.stop().animate({
+                      height: new_height + 'px'
+                    });
+                  });
+                }
+              }
+            });
+          });
+        });
+        data.$inner_nav_wrapper.delegate('a', 'click', function() {
+          var $this;
+          if (!data.$content.monobombNavigator('isAnimating')) {
+            $this = $(this);
+            History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'));
+          }
+          return false;
+        });
+      }
       return this;
     }
   };

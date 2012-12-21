@@ -21,75 +21,6 @@ flash_failure = (content) ->
 	else
 		$flash.effect "highlight", {}, 1000
 
-# TODO: Just move this into the navigator
-bindNavigatorLinks = (outer_wrapper_selector, article_selector, model_name) ->
-	$outer_wrapper = $(outer_wrapper_selector)
-	$content = $('.content')
-	$loading = $content.find('> .loading')
-
-	History.Adapter.bind(window, 'statechange'
-		, =>
-			state = History.getState()
-
-			split_url = state.url.split('/')
-			id = split_url[split_url.length - 2]
-
-			if isNaN(id)
-				# We ended up on the main page
-				$outer_wrapper.find('.current').removeClass('current')
-				$('.pager').addClass('start-open')
-				$content.monobombNavigator('hideClose')
-					.monobombNavigator('openToPage', 1)
-
-				return
-			else
-				$content.monobombNavigator('showClose')
-
-			$outer_wrapper.find('.current').removeClass('current')
-			$current = $('#' + model_name + '-' + id)
-			$current.addClass('current')
-			$page = $current.closest('nav')
-
-			if $content.monobombNavigator('isOpen')
-				$content.monobombNavigator('closeToPage', $page, false
-					, ->
-						$('.start-open').removeClass('start-open')
-				)
-			else
-				$content.monobombNavigator('moveToPage', $page, true)
-
-
-			$articles = $(article_selector)
-			$loading.fadeIn('fast')
-			$articles.fadeOut ->
-				# We only need one event now
-				for article in $articles.slice(1)
-					$(article).remove()
-
-				$.ajax
-					type: 'GET'
-					url: state.url + '.json'
-					success: (response) ->
-						if (response.success)
-							$article = $(response.data)
-							$article.hide()
-							$(article_selector).replaceWith($article)
-							$loading.fadeOut('fast')
-							$('> .admin', $content).animate {opacity: 1}
-							$article.fadeIn =>
-								height = $article.height()
-								$content.stop().animate
-									height: height + 140 + 'px'
-	)
-
-	$outer_wrapper.delegate('a', 'click', ->
-		if not $('.content').monobombNavigator('isAnimating')
-			$this = $(this)
-			History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'))
-
-		false
-	)
-
 $(document).ready ->
 	# flag for whether the user clicked to go elsewhere
 	clicked = false
@@ -170,15 +101,3 @@ $(document).ready ->
 		$email.add("#xmpp span").html (index, oldhtml) ->
 			oldhtml.replace "(@]", "@"
 		$email.attr "href", "mailto:" + $email.html().toLowerCase()
-
-	# News
-	$news = $('.content.news')
-
-	if $news.length and typeof History.Adapter isnt 'undefined'
-		bindNavigatorLinks('nav.posts', 'article.post', 'post')
-
-	# Events
-	$past_events = $('.past-events')
-
-	if $past_events.length and typeof History.Adapter isnt 'undefined'
-		bindNavigatorLinks('nav.events', 'article.event', 'event')
