@@ -256,6 +256,8 @@ methods =
 
 	###*
 	 * Initializes the navigator
+	 * If we're using AJAX for loading the contents of contained links, then
+	 * pass the article_selector and model name.
 	 *
 	 * @example $(element).monobombNavigator({
 	 *              main_nav_wrapper: ".members",
@@ -275,6 +277,8 @@ methods =
 	 * @config {string} [close_selector] Close button selector ('.close')
 	 * @config {string} [forward_selector] Forward button selector ('.forward')
 	 * @config {string} [visible_columns] Number of columns visible at once (4)
+	 * @config {string} [article_selector] Selector that we'll animate and hold the result of an AJAX request
+	 * @config {string} [model] Name of the model used in AJAX requests
 	 *
 	 * @returns {object} Jquery object
 	 * @constructs
@@ -286,6 +290,9 @@ methods =
 			close_selector: '.close'
 			forward_selector: '.forward'
 			visible_columns: 4
+			# The next two are for AJAX requests
+			article_selector: null
+			model: null
 			# The rest are required
 			main_nav_wrapper: null
 			inner_nav_wrapper: null
@@ -301,6 +308,7 @@ methods =
 
 		data =
 			settings: settings
+		data.$content           = $('.content')
 		data.$main_nav_wrapper  = $(settings.main_nav_wrapper)
 		data.$inner_nav_wrapper = data.$main_nav_wrapper.find(settings.inner_nav_wrapper)
 		data.$controls_nav      = $(settings.controls_nav)
@@ -324,8 +332,18 @@ methods =
 		data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px')
 
 		# And adjust the height of page to contain everything
-		required_height    = data.$inner_nav_wrapper.height()
-		this.height(required_height + 140) if this.height() < required_height
+		# required_height    = data.$inner_nav_wrapper.height()
+		# this.height(required_height + 140) if this.height() < required_height
+		#
+		required_height = data.$inner_nav_wrapper.height()
+		data.min_height = required_height + 140
+		console.log 'this: ', this.height(), ' min: ', data.min_height
+		if this.height() < data.min_height
+			this.height(data.min_height)
+		else
+			# Just to give some room in case this is a single post view
+			this.height(this.height() + 140)
+
 
 		# Switch to the current page if we're on a view page
 		if data.closed and ($first_page = this.find('.first-page')).length
@@ -352,6 +370,71 @@ methods =
 		data.$back.click =>
 			methods.back.apply(this)
 			false
+
+		if data.settings.article_selector and data.settings.model
+			$loading = data.$content.find('> .loading')
+
+			History.Adapter.bind(window, 'statechange'
+				, =>
+					state = History.getState()
+					split_url = state.url.split('/')
+					id = split_url[split_url.length - 2]
+
+					if isNaN(id)
+						# We ended up on the main page
+						data.$inner_nav_wrapper.find('.current').removeClass('current')
+						$('.pager').addClass('start-open')
+						data.$content.monobombNavigator('hideClose')
+							.monobombNavigator('openToPage', 1)
+
+						return
+					else
+						data.$content.monobombNavigator('showClose')
+
+					data.$inner_nav_wrapper.find('.current').removeClass('current')
+					$current = $('#' + data.settings.model + '-' + id)
+					$current.addClass('current')
+					$page = $current.closest('nav')
+
+					if data.$content.monobombNavigator('isOpen')
+						data.$content.monobombNavigator('closeToPage', $page, false
+							, ->
+								$('.start-open').removeClass('start-open')
+						)
+					else
+						data.$content.monobombNavigator('moveToPage', $page, true)
+
+					$articles = $(data.settings.article_selector)
+					$loading.fadeIn('fast')
+					$articles.fadeOut ->
+						# We only need one event now
+						for article in $articles.slice(1)
+							$(article).remove()
+
+						$.ajax
+							type: 'GET'
+							url: state.url + '.json'
+							success: (response) ->
+								if (response.success)
+									$article = $(response.data)
+									$article.hide()
+									$(data.settings.article_selector).replaceWith($article)
+									$loading.fadeOut('fast')
+									$('> .admin', data.$content).animate {opacity: 1}
+									$article.fadeIn =>
+										height = $article.height()
+										new_height = if height < data.min_height + 140 then data.min_height + 140 else height + 140
+										data.$content.stop().animate
+											height: new_height + 'px'
+			)
+
+			data.$inner_nav_wrapper.delegate('a', 'click', ->
+				if not data.$content.monobombNavigator('isAnimating')
+					$this = $(this)
+					History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'))
+
+				false
+			)
 
 		this
 

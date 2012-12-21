@@ -2,7 +2,7 @@
 $start_open = (empty($current) && !empty($eventList))? ' start-open' : '';
 $id = ($this->request->params['action'] == 'view') ? $this->request->params['pass'][0] : null;
 
-$this->Pixelpod->monobombNavigation('.all-events', '.past-events', 'nav');
+$this->Pixelpod->monobombNavigation('.all-events', '.past-events', 'nav', '.pager', 4, 'article.event', 'event');
 
 if (!empty($eventList)) {
 ?>
