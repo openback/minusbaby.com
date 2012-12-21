@@ -380,7 +380,7 @@
           var $articles, $current, $page, id, split_url, state;
           state = History.getState();
           split_url = state.url.split('/');
-          id = split_url[split_url.length - 2];
+          id = split_url[5];
           if (isNaN(id)) {
             data.$inner_nav_wrapper.find('.current').removeClass('current');
             $('.pager').addClass('start-open');

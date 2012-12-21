@@ -378,7 +378,7 @@ methods =
 				, =>
 					state = History.getState()
 					split_url = state.url.split('/')
-					id = split_url[split_url.length - 2]
+					id = split_url[5]
 
 					if isNaN(id)
 						# We ended up on the main page
