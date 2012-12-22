@@ -6,6 +6,7 @@ class AppController extends Controller {
 			'authorize' => 'Controller',
 			'loginRedirect' => '/',
 			'logoutRedirect' => '/',
+			'ajaxLogin' => 'ajax_no_auth',
 			'authError' => 'You are not allowed to do that.',
 		),
         'Cookie',

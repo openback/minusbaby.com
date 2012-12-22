@@ -1,25 +1,4 @@
 $ = jQuery
-String.prototype.endsWith = (suffix) ->
-	this.indexOf(suffix, this.length - suffix.length) isnt -1
-
-$.fn.equals = (selector) ->
-	$(this).get(0) is $(selector).get(0)
-
-# Will create a new flash-failure message or reuse an existing one
-#    * and replace its contents
-#    * @param content the HTML to be placed in the message
-#
-flash_failure = (content) ->
-	$flash = $(".flash-failure")
-
-	# We need to build an error flash
-	$flash = $("<div>").addClass("flash-failure").hide().prependTo("#content")  if $flash.length is 0
-	$flash.html content
-
-	if $flash.css("display") is "none"
-		$flash.slideDown "slow", -> $(this).effect "highlight", {}, 1000
-	else
-		$flash.effect "highlight", {}, 1000
 
 $(document).ready ->
 	# flag for whether the user clicked to go elsewhere
@@ -93,7 +72,7 @@ $(document).ready ->
 
 	# Flash the...flash
 	$("#flashMessage").add(".flash-success").effect("highlight", 1000, -> $(this).delay(2000).slideUp())
-	$(".flash-failure").effect("highlight", {}, 1000)
+	$(".flash-error").effect("highlight", {}, 1000)
 
 	$email = $("a.email")
 

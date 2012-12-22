@@ -1,31 +1,7 @@
 (function() {
-  var $, flash_failure;
+  var $;
 
   $ = jQuery;
-
-  String.prototype.endsWith = function(suffix) {
-    return this.indexOf(suffix, this.length - suffix.length) !== -1;
-  };
-
-  $.fn.equals = function(selector) {
-    return $(this).get(0) === $(selector).get(0);
-  };
-
-  flash_failure = function(content) {
-    var $flash;
-    $flash = $(".flash-failure");
-    if ($flash.length === 0) {
-      $flash = $("<div>").addClass("flash-failure").hide().prependTo("#content");
-    }
-    $flash.html(content);
-    if ($flash.css("display") === "none") {
-      return $flash.slideDown("slow", function() {
-        return $(this).effect("highlight", {}, 1000);
-      });
-    } else {
-      return $flash.effect("highlight", {}, 1000);
-    }
-  };
 
   $(document).ready(function() {
     var $ball, $current, $email, $highlight, $nav, clicked, left, width;
@@ -99,7 +75,7 @@
     $("#flashMessage").add(".flash-success").effect("highlight", 1000, function() {
       return $(this).delay(2000).slideUp();
     });
-    $(".flash-failure").effect("highlight", {}, 1000);
+    $(".flash-error").effect("highlight", {}, 1000);
     $email = $("a.email");
     if ($email.length > 0) {
       $email.add("#xmpp span").html(function(index, oldhtml) {

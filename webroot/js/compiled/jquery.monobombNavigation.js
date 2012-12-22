@@ -345,7 +345,6 @@
       data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px');
       required_height = data.$inner_nav_wrapper.height();
       data.min_height = required_height + 140;
-      console.log('this: ', this.height(), ' min: ', data.min_height);
       if (this.height() < data.min_height) {
         this.height(data.min_height);
       } else {
@@ -413,9 +412,13 @@
               type: 'GET',
               url: state.url + '.json',
               success: function(response) {
-                var $article,
+                var $article, $err,
                   _this = this;
                 if (response.success) {
+                  $err = $('.flash-error');
+                  if ($err.css('display') !== 'none') {
+                    $err.slideUp();
+                  }
                   $article = $(response.data);
                   $article.hide();
                   $(data.settings.article_selector).replaceWith($article);
@@ -431,7 +434,16 @@
                       height: new_height + 'px'
                     });
                   });
+                } else {
+                  $loading.hide('fast');
+                  Monobomb.flashError('Sorry, there was a problem loading that item. ' + response.data);
+                  return History.back();
                 }
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                $loading.hide('fast');
+                Monobomb.flashError('Sorry, there was a problem loading that item. (' + textStatus + ')');
+                return History.back();
               }
             });
           });
@@ -440,7 +452,7 @@
           var $this;
           if (!data.$content.monobombNavigator('isAnimating')) {
             $this = $(this);
-            History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'));
+            History.pushState(null, SiteConfig.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'));
           }
           return false;
         });

@@ -120,10 +120,12 @@
               data: data,
               dataType: 'json',
               success: function(response) {
-                console.log('RESPONSE: ', response);
                 if (!response.success) {
-                  return alert('Sorry, there was a problem!');
+                  return Monobomb.flashError('Sorry, there was a problem saving that item. (' + response.data + ')');
                 }
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                return Monobomb.flashError('Sorry, there was a problem saving that item. (' + textStatus + ')');
               }
             });
           }
@@ -193,7 +195,12 @@
           data: data,
           dataType: 'json',
           success: function(response) {
-            return console.log('RESPONSE: ', response);
+            if (!response.success) {
+              return Monobomb.flashError('Sorry, there was a problem reording the videos. (' + response.data + ')');
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            return Monobomb.flashError('Sorry, there was a problem reording the videos. (' + textStatus + ')');
           }
         });
       }
