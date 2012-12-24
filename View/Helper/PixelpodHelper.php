@@ -264,7 +264,7 @@ BJS;
 		}
 
 		$script = <<<JS
-			$(document).ready(function () {
+			$(window).load(function () {
 				$(".content").monobombNavigator({
 					main_nav_wrapper: '{$main_nav_wrapper}',
 					inner_nav_wrapper: '{$inner_nav_wrapper}',

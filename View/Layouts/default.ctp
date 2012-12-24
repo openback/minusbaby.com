@@ -26,8 +26,8 @@
 		<![endif]-->
 		<?php
 			if (Configure::read('debug') == 0) {
-				$this->Html->css('min/screen', null, array('media' => 'screen, projection', 'inline' => false));
-				$this->Html->css('min/print', null, array('media' => 'print', 'inline' => false));
+				$this->Html->css('/ccss/screen', null, array('media' => 'screen, projection', 'inline' => false));
+				$this->Html->css('/ccss/print', null, array('media' => 'print', 'inline' => false));
 			} else {
 				$this->Html->css('screen', null, array('media' => 'screen, projection', 'inline' => false));
 				$this->Html->css('print', null, array('media' => 'print', 'inline' => false));
