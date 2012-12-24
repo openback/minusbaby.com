@@ -15,10 +15,10 @@ Configure::write('Monobomb',
 /**
  * Defines the specifics of this site
  */
-define('DEFAULT_ARTIST', 'crashfaster');
-define('SITE_TITLE', 'Crashfaster');
-define('NEWS_LOGO', 'crashfaster_logo_64x11.png');
-define('FOOTER_IMAGE', 'crashfaster_logo_footer.png');
+define('DEFAULT_ARTIST', 'minusbaby');
+define('SITE_TITLE', 'minusbaby');
+define('NEWS_LOGO', 'minusbaby_logo_14x16.png');
+define('FOOTER_IMAGE', 'minusbaby_logo_footer.png');
 
 Configure::write('Menu',
 	array(

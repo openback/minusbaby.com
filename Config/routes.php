@@ -24,7 +24,7 @@
 //Router::connect('/', array('controller' => 'landing'));
 Router::parseExtensions('json');
 
-Router::connect('/', array('controller' => 'news'));
+Router::connect('/', array('controller' => 'home'));
 
 Router::connect('/error/:code',
     array(

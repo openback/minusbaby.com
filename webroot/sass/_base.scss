@@ -9,18 +9,18 @@ $background: #090909;
 $normal-text: #b3b3b3;
 $quiet-text: #595959;
 $loud-text: #ebebeb;
-$link: #ff6e36;
+$link: #00b9f1;
 $borders: #595959;
 $input-background: #1d1d1d;
 $header-background: #1d1d1d;
 $artist-selector: #313131;
 
 // three-line border for current section in menu
-$location-border-highlight: #ff6e36;
-$location-border-main: #ff460e;
-$location-border-shadow: #c30a00;
+$location-border-highlight: #3cf5ff;
+$location-border-main: #00b9f1;
+$location-border-shadow: #0091c9;
 
-$footer-height: 287px;
+$footer-height: 387px;
 
 @mixin smaller-text {
 	font-size: 0.8em;

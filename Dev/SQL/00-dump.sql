@@ -1,16 +1,24 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.11.3
+-- version 3.5.2
 -- http://www.phpmyadmin.net
 --
 -- Host: internal-db.s43752.gridserver.com
--- Generation Time: Jun 12, 2011 at 07:03 PM
--- Server version: 4.1.25
--- PHP Version: 4.4.9
+-- Generation Time: Dec 23, 2012 at 07:02 PM
+-- Server version: 5.1.61-rel13.2
+-- PHP Version: 5.3.15
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `db43752_crashfaster_cake`
+-- Database: `db43752_minusbaby_cake`
 --
 
 -- --------------------------------------------------------
@@ -21,32 +29,32 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 DROP TABLE IF EXISTS `albums`;
 CREATE TABLE IF NOT EXISTS `albums` (
-  `id` int(32) NOT NULL auto_increment,
-  `type` enum('Solo','Compilation','Appears on') default NULL,
-  `label` varchar(140) default NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `type` enum('Solo','Compilation','Appears on') DEFAULT NULL,
+  `label` varchar(140) DEFAULT NULL,
   `label_url` text,
-  `catalog_number` varchar(140) default NULL,
-  `title` varchar(140) NOT NULL default '',
-  `release_date` date default NULL,
-  `formats` varchar(140) default NULL,
-  `country` varchar(2) default 'US',
+  `catalog_number` varchar(140) DEFAULT NULL,
+  `title` varchar(140) NOT NULL DEFAULT '',
+  `release_date` date DEFAULT NULL,
+  `formats` varchar(140) DEFAULT NULL,
+  `country` varchar(2) DEFAULT 'US',
   `url` text,
   `purchase_url` text,
-  `license` varchar(140) default NULL,
+  `license` varchar(140) DEFAULT NULL,
   `cover_file_path` text,
-  `cover_file_name` varchar(140) default NULL,
-  `cover_file_size` int(32) default NULL,
-  `cover_content_type` varchar(140) default NULL,
+  `cover_file_name` varchar(140) DEFAULT NULL,
+  `cover_file_size` int(32) DEFAULT NULL,
+  `cover_content_type` varchar(140) DEFAULT NULL,
   `thumbnail_file_path` text,
-  `thumbnail_file_name` varchar(140) default NULL,
-  `thumbnail_file_size` int(32) default NULL,
-  `thumbnail_content_type` varchar(140) default NULL,
+  `thumbnail_file_name` varchar(140) DEFAULT NULL,
+  `thumbnail_file_size` int(32) DEFAULT NULL,
+  `thumbnail_content_type` varchar(140) DEFAULT NULL,
   `comments` text,
-  `downloads` int(32) default '0',
-  `slug` varchar(140) default 'album',
-  `artist` varchar(140) default 'minusbaby',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+  `downloads` int(32) DEFAULT '0',
+  `slug` varchar(140) DEFAULT 'album',
+  `artist` varchar(140) DEFAULT 'minusbaby',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `albums`
@@ -80,7 +88,177 @@ INSERT INTO `albums` (`id`, `type`, `label`, `label_url`, `catalog_number`, `tit
 (27, 'Compilation', '8bitpeoples', 'http://8bitpeoples.com', '8BP100', 'Blip Festival 2008: 32 Live Recordings', '2009-08-22', 'CD', 'US', '', 'https://www.8bitpeoples.com/store/product/65', '', '8bp100_cover.png', '8bp100_cover.png', 2570, 'image/png', '8bp100_cover-th.png', '8bp100_cover-th.png', 1368, 'image/png', '<p>"For a scene and a subculture not known to put a great emphasis on the physicality of an album or an EP, a scene which thrives and prides itself on the free exchange of digital music, this is the right record to make tangible. Milestones should be marked by monuments, and this is the second time 8bitpeoples have done so: with the 2xCD 8BP50 CD after the first Blip Festival, and now with this; 8BP100 â€” so you can see just how far it''s all come. Now take this artifact in your hands, press play on your system, inspect the pretty parcel it came in until you''ve unlocked its every secret, then turn up the volume, close your eyes, and picture yourself there."\r\n</p>\r\n<p>\r\nâ€” <a href="http://www.nattyadams.com">Nathaniel Adams</a>\r\n</p>', 0, 'Blip-Festival-2008-32-Live-Recordings', 'Various Artists'),
 (29, 'Appears on', 'monobomb/343 Industries', '', '', '"Grandmaster Chief"', '2010-10-27', 'MP3', 'US', 'http://freemusicarchive.org/music/fasterbaby/~/Grandmaster_Chief', '', 'CC', 'grandmaster_chief_cover.png', 'grandmaster_chief_cover.png', 2070, 'image/png', 'grandmaster_chief_cover-th.png', 'grandmaster_chief_cover-th.png', 667, 'image/png', '<p>\r\nSoaked in sangria and beer at a pre-PAX industry party in Seattle this past August, <a href="http://crashfaster.com">crashfaster</a> and I were asked by one of its producers to write a cover of the "<b>Halo</b>" theme for a "<b>Halo: Reach</b>" event in two days. Her only rule was for it to include the Monk chant.\r\n</p>\r\n <p>\r\nIt was featured in the Halo Waypoint 343 Sparkast on <a href="http://halo.xbox.com/forums/f/14/t/1309.aspx">October 27th, 2010</a>.\r\n</p>', 0, 'Grandmaster-Chief', 'fasterbaby'),
 (30, 'Compilation', '8bitpeoples', 'http://8bitpeoples.com', '8BP105', 'Data Drop: 12 Tracks for Co-Conspirators', '2010-02-25', 'MP3', 'US', '', '', '', 'conspirators_cover.png', 'conspirators_cover.png', 22312, 'image/png', 'conspirators_cover-th.png', 'conspirators_cover-th.png', 8361, 'image/png', '<p>"Data Drop: 12 Tracks For Co-Conspirators," is an exclusive collection of previously unreleased tracks by Blip Festival 2009 participants; made available only to the event''s supporters and donors.\r\n</p>\r\n<p>\r\n8bitpeoples, The Tank, and the Blip Festival crew extend our genuine thanks to you for ensuring that Blip Festival 2009 took place, and we hope you enjoy the release.\r\n</p>', 0, 'Data-Drop-12-Tracks-for-Co-Conspirators', 'Various Artists'),
-(31, 'Compilation', '8bitpeoples', 'http://8bitpeoples.com', '', 'Blip Festival 2007: The Videos', '2008-12-05', 'DVD', 'US', '', 'https://www.8bitpeoples.com/store/product/62', '', 'blip_2007_dvd_cover.jpg', 'blip_2007_dvd_cover.jpg', 288554, 'image/jpeg', 'blip_2007_dvd_cover-th.jpg', 'blip_2007_dvd_cover-th.jpg', 55628, 'image/jpeg', '<iframe src="http://player.vimeo.com/video/2471908?byline=0&amp;portrait=0" width="450" height="300" frameborder="0"></iframe>\r\n<p>\r\nIn 2007, musicians and artists from around the world assembled in New York City to participate in the second annual <a href="http://blipfestival.org">Blip Festival</a>. Curated and organized by 8bitpeoples and The Tank, this four-day event showcased the untapped potential of low-bit home computer and game consoles used as creative audio and video tools.\r\n</p>\r\n<p>\r\n2 Player Productions is proud to present this DVD video compilation, featuring one track from each of the festival''s 32 performers. Unrestricted camera access positions the viewer directly between a surging crowd and a bracing wall of sound, one built upon familiar technology turned on its ear.\r\n</p>', 0, 'Blip-Festival-2007-The-Videos', 'Various Artists');
+(31, 'Compilation', '8bitpeoples', 'http://8bitpeoples.com', '', 'Blip Festival 2007: The Videos', '2008-12-05', 'DVD', 'US', '', 'https://www.8bitpeoples.com/store/product/62', '', 'blip_2007_dvd_cover.jpg', 'blip_2007_dvd_cover.jpg', 288554, 'image/jpeg', 'blip_2007_dvd_cover-th.jpg', 'blip_2007_dvd_cover-th.jpg', 55628, 'image/jpeg', '<iframe src="http://player.vimeo.com/video/2471908?byline=0&amp;portrait=0" width="450" height="300" frameborder="0"></iframe>\r\n<p>\r\nIn 2007, musicians and artists from around the world assembled in New York City to participate in the second annual <a href="http://blipfestival.org">Blip Festival</a>. Curated and organized by 8bitpeoples and The Tank, this four-day event showcased the untapped potential of low-bit home computer and game consoles used as creative audio and video tools.\r\n</p>\r\n<p>\r\n2 Player Productions is proud to present this DVD video compilation, featuring one track from each of the festival''s 32 performers. Unrestricted camera access positions the viewer directly between a surging crowd and a bracing wall of sound, one built upon familiar technology turned on its ear.\r\n</p>', 0, 'Blip-Festival-2007-The-Videos', 'Various Artists'),
+(33, 'Solo', 'monobomb records', 'http://www.monobomb.com', 'xix002', 'BIAS', '2011-05-19', 'MP3, CD', 'US', 'http://minusbaby.bandcamp.com', 'http://minusbaby.bandcamp.com', '2011 monobomb records', 'bias.png', 'bias.png', 2631, 'image/png', 'bias-th.png', 'bias-th.png', 1769, 'image/png', '<p>This newly mixed and mastered release includes an alternate version of â€œLeftâ€; originally released by 8bitpeoples in 2009 and an extended (by over twelve minutes) version of â€œDerechaâ€ [2010]; plus a brand new track, "Subimago".\r\n</p>\r\n<p>\r\nThe CD version is a shrink-wrapped DigipakÂ®.\r\n</p>\r\n<p>\r\nYou may stream and purchase "BIAS" at <a href="http://minusbaby.bandcamp.com">http://minusbaby.bandcamp.com</a>', 0, 'BIAS', 'minusbaby'),
+(34, 'Appears on', 'Molleindustria', 'http://molleindustria.it', '', 'Phone Story', '2011-09-13', 'iOS', 'IT', 'http://phonestory.org', 'http://phonestory.org', 'Attribution-NonCommercial-ShareAlike 3.0 United States', 'phonestory.png', 'phonestory.png', 213228, 'image/png', 'phonestory-th.png', 'phonestory-th.png', 33667, 'image/png', '<p>Phone Story is a game for smartphone devices that attempts to provoke a critical reflection on its own technological platform. Under the shiny surface of our electronic gadgets, behind its polished interface, hides the product of a troubling supply chain that stretches across the globe. Phone Story represents this process with four educational games that make the player symbolically complicit in coltan extraction in Congo, outsourced labor in China, e-waste in Pakistan and gadget consumerism in the West.\r\n</p>\r\n<p>\r\nKeep Phone Story on your device as a reminder of your impact. All of the revenues raised go directly to workers'' organizations and other non-profits that are working to stop the horrors represented in the game.\r\n</p>', 0, 'Phone-Story', 'Molleindustria');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE IF NOT EXISTS `books` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `library_id` int(32) NOT NULL DEFAULT '0',
+  `thumb` varchar(140) NOT NULL DEFAULT '',
+  `full` varchar(140) NOT NULL DEFAULT '',
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=821 ;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `library_id`, `thumb`, `full`, `created`, `modified`) VALUES
+(740, 15, '8bp068-th.png', '8bp068.png', '2011-05-18 22:20:39', '2011-05-18 22:20:39'),
+(726, 13, 'pulsewave_2009_016-th.png', 'pulsewave_2009_016.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(723, 13, 'pulsewave_2008_001-th.png', 'pulsewave_2008_001.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(724, 13, 'pulsewave_2009_014-th.png', 'pulsewave_2009_014.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(725, 13, 'pulsewave_2008_003-th.png', 'pulsewave_2008_003.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(722, 13, 'pulsewave_2010_020-th.png', 'pulsewave_2010_020.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(719, 13, 'pulsewave_2008_007-th.png', 'pulsewave_2008_007.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(720, 13, 'pulsewave_2009_009-th.png', 'pulsewave_2009_009.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(721, 13, 'pulsewave_2009_012-th.png', 'pulsewave_2009_012.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(718, 13, 'pulsewave_2009_010-th.png', 'pulsewave_2009_010.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(717, 13, 'pulsewave_2008_005-th.png', 'pulsewave_2008_005.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(716, 13, 'pulsewave_2008_008-th.png', 'pulsewave_2008_008.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(712, 13, 'pulsewave_2010_019-th.png', 'pulsewave_2010_019.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(713, 13, 'pulsewave_2010_021-th.png', 'pulsewave_2010_021.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(714, 13, 'pulsewave_2009_013-th.png', 'pulsewave_2009_013.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(771, 9, 'lowgain_05-th.jpg', 'lowgain_05.jpg', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(770, 9, 'lowgain_00-th.png', 'lowgain_00.png', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(769, 9, 'lowgain_01-th.jpg', 'lowgain_01.jpg', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(768, 9, 'lowgain_06-th.png', 'lowgain_06.png', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(767, 9, 'lowgain_03-th.jpg', 'lowgain_03.jpg', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(766, 9, 'lowgain_02-th.jpg', 'lowgain_02.jpg', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(765, 9, 'lowgain_07-th.png', 'lowgain_07.png', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(764, 9, 'lowgain_04-th.jpg', 'lowgain_04.jpg', '2011-05-18 23:03:30', '2011-05-18 23:03:30'),
+(357, 10, 'xix001_003-th.jpg', 'xix001_003.jpg', '2011-05-04 13:52:00', '2011-05-04 13:52:00'),
+(356, 10, 'xix001_001-th.jpg', 'xix001_001.jpg', '2011-05-04 13:52:00', '2011-05-04 13:52:00'),
+(355, 10, 'xix001_004-th.jpg', 'xix001_004.jpg', '2011-05-04 13:52:00', '2011-05-04 13:52:00'),
+(354, 10, 'xix001_002-th.jpg', 'xix001_002.jpg', '2011-05-04 13:52:00', '2011-05-04 13:52:00'),
+(758, 11, '8bp100_005-th.jpg', '8bp100_005.jpg', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(757, 11, '8bp100_001-th.jpg', '8bp100_001.jpg', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(756, 11, '8bp100_003-th.jpg', '8bp100_003.jpg', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(755, 11, '8bp100_006-th.png', '8bp100_006.png', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(820, 12, 'minecraft_02-th.png', 'minecraft_02.png', '2011-06-01 21:53:10', '2011-06-01 21:53:10'),
+(819, 12, '02-minecraft_cap-th.png', '02-minecraft_cap.png', '2011-06-01 21:53:10', '2011-06-01 21:53:10'),
+(817, 12, 'minecraft_05-th.png', 'minecraft_05.png', '2011-06-01 21:53:10', '2011-06-01 21:53:10'),
+(818, 12, 'minecraft_04-th.png', 'minecraft_04.png', '2011-06-01 21:53:10', '2011-06-01 21:53:10'),
+(715, 13, 'pulsewave_2008_006-th.png', 'pulsewave_2008_006.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(711, 13, 'pulsewave_2008_004-th.png', 'pulsewave_2008_004.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(710, 13, 'pulsewave_2008_002-th.png', 'pulsewave_2008_002.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(709, 13, 'pulsewave_2009_017-th.png', 'pulsewave_2009_017.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(708, 13, 'pulsewave_2009_10-th.png', 'pulsewave_2009_10.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(707, 13, 'pulsewave_2009_018-th.png', 'pulsewave_2009_018.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(706, 13, 'pulsewave_2009_015-th.png', 'pulsewave_2009_015.png', '2011-05-18 22:14:27', '2011-05-18 22:14:27'),
+(754, 11, '8bp100_008-th.png', '8bp100_008.png', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(753, 11, '8bp100_007-th.png', '8bp100_007.png', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(752, 11, '8bp100_002-th.jpg', '8bp100_002.jpg', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(751, 11, '8bp100_004-th.jpg', '8bp100_004.jpg', '2011-05-18 22:39:50', '2011-05-18 22:39:50'),
+(798, 14, 'rft_001-th.png', 'rft_001.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(797, 14, 'rft_003-th.png', 'rft_003.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(796, 14, 'rft_005-th.png', 'rft_005.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(795, 14, 'rft_007-th.png', 'rft_007.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(794, 14, 'rft_004-th.png', 'rft_004.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(793, 14, 'rft_006-th.png', 'rft_006.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(792, 14, 'rft_002-th.png', 'rft_002.png', '2011-05-19 10:05:43', '2011-05-19 10:05:43'),
+(635, 16, '010_monobomb-th.png', '010_monobomb.png', '2011-05-18 21:25:52', '2011-05-18 21:25:52'),
+(634, 16, '002_filenice-th.png', '002_filenice.png', '2011-05-18 21:25:52', '2011-05-18 21:25:52'),
+(633, 16, '013_dog909_01-th.png', '013_dog909_01.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(632, 16, '003_balun-th.png', '003_balun.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(630, 16, '011_xxiiiv-th.jpg', '011_xxiiiv.jpg', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(631, 16, '005_nullsleep-th.png', '005_nullsleep.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(629, 16, '001_less_than_three-th.png', '001_less_than_three.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(628, 16, '012_piggy_to_midi-th.png', '012_piggy_to_midi.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(627, 16, '007_blip_festival_2008-th.png', '007_blip_festival_2008.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(626, 16, '006_minusbaby-th.png', '006_minusbaby.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(625, 16, '004_handheld_heroes-th.png', '004_handheld_heroes.png', '2011-05-18 21:25:51', '2011-05-18 21:25:51'),
+(662, 17, '20080808-th.png', '20080808.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(663, 17, '20081003_01-th.jpg', '20081003_01.jpg', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(661, 17, '20081003_01_02-th.png', '20081003_01_02.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(659, 17, '20110223_01-th.jpg', '20110223_01.jpg', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(660, 17, '20100201_01-th.png', '20100201_01.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(658, 17, '20091112_02-th.jpg', '20091112_02.jpg', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(657, 17, '20090825-th.png', '20090825.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(656, 17, '20110223_02-th.png', '20110223_02.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(654, 17, '20091112_01-th.png', '20091112_01.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(655, 17, '20090128-th.png', '20090128.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(653, 17, '20090411_01-th.jpg', '20090411_01.jpg', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(651, 17, '20090716-th.png', '20090716.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(652, 17, '20100422-th.jpg', '20100422.jpg', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(650, 17, '20080716-th.png', '20080716.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(649, 17, '20110223_03-th.png', '20110223_03.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(648, 17, '20100517-th.png', '20100517.png', '2011-05-18 21:28:43', '2011-05-18 21:28:43'),
+(647, 17, '20090411_02-th.jpg', '20090411_02.jpg', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(646, 17, '20090924-th.png', '20090924.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(645, 17, '20110223_04-th.jpg', '20110223_04.jpg', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(644, 17, '20090724_01-th.png', '20090724_01.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(643, 17, '20031114-th.png', '20031114.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(642, 17, '20101104-th.png', '20101104.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(641, 17, '20090724_02-th.jpg', '20090724_02.jpg', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(640, 17, '20110414-th.png', '20110414.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(639, 17, '20100201_02-th.png', '20100201_02.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(638, 17, '20080614-th.png', '20080614.png', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(637, 17, '20100829-th.jpg', '20100829.jpg', '2011-05-18 21:28:42', '2011-05-18 21:28:42'),
+(624, 19, '06-th.png', '06.png', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(623, 19, '04-th.png', '04.png', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(622, 19, '07-th.jpg', '07.jpg', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(621, 19, '02-th.png', '02.png', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(620, 19, '08-th.jpg', '08.jpg', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(619, 19, '03-th.png', '03.png', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(618, 19, '01-th.png', '01.png', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(617, 19, '05-th.png', '05.png', '2011-05-18 20:51:49', '2011-05-18 20:51:49'),
+(761, 20, 'anonomogon_001-th.png', 'anonomogon_001.png', '2011-05-18 22:53:10', '2011-05-18 22:53:10'),
+(763, 20, 'anonomogon_003-th.png', 'anonomogon_003.png', '2011-05-18 22:53:11', '2011-05-18 22:53:11'),
+(762, 20, 'anonomogon_004-th.jpg', 'anonomogon_004.jpg', '2011-05-18 22:53:10', '2011-05-18 22:53:10'),
+(760, 20, 'anonomogon_002-th.png', 'anonomogon_002.png', '2011-05-18 22:53:10', '2011-05-18 22:53:10'),
+(759, 20, 'anonomogon_005-th.jpg', 'anonomogon_005.jpg', '2011-05-18 22:53:10', '2011-05-18 22:53:10'),
+(739, 15, '8bp110-th.png', '8bp110.png', '2011-05-18 22:20:39', '2011-05-18 22:20:39'),
+(738, 15, '8bp089_04-th.jpg', '8bp089_04.jpg', '2011-05-18 22:20:39', '2011-05-18 22:20:39'),
+(737, 15, '8bp095-th.png', '8bp095.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(736, 15, '8bp089_01-th.png', '8bp089_01.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(735, 15, '8bp055-th.png', '8bp055.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(734, 15, '8bp036-th.png', '8bp036.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(733, 15, '8bp103-th.png', '8bp103.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(732, 15, '8bp066-th.png', '8bp066.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(731, 15, '8bp087-th.png', '8bp087.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(730, 15, '8bp101-th.png', '8bp101.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(729, 15, '8bp077a-th.png', '8bp077a.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(728, 15, '8bp085-th.png', '8bp085.png', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(727, 15, '8bp089_02-th.jpg', '8bp089_02.jpg', '2011-05-18 22:20:38', '2011-05-18 22:20:38'),
+(791, 18, '15-th.jpg', '15.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(790, 18, '03-th.jpg', '03.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(789, 18, '17-th.jpg', '17.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(788, 18, '01-th.jpg', '01.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(787, 18, '09-th.png', '09.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(786, 18, '19-th.png', '19.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(785, 18, '11-th.jpg', '11.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(784, 18, '16-th.png', '16.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(783, 18, '05-th.jpg', '05.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(782, 18, '18-th.png', '18.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(781, 18, '10-th.jpg', '10.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(780, 18, '06-th.jpg', '06.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(779, 18, '12-th.jpg', '12.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(778, 18, '04-th.jpg', '04.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(777, 18, '20-th.png', '20.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(776, 18, '02-th.jpg', '02.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(775, 18, '07-th.png', '07.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(774, 18, '14-th.jpg', '14.jpg', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(773, 18, '13-th.png', '13.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(772, 18, '08-th.png', '08.png', '2011-05-19 10:01:36', '2011-05-19 10:01:36'),
+(636, 16, '009_type_fresh-th.png', '009_type_fresh.png', '2011-05-18 21:25:52', '2011-05-18 21:25:52'),
+(741, 15, '8bp089_03-th.jpg', '8bp089_03.jpg', '2011-05-18 22:20:39', '2011-05-18 22:20:39'),
+(742, 15, '8bp102-th.png', '8bp102.png', '2011-05-18 22:20:39', '2011-05-18 22:20:39'),
+(816, 12, 'minecraft_00-th.jpg', 'minecraft_00.jpg', '2011-06-01 21:53:09', '2011-06-01 21:53:09'),
+(815, 12, 'minecraft_01-th.png', 'minecraft_01.png', '2011-06-01 21:53:09', '2011-06-01 21:53:09'),
+(814, 12, '01-minecraft_cap-th.png', '01-minecraft_cap.png', '2011-06-01 21:53:09', '2011-06-01 21:53:09'),
+(813, 12, 'minecraft_03-th.png', 'minecraft_03.png', '2011-06-01 21:53:09', '2011-06-01 21:53:09');
+
 -- --------------------------------------------------------
 
 --
@@ -89,29 +267,29 @@ INSERT INTO `albums` (`id`, `type`, `label`, `label_url`, `catalog_number`, `tit
 
 DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
-  `id` int(32) NOT NULL auto_increment,
-  `title` varchar(140) default NULL,
-  `start_time` datetime default NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `title` varchar(140) DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
   `their_description` text,
   `my_description` text,
-  `venue_id` int(32) NOT NULL default '0',
-  `age` varchar(140) default NULL,
-  `price` varchar(140) default NULL,
-  `byob` tinyint(1) default '0',
+  `venue_id` int(32) NOT NULL DEFAULT '0',
+  `age` varchar(140) DEFAULT NULL,
+  `price` varchar(140) DEFAULT NULL,
+  `byob` tinyint(1) DEFAULT '0',
   `rsvp_url` text,
   `external_url` text,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   `event_file_path` text,
-  `event_file_name` varchar(140) default NULL,
-  `event_file_size` int(32) default NULL,
-  `event_content_type` varchar(140) default NULL,
+  `event_file_name` varchar(140) DEFAULT NULL,
+  `event_file_size` int(32) DEFAULT NULL,
+  `event_content_type` varchar(140) DEFAULT NULL,
   `facebook_url` text,
   `lastfm_url` text,
   `mp3_url` text,
-  `end_date` date default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
+  `end_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 --
 -- Dumping data for table `events`
@@ -119,10 +297,11 @@ CREATE TABLE IF NOT EXISTS `events` (
 
 INSERT INTO `events` (`id`, `title`, `start_time`, `their_description`, `my_description`, `venue_id`, `age`, `price`, `byob`, `rsvp_url`, `external_url`, `created`, `modified`, `event_file_path`, `event_file_name`, `event_file_size`, `event_content_type`, `facebook_url`, `lastfm_url`, `mp3_url`, `end_date`) VALUES
 (1, '8static', '2011-02-19 19:00:00', 'First up, we have crashfaster from San Francisco in his 8static debut. Also making his 8static debut is PrincetonÃ¢â‚¬â„¢s own Decktonic, who has been rocking open mic with his DS-10 for quite a few months now. Thankfully minusbaby is back again from NYC, with noteNdo on visuals all night long. Before the main show and open mic there is a talk on Creative Commons and licensing your music by Bit Shifter. Make sure to check the Events page for a lengthy description.', '', 1, 'All Ages', '$8 &bull; $5 with RSVP', 0, 'http://tinyurl.com/8staticFeb11RSVP', 'http://8static.com', '2011-02-11 02:20:09', '2011-05-14 19:54:45', NULL, NULL, NULL, NULL, '', '', '', NULL),
+(75, 'I/O', '2011-09-05 20:30:00', 'I/O returns to Fontana''s for a Labor Day chip music fall kickoff event!', '', 60, '21+', '$6 USD', 0, '', 'http://iochipmusic.com', '2011-08-11 09:51:44', '2011-08-11 19:42:12', '4e440865-ff54-4fa5-91d1-410b400dc0a6.png', NULL, NULL, NULL, 'https://www.facebook.com/event.php?eid=258311070864782', 'http://www.last.fm/event/2022444+I-O', '', NULL),
 (2, 'Pulsewave', '2011-02-26 20:00:00', 'No one will be safe at the next Pulsewave, where candy-coated valentines will exchange blows with pitiless carnality on a sweaty dancefloor smitten by jiggling naughty bits; and you''ll love them for it.', '', 2, 'All Ages', '$10', 0, '', 'http://pulsewavenyc.com', '2011-02-11 02:20:09', '2011-04-26 17:59:04', '4db76a58-eecc-4cfa-beb3-7eee400dc0a6.png', 'pulsewave-feb_11.png', 7959, 'image/png', '', '', '', NULL),
 (3, 'New York&mdash;Tokyo Game Night', '2010-11-30 00:00:00', NULL, NULL, 3, NULL, NULL, 0, NULL, 'http://www.newyork-tokyo.com/', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 'FILE HipersÃ´nica', '2011-04-03 19:00:00', 'O HipersÃ´nica Encontro acontece como um espaÃ§o para alÃ©m da apresentaÃ§Ã£o de espetÃ¡culos; um evento experimental em que qualquer um poderÃ¡ entregar propostas de trabalho em dvd ou cd para a equipe do HipersÃ´nica Rio 2011, expor a sua opiniÃ£o e ter contato direto com os convidados e com a produÃ§Ã£o do festival. Na programaÃ§Ã£o, artistas que constroem seus prÃ³prios instrumentos com diversos materiais e tÃ©cnicas que propÃµem formas contemporÃ¢neas de se produzir sonoridades eletrÃ´nicas. ', '', 6, '16+', 'R$0', 0, '', 'http://www.hipersonica.org', '2011-03-23 02:02:42', '2011-04-26 17:49:24', '4d9f3bb5-2dd0-4d09-963a-0dab400dc0a6.png', 'filehipersonica11.png', 43150, 'image/png', '', '', '', NULL),
-(73, 'Blip Festival 2011', '2011-05-19 00:00:00', 'Entering its fifth year, this iteration of Blip Festival showcases an international chip community that stands at a crossroads. Now firmly entrenched in mainstream culture with chipsounds and pixel art finding their way into television, motion pictures, and ironically enough, modern video games, Chip musicians and artists find they are no longer expected to educate their audiences but, instead, are free to innovate. As the community becomes less of a genre and more of an ethos, documenting the ever-growing diversification of the community is the Blip Festival''s top goal.', 'I play on Thursday, May 19th at 10:40 PM, in case you need to know specifically. But you ought to come out for all three nights. C''mon now. It''s Blip Festival.', 48, 'All Ages', '3-day pass: $51.70<br />1-day pass: $20.00', 0, 'http://blipfestival.org/2011/tickets', 'http://blipfestival.org/2011/', '2011-04-08 10:25:11', '2011-05-04 12:35:44', '4db87aa0-3e4c-4e94-a6a9-4cea400dc0a6.gif', 'blip_11_banner.gif', 112243, 'image/gif', 'https://www.facebook.com/event.php?eid=105798896165311', 'http://www.last.fm/festival/1907456+Blip+Festival+New+York', '', '2011-05-21'),
+(73, 'Blip Festival 2011', '2011-05-19 00:00:00', 'Entering its fifth year, this iteration of Blip Festival showcases an international chip community that stands at a crossroads. Now firmly entrenched in mainstream culture with chipsounds and pixel art finding their way into television, motion pictures, and ironically enough, modern video games, Chip musicians and artists find they are no longer expected to educate their audiences but, instead, are free to innovate. As the community becomes less of a genre and more of an ethos, documenting the ever-growing diversification of the community is the Blip Festival''s top goal.', 'I play on Thursday, May 19th at 10:40 PM, in case you need to know specifically. But you ought to come out for all three nights. C''mon now. It''s Blip Festival.', 48, 'All Ages', '3-day pass: $51.70<br />1-day pass: $20.00', 0, 'http://blipfestival.org/2011/tickets', 'http://blipfestival.org/2011/', '2011-04-08 10:25:11', '2012-07-20 16:41:53', '4db87aa0-3e4c-4e94-a6a9-4cea400dc0a6.gif', 'blip_11_banner.gif', 112243, 'image/gif', 'https://www.facebook.com/event.php?eid=105798896165311', 'http://www.last.fm/festival/1907456+Blip+Festival+New+York', 'http://freemusicarchive.org/music/minusbaby/Blip_Festival_2011-Minusbaby', '2011-05-21'),
 (7, 'The Engadget Show', '2011-03-25 19:00:00', 'Attention humans, the Engadget Show is back next Friday, March 25th at 7:00pm with HP''s Jon Rubinstein at The Times Center in New York City, and you can win a free trip for two to the taping! Josh will be sitting down the former Palm CEO (current HP Senior VP) to get the inside scoop on everything from the TouchPad, new Pre 3, Veer, the state of WebOS, and much more! Trust us when we say that you won''t want to miss it. What''s more, our very own Joanna Stern will be demoing the Samsung 9 Series laptop, we''ll have the Nintendo 3DS on stage for a live demo, and special guests Nilay Patel and Paul Miller will be joining the roundtable! We''ll also have the usual slew of insane giveaways and rocking chiptunes music, as well as some more surprises!', '', 7, 'All Ages', '$0', 0, '', 'http://www.engadget.com/2011/03/18/the-engadget-show-with-jon-rubinstein-next-friday-march-25th', '2011-03-23 02:11:55', '2011-04-08 09:55:10', '4d9f3dee-b7b0-4872-bc32-151e400dc0a6.jpg', 'engadgetshow.jpg', 72577, 'image/jpeg', '', '', '', NULL),
 (9, 'Independent Games Festival', '2010-11-18 20:00:00', '', '', 11, '', '', 0, '', 'http://www.igf.com/2010/11/independent_games_festival_bab.html', NULL, '2011-04-26 18:19:23', '4db76f1a-dcc4-4031-bc5d-071c400dc0a6.jpg', '2010-11-18_babycastles.jpg', 144482, 'image/jpeg', '', '', '', NULL),
 (10, 'LoveSac Speedrun Classic: Finale', '2010-10-20 20:00:00', NULL, NULL, 12, NULL, NULL, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -131,7 +310,7 @@ INSERT INTO `events` (`id`, `title`, `start_time`, `their_description`, `my_desc
 (13, '8bitSF', '2010-08-29 20:00:00', '', '', 15, '', '', 0, '', 'http://8bitsf.com', NULL, '2011-04-26 19:58:18', '4db76f68-ad98-4f35-a207-0e5d400dc0a6.jpg', '20100829-dna_lounge.jpg', 115866, 'image/jpeg', '', '', 'http://freemusicarchive.org/music/minusbaby/8bitSF_at_DNA_Lounge_San_Francisco', NULL),
 (14, 'Nullbits', '2010-08-20 20:00:00', '', '', 16, '', '', 0, '', 'http://chippanze.org/nullbits', NULL, '2011-04-26 18:21:12', '4db76f88-aec0-44a0-a1f3-119d400dc0a6.jpg', 'nullbits.jpg', 209728, 'image/jpeg', '', '', '', NULL),
 (15, 'FILE Hipers&#244;nica', '2010-07-27 20:00:00', NULL, NULL, 17, NULL, NULL, 0, NULL, 'http://www.filefestival.org/site_2007/pagina_conteudo_livre.asp?a1=309&a2=708&id=2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 'Beyond the Welding Hour', '2010-07-17 20:00:00', '', '', 18, '', '', 0, '', '', NULL, '2011-04-26 18:21:50', '4db76fae-23d0-4244-afe0-1572400dc0a6.png', 'the_new_hope.png', 151260, 'image/png', '', '', '', NULL),
+(16, 'The Next HOPE', '2010-07-17 20:00:00', '', '', 18, '', '', 0, '', 'http://thenexthope.org/', NULL, '2012-07-20 16:39:57', '4db76fae-23d0-4244-afe0-1572400dc0a6.png', 'the_new_hope.png', 151260, 'image/png', '', '', '', NULL),
 (17, '60Hz Beta Beat', '2010-07-10 20:00:00', NULL, NULL, 19, NULL, NULL, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (18, 'WFMU on the High Line', '2010-05-31 20:00:00', NULL, NULL, 20, NULL, NULL, 0, NULL, 'http://blog.wfmu.org/freeform/2010/05/monday-wfmu-live-on-the-high-line-f-djrupture-minusbaby-dj-trent-live-stargazing.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (19, 'I/O:QNS', '2010-04-22 20:00:00', '', '', 21, '', '', 0, '', 'http://ioshownyc.blogspot.com', NULL, '2011-04-26 18:22:57', '4db76ff1-6480-4d9c-9575-1ca9400dc0a6.png', '042210-ioqns.png', 119288, 'image/png', '', '', '', NULL),
@@ -187,7 +366,17 @@ INSERT INTO `events` (`id`, `title`, `start_time`, `their_description`, `my_desc
 (70, 'Plug', '2003-11-14 00:00:00', '', '', 50, '', '', 0, '', '', '2011-03-28 18:17:38', '2011-04-27 09:59:27', '4db84b6f-b598-4b58-98f6-1b7a400dc0a6.gif', '111403_plug.gif', 11677, 'image/gif', '', '', '', NULL),
 (71, 'GB Music Match', '2003-04-27 00:00:00', '', '', 52, '', '', 0, '', '', '2011-03-28 18:18:21', '2011-03-28 18:18:21', NULL, NULL, NULL, NULL, '', '', '', NULL),
 (72, 'DOPE: GDC Edition', '2011-03-04 00:00:00', '', '', 57, '', '', 0, '', '', '2011-03-28 18:28:08', '2011-03-28 18:28:08', NULL, NULL, NULL, NULL, '', '', '', NULL),
-(74, 'DOG909', '2011-04-14 20:00:00', '', '', 59, '', '', 0, '', 'http://dog.tv.br/dogcaffe', '2011-04-20 10:02:41', '2011-04-20 10:02:41', '4daf11b0-c860-4cac-ab91-7305400dc0a6.png', 'dog909_20110414-500x700.png', 6352, 'image/png', '', '', '', NULL);
+(74, 'DOG909', '2011-04-14 20:00:00', '', '', 59, '', '', 0, '', 'http://dog.tv.br/dogcaffe', '2011-04-20 10:02:41', '2011-04-20 10:02:41', '4daf11b0-c860-4cac-ab91-7305400dc0a6.png', 'dog909_20110414-500x700.png', 6352, 'image/png', '', '', '', NULL),
+(76, 'Ar(t)cade', '2011-10-08 19:00:00', '<p>\r\nAr(t)cade, a celebration of video games, gamers and sonic and visual interactive arts/artists.\r\n</p>\r\n<p>\r\nThis one-day-only event will feature numerous playable retro and modern gaming consoles, air hockey, gaming on the main movie-theater screen (20+ ft.) and side-wall projectors, gaming/art, sonic performances and much more<i>!</i>\r\n</p>', '', 61, '21+', '$10 USD', 0, '', 'http://heirloomarts.org/archives/2944', '2011-09-23 16:20:33', '2011-09-23 16:21:27', '4e7d1441-7a7c-452e-a462-206d400dc0a6.jpg', 'artcade.jpg', 142551, 'image/jpeg', 'https://www.facebook.com/event.php?eid=254881591219434', '', '', NULL),
+(77, 'Byte Nyte', '2011-10-15 19:00:00', '<p>\r\nByte Nyte is an 8-Bit event with live musicians and visuals from national and local groups within the chip music community.\r\n</p>\r\n<p>\r\nShow up at 7 PM for Open Mic<i>!</i>\r\n</p>', '', 62, 'All Ages', '$8 USD', 1, '', 'http://bytenyte.com', '2011-09-28 15:16:43', '2011-09-28 15:16:43', '4e839ccb-2c38-4a54-94ac-123c400dc0a6.jpg', 'bytenyte.jpg', 47372, 'image/jpeg', 'https://www.facebook.com/event.php?eid=259038537463243', '', '', NULL),
+(78, 'GLI.TC/H: Real-time Performances', '2011-11-05 23:00:00', 'GLI.TC/H is an annual international noise && [dirty] new-media event / conference / symposium / festival / gathering for makers and breakers.', 'Check back f|Ì¶Í—Í£ÌŽÍ—Í©ÌŠÍ©Ì½Ì‡Ì¾Í‚Ì’Í’Í›Ò‰Í–Í‰Ì Ì¦Ì»Ì¤Ì®Ì˜Í™Ì¬Í–Ì±ÌžÌ¯Í“Ì²Ì¬Ì¦r updates to the line-up, venue a|Ì¸Ì¨ÌÌ£Ì£Ì³Í“Ì©Í©Ì’ÌÌÍ‹Í‘Ì…ÌŽÌÍ‘Í©Í«ÌˆÍ‘Í¥Ì½ÌšÍ…nd eventsÍ¥Í®Í¡Í¡Íž|Ì´Ì¸Ì·Ì®ÌªÍ‡Ì™Ì˜Ì¹Ì»Í‡ÌžÍšÌ¹Í“Í‰ÍŽÌ¥Ì¬Í¯ÌŠÍŠÌÌ¿Ì’Ì†Í‹Í›Í¤Í—Í§Í£Í‘Í˜Í|Ì›Ì¹Í‡ÍÌ™Ì—Ì¼Ì Í–ÌºÌ€Í’Ì“Ì“Ì†Í£Ì½ÌÌ†ÍªÌ¿Í†Í—Ì”Ì¾Í¢', 65, 'All Ages', '$0 USD', 1, '', 'http://gli.tc/h', '2011-09-28 16:09:14', '2011-10-26 23:19:52', '4ea8f808-e98c-430c-8fbc-77ea400dc0a6.png', 'glitch11.png', 12097, 'image/png', 'https://www.facebook.com/glidottcslashh', '', '', NULL),
+(79, 'RE:Mix Lab', '2011-10-21 12:00:00', 'The Re:Mix Lab is a 5-city art/music/video games/fashion/film/culture pop up festival with a gallery installation, performances, film premieres and panels celebrating the creators and thought leaders whose works are at the forefront of culture today.', 'Paris and I will open for Eclectic Method at 9:30 PM<i>!</i>', 64, '21+', '$0 with RSVP', 0, 'http://www.gamesradar.com//remixlab', 'http://www.gamesradar.com//remixlab', '2011-10-11 12:25:07', '2011-10-18 10:23:35', '4e9db616-6684-425f-8349-0134400dc0a6.jpg', '2011-10-21.jpg', 177116, 'image/jpeg', '', '', '', NULL),
+(80, 'POW', '2012-03-06 20:00:00', 'In honor of the 2012 <a href="http://www.gdconf.com/">Game Developer''s Conference</a>, <a href="http://www.8bitsf.com">8bitSF</a> is proud to present <b>POW</b>, a celebration of the indie spirit. POW is a colossal night of sound + vision, and features performances by some of the best acts in both gaming and chip music as well as demo tables and presentations by indie developers <a href="http://www.mutekicorp.com/">Muteki Corporation</a> <i>[Dragon Fantasy]</i>, <a href="http://www.openemotionstudios.com/">Open Emotion Studios</a> <i>[Revoltin'' Youth]</i>, <a href="http://yobble.me/">Yobble</a> <i>[Air Guitar]</i>, <a href="http://polytroncorporation.com">Polytron</a> [<a href="http://polytroncorporation.com/what-is-fez">FEZ</a>] and more<i>!</i>', 'Hey, San Franciscoâ€¦ check out that crazy-ass line-up; and to top it all off, itâ€™ll be at <b>DNA Lounge</b>. Their accurate, tight and bass-heavy sound system is one of my favorites. I like turning rooms into vibrators.', 15, '21+', '$8 advance/$12 door/$5 with GDC Badge', 0, 'http://www.dnalounge.com/calendar/2012/03-06.html', 'http://www.dnalounge.com/calendar/2012/03-06.html', '2012-02-12 22:51:06', '2012-03-02 09:29:00', '4f5102a5-7778-4da5-9b66-351f400dc0a6.png', '2012-02-06_dna_lounge_for_mb.png', 13437, 'image/png', 'https://www.facebook.com/events/151961534920931', '', '', NULL),
+(81, '8-Bit DOPE: GDC Dreams', '2012-03-09 21:00:00', 'The return of our big GDC underground party. Some the hottest 8-BIT acts from SF and around the world, mixed with thick, aggressive electro, enhanced by eye melting light & pop visuals. Hosted by DOPE, crashfaster and 8bitSF.', '', 66, '21+', '$12 at the door â€¢ $9 with a GDC pass', 0, '', 'http://dope415.com/8-bit-dope-the-revenge-of-chipscene', '2012-03-02 09:39:29', '2012-03-02 09:43:46', '4f5105d1-3c3c-4493-a239-6bd5400dc0a6.jpg', '2012-03-09_dope.jpg', 102270, 'image/jpeg', 'https://www.facebook.com/events/349686438394918/', '', '', NULL),
+(82, 'EINDBAAS New York Edition', '2012-05-29 20:00:00', 'EINDBAAS<br />\r\nEstablished in 2009, EINDBAAS organizes 8-bit parties in Utrecht with international line-ups, where artists use vintage gameconsoles on stage to make music, such as the Nintendo Gameboy. The result: highly danceable music completely defined by unique lo-fi sound heard nowhere else in the Dutch club circuit. Until now, all nine editions of EINDBAAS were sold out.\r\n<br /><br />\r\nNew York<br />\r\nâ€œSo why not organize an evening in New York?â€, were EINDBAAS founders Frans Twisk and Klazien Schaap thinking. Bringing the reigning Dutch chiptune party to the chiptune capital of North America seems only logical.\r\n<br /><br />\r\nThe evening will be held at the 29th of May. The line up consists of four Dutch acts: Rioteer, RoccoW, Men of Mega and the EINDBAAS DJ Team and is completed with three big players from the international chiptune scene: Deadbeatblast (CA), Minusbaby (USA) and An0va (USA).\r\n<br /><br />\r\nNot only does EINDBAAS presents itself on an international stage, it give New Yorkers a change to experience the Dutch branch of the 8-bit music culture.', 'This is going to be one hype party.\r\n<br /><br />\r\n<img src="http://dl.dropbox.com/u/19492/frans_2012.png">', 67, '21+', '$7', 0, '', 'http://eindbaas.org/nyc', '2012-04-20 07:08:30', '2012-07-20 16:39:19', '500989b7-90b0-430e-8946-0ec4400dc0a6.png', 'Poster-EINDBAAS-NYC.png', 45105, 'image/png', 'https://www.facebook.com/events/345082672219185', 'http://www.last.fm/event/3284753', '', NULL),
+(83, '8static', '2012-05-19 19:00:00', 'This month we are kicking off Blip Festival week with another exciting 8static at PhilaMOCA. This is another month of amazing artists! <b>Chipâ€™s Challenge</b> from Rochester, NY are coming down to treat you with their pop punk sounds with a 8-bit twist.  Next <b>Bubblegum Octopus</b> will melt your face with their frantic spazzpop sound that will bounce you off the walls! The deep strong beats of <b>minusbaby</b> will get your booty shaking, with the rest of Philadelphia. Finally <b>VBLANK</b> will be slinging the pixels on the screen behind the music.\r\n<br /><br />\r\nThis monthâ€™s workshop features <b>Marjorie Becker</b>, also known as Chiptography! Sheâ€™ll be giving a presentation about her years experience documenting chip music performances as the Blip Festivalâ€™s unofficial photographer. Sheâ€™ll also have copies of her first photography book, <i>Blip Festival | New York City | Five Years available</i> for pre-order!\r\n<br /><br />\r\nDonâ€™t forget to come early to sign up for the open mic spaces are limited!\r\n<br /><br />\r\nAlso this month we have a very special raffle featuring one of only two custom shelled DMGs provided by <a href="http://store.kitsch-bent.com/">Kitsch-Bent</a><i>!</i> Pictures of this awesome new shell can be found here!', 'áƒš(Ìâ—‰â—žà±ªâ—Ÿâ—‰â€µáƒš)', 68, 'All Ages', '$7-10 (sliding scale)', 0, '', 'http://8static.com', '2012-04-20 07:33:37', '2012-05-11 18:48:29', '4fa153cf-8958-4a3d-b2d1-570b400dc0a6.png', '8static_2012-05-19.png', 326898, 'image/png', 'https://www.facebook.com/events/303925183017673', '', '', NULL),
+(84, 'Blip Festival 2012 New York', '2012-05-25 00:00:00', 'With six years and ten international editions under its belt, Blip Festival brings together shining examples of the global chipmusic underground -- performers conscripting devices like the Commodore 64, the Nintendo Entertainment System, the Game Boy, and the Sega Genesis into the service of music spanning every conceivable style, with results that are shockingly futuristic. Rounding out the event''s three nights of explosive live performances will be supplementary daytime programming including workshops, how-tos, presentations and screenings -- offering a glimpse into exactly how it''s all achieved, and perhaps even inspiring some 2013 Blip Festival performers-to-be.', 'This year I''ll be joined by <a href="http://mikrosopht.godxiliary.com/">mikrosopht</a> & <a href="http://p.irateship.com/">the p.irateship</a> on visuals, <a href="http://en.wikipedia.org/wiki/Stuart_D._Bogie">Stuart Bogie</a> of <a href="http://superhumanhappiness.com/">Superhuman Happiness</a> and a crew of the finest of all currently available musicians to formâ€¦\r\n<br /><br />\r\n<center>\r\nâ— â—Ÿâ—žâ— â—Žâ—¢â—¯â—£â—Žâ— â—Ÿâ—žâ— <br />\r\nminusbaby <blink>y Su 8-Hit Combo</blink><br />\r\nâ—¡â—œâ—â—¡â—Žâ—¥â—¯â—¤â—Žâ—¡â—œâ—â—¡\r\n</center>', 69, 'All Ages', '3-day pass: $55.00<br />1-day pass: $25.00', 0, '', 'http://blipfestival.org/2012', '2012-05-10 21:52:26', '2012-05-12 14:24:50', '4faed521-4b20-4c97-be4a-1f23400dc0a6.png', 'blip_festival_ny_2012_logo.png', 186153, 'image/png', 'https://www.facebook.com/events/338768329499531/', 'http://www.last.fm/festival/3250141+Blip+Festival+NYC+2012', '', '2012-05-27'),
+(85, 'HOPE Number Nine', '2012-07-14 22:00:00', 'Join us for TWO NIGHTS of some of Philadelphia and New York''s finest music made with circuits and game consoles; now with more Sweden! GUS once again presides over the blippery, whipping each non-moving booty of the hacker populace into an electric frenzy Tesla would have been proud of. Why shake it? Rule 34. (Remember, you''re somebody''s fetish. No exceptions.)', 'I play on Saturday night, but be sure to make it to Friday night''s show, too. It''s going to be great.', 18, 'All Ages', '$10 for one night Â· $15 for both nights', 0, '', 'http://www.hopenumbernine.net', '2012-07-02 16:15:05', '2012-07-20 16:41:09', '4ffbe264-66cc-478b-8741-0643400dc0a6.gif', '2012-07-1314_hope.gif', 16085, 'image/gif', 'https://www.facebook.com/events/152689848199772', '', 'http://radio.hope.net/archive.html', NULL);
 
 -- --------------------------------------------------------
 
@@ -197,13 +386,13 @@ INSERT INTO `events` (`id`, `title`, `start_time`, `their_description`, `my_desc
 
 DROP TABLE IF EXISTS `galleries`;
 CREATE TABLE IF NOT EXISTS `galleries` (
-  `id` int(32) NOT NULL auto_increment,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  `icon` varchar(140) default NULL,
-  `name` varchar(140) NOT NULL default '',
-  `tag` varchar(140) NOT NULL default '',
-  PRIMARY KEY  (`id`)
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `icon` varchar(140) DEFAULT NULL,
+  `name` varchar(140) NOT NULL DEFAULT '',
+  `tag` varchar(140) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
@@ -218,136 +407,191 @@ INSERT INTO `galleries` (`id`, `created`, `modified`, `icon`, `name`, `tag`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `libraries`
+--
+
+DROP TABLE IF EXISTS `libraries`;
+CREATE TABLE IF NOT EXISTS `libraries` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `title` varchar(140) NOT NULL DEFAULT '',
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `client` varchar(140) DEFAULT NULL,
+  `client_url` text,
+  `duties` varchar(140) DEFAULT NULL,
+  `description` text NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `slug` varchar(140) DEFAULT NULL,
+  `is_ongoing` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `libraries`
+--
+
+INSERT INTO `libraries` (`id`, `title`, `date`, `client`, `client_url`, `duties`, `description`, `created`, `modified`, `slug`, `is_ongoing`) VALUES
+(9, 'Low-Gain Â· Low-Gain', '2008-12-19', 'Little Bit Records', 'http://lowgain-audio.com', 'Art Direction, Design, Illustration, Typography', '<p>\r\nLogan Erickson a.k.a. <a href="http://www.lowgain-audio.com">Low-Gain</a> presented me with an interesting challenge to design a package for his latest music release incorporating a Nintendo Entertainment System cartridge and a 3-inch CD in a jewel case.\r\n</p>\r\n<p>\r\nThe cartridges were gutted and lined with thin felt to make space for the jewel cases and the original labels were removed to be replaced by the new ones I''d illustrated. It''s a bit tricky to pull the case from the cartridge without a coin for leverage, but the uniqueness of its design makes up for it. It''s one of my favorite works to date.\r\n</p>', '2011-03-29 13:53:00', '2011-05-18 23:03:30', 'Low-Gain-Low-Gain-2008', 0),
+(10, 'crashfaster Â· Disconnect', '2011-02-19', 'monobomb records', 'http://crashfaster.com', 'Art Direction, Design, Illustration, Type', '<iframe style="position: relative; display: block; width: 450px; height: 100px" src="http://bandcamp.com/EmbeddedPlayer/v=2/album=2822003102/size=venti/bgcol=000000/linkcol=00b9f1/" allowtransparency="true" frameborder="0"></iframe>\r\n<p>\r\n<b>crashfaster</b> &middot; Some ideas: a little pixel dude that''s got his head down staring at the ground (looking sad) and there''s some really crowded grim, Gotham city meets snow crash cityscape-type shit that''s looming over him. The skyline could be red stars, kinda blood-ish looking. Orâ€¦ the same thing, but with a post-apocaplyptic version of the skyline. Orâ€¦ a more detailed version of my mask logo, that really gives the impression of depth and someone''s face breaking apart. Any of these working for you?\r\n</p>\r\n<p>\r\n<b>me</b> &middot; Yeah, but would you mind if the imagery was poetic and abstract as is my usual style? Rather than literal representations of decay.\r\n</p>\r\n<p>\r\n<b>crashfaster</b> &middot; Absolutely. Do what you do best<i>!</i>\r\n</p>', '2011-03-29 19:24:53', '2011-05-04 13:52:00', 'crashfaster-Disconnect-2011', 0),
+(12, 'Minecraft: The Story of Mojang', '2011-04-13', '2 Player Productions', 'http://2playerproductions.com', 'Illustration', '<iframe src="http://player.vimeo.com/video/20176514?byline=0&amp;portrait=0" width="450" height="253" frameborder="0"></iframe>\r\n<p>I was asked by 2 Player Productions'' to design "<a href="http://minecraft.net">Minecraft</a>" avatar skins to give as rewards to supporters of their Kickstarter campaign, "Minecraft: The Story of Mojang".\r\n</p>\r\n<p>\r\nTo learn more about the documentary, visit <a href="http://2playerproductions.com/projects/minecraft">http://2playerproductions.com/projects/minecraft</a>.\r\n</p>', '2011-04-21 09:19:06', '2011-06-01 21:53:09', 'Minecraft-The-Story-of-Mojang-2011', 0),
+(11, 'Various Artists Â· Blip Festival 2008: 32 Live Recordings', '2009-08-25', '2 Player Productions', 'http://www.2playerproductions.com', 'Art Direction, Design, Illustration, Photography, Typography', '<p>\r\n<i>Official <a href="http://blipfestival.org/2008">Blip Festival 2008</a> live performance double-CD compilation. Produced by <a href="http://2playerproductions.com">2 Player Productions</a>, and featuring one track from each of the festival''s 32 musical performers. Professionally recorded, mixed, and mastered; the phenomenon of live chipmusic has never before been so pristinely captured. </i>\r\n</p>\r\n<p>\r\n<a href="https://www.8bitpeoples.com/store/product/65">https://www.8bitpeoples.com/store/product/65</a>\r\n</p>', '2011-03-29 19:30:05', '2011-05-18 22:39:50', 'Various-Artists-Blip-Festival-2008-32-Live-Recordings-2009', 0),
+(13, 'Pulsewave Fliers', '2010-11-20', 'The Tank', 'http://thetanknyc.org', 'Art direction, Design, Illustration, Typography', '<p>\r\n<i><a href="http://pulsewave.org">Pulsewave</a> is the US''s longest running monthly event dedicated to exploring the sights and sounds of Chip Musicâ€™s greatest musicians and motion visualists. Using vintage video game systems and computers as the basis and influence for stunning next generation music and visuals, Pulsewave spotlights emerging and established artists from the international and local community. Now entering its fifth year, Pulsewave promises, in conjunction with New York arts organizations <a href="http://8bitpeoples.com">8bitpeoples</a> and <a href="http://thetanknyc.org">The Tank</a>, to remain committed to showcasing the best the global Chip Music community has to offer.</i>\r\n</p>\r\n<p>\r\nI illustrated and designed every flier from March 2008 through March 2010 and occasionally contribute nowadays.\r\n</p>', '2011-04-28 13:33:17', '2011-05-18 22:14:26', 'Pulsewave-Fliers-2010', 1),
+(14, 'Reformat the Planet', '2008-03-19', '2 Player Productions', 'http://www.2playerproductions.com', 'Art Direction, Design, Illustration, Project Management, Typography', '<p><i>Reformat the Planet (RTP) is a feature length documentary which delves into the movement known as chip music, a vibrant underground scene based around creating new, original music using obsolete video game hardware. Familiar devices such as the Nintendo Game Boy and Nintendo Entertainment System are pushed in new directions with startling results.</i>\r\n</p>\r\n<p>\r\nI was commissioned by <a href="http://2playerproductions.com">2 Player Productions</a> to create promotional items for their appearance at 2008''s <a href="http://sxsw.com">SXSW</a> One of the items was an instructional manual for a fictional "Reformat the Planet" video game starring <a href="http://8bitpeoples.com">8bitpeoples</a> members and comrades.\r\n</p>', '2011-04-29 09:40:31', '2011-05-19 10:05:43', 'Reformat-the-Planet-2008', 0),
+(15, '8bitpeoples EP Covers', '2003-03-11', '8bitpeoples', 'http://www.8bitpeoples.com', 'Art Direction, Design, Illustration, Project Management, Typography', '<p>\r\n<i>The <a href="http://8bitpeoples.com">8bitpeoples</a> first came together in 1999 as a collective of artists sharing a common love for classic videogames and an approach to music which reflected this obsession. Our primary interests were to provide quality music for free and most importantly to have fun. In the years since, we have grown in rank and expanded our goals.</i>\r\n</p>', '2011-04-29 10:42:19', '2011-05-18 22:20:38', '8bitpeoples-EP-Covers-2003', 1),
+(16, 'Logotypes', '2011-04-14', 'Various', '', 'Art Direction, Illustration, Typography', '<p>\r\n<b>FROM LEFT TO RIGHT</b> (Page 1)\r\n</p>\r\n<p>\r\nDOG909, Piggy=>MIDI, XXIII.V, monobomb records, <a href="https://market.android.com/details?id=net.pixelpod.typefresh">Type Fresh</a>, <a href="http://minusbaby.com/art/view/18/Blip-Festival-2008-2008">Blip Festival 2008</a>, minusbaby, <a href="http://nullsleep.com">Nullsleep</a>\r\n</p>\r\n<p>\r\n<b>FROM LEFT TO RIGHT</b> (Page 2)\r\n</p>\r\n<p>\r\n<a href="http://givedaddytheknife.com/HHH">Handheld Heroes</a>, <a href="http://balunonline.com">BalÃºn</a>, <a href="http://filenice.com">fileNice</a> and Less Than Three\r\n</p>', '2011-04-29 11:00:29', '2011-05-18 21:25:51', 'Logotypes-2011', 1),
+(17, 'Concert Fliers', '2011-04-14', 'Various', '', 'Art direction, Design, Illustration and Typography', 'I like to make fliers for shows I play and for others, too. This collection will be updated regularly.', '2011-05-04 13:36:37', '2011-05-18 21:28:42', 'Concert-Fliers-2011', 1),
+(18, 'Blip Festival 2008', '2008-12-04', '8bitpeoples and The Tank', 'http://blipfestival.org', 'Art Direction, Graphic Design, Illustration, Project Management, Product Design, Typography, Web Design', '<p>\r\n<i>Archaic game and home computer hardware is recast into the unlikely role of musical instrument and motion graphics workstation in the BLIP FESTIVAL 2008, a four-day event showcasing nearly 40 musicians and visual artists occupying the international low-res cutting edge.</i>\r\n</p>\r\n<p>\r\nI designed everything from the logotype, website, newspaper and magazine advertisements, festival badges, buttons, a postcard, poster and other things physical and digital for the 2008 edition of <a href="http://blipfestival.org">Blip Festival</a>.\r\n</p>\r\n<p>\r\nI performed with eight musicians, too.\r\n</p>', '2011-05-14 20:32:11', '2011-05-19 10:01:35', 'Blip-Festival-2008-2008', 0),
+(19, 'Portraits', '2011-05-03', 'Various', '', 'Art Direction, Graphic Design, Illustration', '<p>\r\nThis on-going collection of portraits includes personal work and commissions by <a href="http://internetpork.com/">Pork Magazine</a>, <a href="http://2playerproductions.com">2 Player Productions</a>, <a href="http://www.buglabs.net">Bug Labs</a> and <a href="http://cheesenbeer.info">Cheese''N''Beer</a>.\r\n</p>\r\n<p>\r\n<b>FROM LEFT TO RIGHT</b>\r\n</p>\r\n<p>\r\nThe RAMM:ELL:ZEE, Cheese''N''Beer (Jenn de la Vega, Ricardo Almonte and Facundo Castro), Pharoahe Monch, various MÃºsica Popular Brasileira musicians Â· Bug Labs employees, chip musicians (Nullsleep, Bit Shifter, glomag and Bubblyfish), my younger brother (Tim a.k.a. openBack) and Tim Maia.\r\n</p>', '2011-05-15 09:20:02', '2011-05-18 20:51:48', 'Portraits-2011', 1),
+(20, 'OxygenStar Â· Thy Name Is Adventure', '2009-01-30', 'Anonomogon', 'http://www.anonomogon.com', 'Art Direction, Design, Illustration, Typography', 'Carl Peczynski a.k.a. <a href="http://www.oxygenstarpower.com">OxygenStar</a> digs cassettes so he hired me to design one for him. It was a limited run and they''re all sold out, but you can find the music for free at <a href="http://www.oxygenstarpower.com/thyname.html">http://www.oxygenstarpower.com/thyname.html</a> because he''s a swell guy.', '2011-05-15 13:33:49', '2011-05-18 22:53:10', 'OxygenStar-Thy-Name-Is-Adventure-2009', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `links`
 --
 
 DROP TABLE IF EXISTS `links`;
 CREATE TABLE IF NOT EXISTS `links` (
-  `id` int(32) NOT NULL auto_increment,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
-  `country` varchar(2) default NULL,
+  `country` varchar(2) DEFAULT NULL,
   `url` text,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
 
 --
 -- Dumping data for table `links`
 --
 
 INSERT INTO `links` (`id`, `name`, `country`, `url`, `created`, `modified`) VALUES
-(3, '8bit today', 'NL', 'http://8bittoday.com', NULL, '2011-06-01 19:50:36'),
-(4, '8GB', 'AR', 'http://kikencorp.com', NULL, '2011-06-01 19:50:36'),
-(6, 'Animal Style', 'US', 'http://animal-style.com', NULL, '2011-06-01 19:50:36'),
-(7, 'Argumentativa', 'US', 'http://argumentativa.com', NULL, '2011-06-01 19:50:36'),
-(8, 'Arturo en el Barco', 'US', 'http://www.arturoenelbarco.com', NULL, '2011-06-01 19:50:37'),
-(9, 'Babycastles', 'US', 'http://babycastles.com', NULL, '2011-06-01 19:50:37'),
-(10, 'BalÃºn', 'US', 'http://balunonline.com', NULL, '2011-06-01 19:50:37'),
-(11, 'Bit Shifter', 'US', 'http://bit.shifter.net', NULL, '2011-06-01 19:50:37'),
-(12, 'Boston 8-bit', 'US', 'http://www.boston8bit.com', NULL, '2011-06-01 19:50:37'),
-(13, 'Brandon Boyer', 'US', 'http://www.brandonnn.com', NULL, '2011-06-01 19:50:37'),
-(14, 'Bubblyfish', 'US', 'http://bubblyfish.com', NULL, '2011-06-01 19:50:37'),
-(15, 'Burnkit2600', 'US', 'http://burnkit2600.com', NULL, '2011-06-01 19:50:37'),
-(16, 'Cheap Dinosaurs', 'US', 'http://filefreakout.com/cheapdinosaurs', NULL, '2011-06-01 19:50:38'),
-(17, 'Chika Iijima', 'US', 'http://imagima.com', NULL, '2011-06-01 19:50:38'),
-(18, 'Chipmusic.org', 'US', 'http://chipmusic.org', NULL, '2011-06-01 19:50:38'),
-(19, 'Chippanze', 'BR', 'http://chippanze.org', NULL, '2011-06-01 19:50:38'),
-(20, 'crashfaster', 'US', 'http://crashfaster.com', NULL, '2011-06-01 19:50:39'),
-(21, 'Dorian Wood', 'US', 'http://www.dorianwood.com', NULL, '2011-06-01 19:50:40'),
-(22, 'Droid-On', 'BR', 'http://www.myspace.com/droidon', NULL, '2011-06-01 19:50:40'),
-(23, 'enso', 'US', 'http://enso.tumblr.com', NULL, '2011-06-01 19:50:41'),
-(24, 'exileFaker', 'US', 'http://www.myspace.com/exilefaker', NULL, '2011-06-01 19:50:41'),
-(25, 'foci + loci', 'US', 'http://tamarayadao.com/foci+loci.html', NULL, '2011-06-01 19:50:41'),
-(26, 'Frank William Miller, Jr.', 'US', 'http://fwmj.com', NULL, '2011-06-01 19:50:41'),
-(27, 'Free Music Archive', 'US', 'http://freemusicarchive.org', NULL, '2011-06-01 19:50:42'),
-(28, 'Gaijin Games', 'US', 'http://gaijingames.com', NULL, '2011-06-01 19:50:42'),
-(29, 'glomag', 'US', 'http://glomag.com', NULL, '2011-06-01 19:50:42'),
-(30, 'Godxiliary', 'US', 'http://godxiliary.com', NULL, '2011-06-01 19:50:42'),
-(31, 'Ill Doctrine', 'US', 'http://illdoctrine.com', NULL, '2011-06-01 19:50:43'),
-(32, 'Jemma Hostetler', 'US', 'http://www.jemmahostetler.com', NULL, '2011-06-01 19:50:43'),
-(33, 'Joseph Meyer', 'US', 'http://www.drawjoedraw.com', NULL, '2011-06-01 19:50:43'),
-(34, 'Julie West', 'US', 'http://www.juliewest.com', NULL, '2011-06-01 19:50:44'),
-(35, 'Machine Drum', 'US', 'http://machinedrum.net', NULL, '2011-06-01 19:50:45'),
-(36, 'Mar HernÃ¡ndez', 'ES', 'http://malotaprojects.com', NULL, '2011-06-01 19:50:45'),
-(37, 'Max ZT', 'US', 'http://maxzt.com', NULL, '2011-06-01 19:50:45'),
-(38, 'MeNeO', 'ES', 'http://www.entter.com/meneo', NULL, '2011-06-01 19:50:45'),
-(39, 'Mikrosopht', 'US', 'http://mikrosopht.godxiliary.com', NULL, '2011-06-01 19:50:46'),
-(40, 'Mr. Spastic', 'US', 'http://mrspastic.com', NULL, '2011-06-01 19:50:46'),
-(41, 'Neil Voss', 'US', 'http://neilvoss.com', NULL, '2011-06-01 19:50:46'),
-(42, 'NO CARRIER', 'US', 'http://no-carrier.com', NULL, '2011-06-01 19:50:47'),
-(43, 'noteNdo', 'US', 'http://notendo.com', NULL, '2011-06-01 19:50:47'),
-(44, 'Nullsleep', 'US', 'http://nullsleep.com', NULL, '2011-06-01 19:50:47'),
-(45, 'O2Star', 'US', 'http://www.oxygenstarpower.com', NULL, '2011-06-01 19:50:47'),
-(47, 'Paris Treantafeles', 'US', 'http://parisgraphics.com', NULL, '2011-06-01 19:50:48'),
-(48, 'Psignal', 'GB', 'http://psignal.com', NULL, '2011-06-01 19:50:48'),
-(49, 'Pulselooper', 'BR', 'http://www.myspace.com/pulselooper', NULL, '2011-06-01 19:50:48'),
-(50, 'Rappers I Know', 'US', 'http://rappersiknow.com', NULL, '2011-06-01 19:50:49'),
-(51, 'Rhinostrich', 'US', 'http://www.rhinostrich.com', NULL, '2011-06-01 19:50:49'),
-(52, 'Romy Ilano', 'US', 'http://www.miromi.com', NULL, '2011-06-01 19:50:49'),
-(53, 'starPause', 'US', 'http://starpause.com', NULL, '2011-06-01 19:50:49'),
-(54, 'Subway Sonicbeat', 'BR', 'http://www.subwaysonicbeat.kit.net', NULL, '2011-06-01 19:50:50'),
-(55, 'sylcmyk', 'US', 'http;//sylcmyk.com', NULL, '2011-06-01 19:50:50'),
-(56, 'Tale of Tales', 'BE', 'http://tale-of-tales.com', NULL, '2011-06-01 19:50:50'),
-(57, 'ARE, The', 'US', 'http://www.thearebeats.com', NULL, '2011-06-01 19:50:36'),
-(58, 'C-Men, The', 'NL', 'http://www.thecmen.com', NULL, '2011-06-01 19:50:37'),
-(59, 'Tank, The', 'US', 'http://thetanknyc.org', NULL, '2011-06-01 19:50:51'),
-(60, 'Trash80', 'US', 'http://trash80.com', NULL, '2011-06-01 19:50:51'),
-(61, 'Unclassed Media', 'GB', 'http://unclassedmedia.com', NULL, '2011-06-01 19:50:52'),
-(62, 'VBLANK', 'US', 'http://waitforvblank.com', NULL, '2011-06-01 19:50:52'),
-(63, 'Zen Albatross', 'US', 'http://zenalbatross.net', NULL, '2011-06-01 19:50:53'),
-(64, 'Patric Catani', 'DE', 'http://www.myspace.com/pcatani', NULL, '2011-06-01 19:50:48'),
-(65, 'STu', 'CH', 'http://stu.atari.org', NULL, '2011-06-01 19:50:50'),
-(66, 'Cow''p', 'JP', 'http://www.19-t.com/comb', NULL, '2011-06-01 19:50:39'),
-(67, 'zabutom', 'SE', 'http://www.myspace.com/zabutom', NULL, '2011-06-01 19:50:53'),
-(68, 'failotron', 'HU', 'http://failotron.org', NULL, '2011-06-01 19:50:41'),
-(69, 'coova', 'JP', 'http://www.myspace.com/coova', NULL, '2011-06-01 19:50:38'),
-(70, 'm-.-n', 'BE', 'http://discodirt.10pm.org', NULL, '2011-06-01 19:50:45'),
-(71, 'Johan Kotlinski', 'SE', 'http://www.rebelpetset.com', NULL, '2011-06-01 19:50:43'),
-(72, 'Tonylight', 'IT', 'http://www.tonylight.it', NULL, '2011-06-01 19:50:51'),
-(73, 'Syphus', 'GB', 'http://syphus.untergrund.net', NULL, '2011-06-01 19:50:50'),
-(74, 'Unicorn Dream Attack', 'US', 'http://www.unicorndreamattack.com', NULL, '2011-06-01 19:50:52'),
-(75, 'Starscream', 'US', 'http://myspace.com/starscreamnewyork', NULL, '2011-06-01 19:50:50'),
-(76, 'Lissajou', 'US', 'http://myspace.com/lissajou', NULL, '2011-06-01 19:50:44'),
-(77, 'Mark Denardo', 'US', 'http://www.markdenardo.com', NULL, '2011-06-01 19:50:45'),
-(78, 'IAYD', 'US', 'http://www.myspace.com/iayd', NULL, '2011-06-01 19:50:42'),
-(79, 'Chromix', 'US', 'http://www.chromixmusic.com', NULL, '2011-06-01 19:50:38'),
-(80, 'Eat Rabbit', 'FR', 'http://www.myspace.com/eatrabbit', NULL, '2011-06-01 19:50:40'),
-(81, 'Dr. Von Pnok', 'FR', 'http://drvonpnok.com', NULL, '2011-06-01 19:50:40'),
-(82, 'Jean Y. Kim', 'US', 'http://www.fx6ex6.com', NULL, '2011-06-01 19:50:43'),
-(83, 'Rosa Menkman', 'NL', 'http://rosa-menkman.blogspot.com', NULL, '2011-06-01 19:50:49'),
-(84, 'little-scale', 'AU', 'http://little-scale.com', NULL, '2011-06-01 19:50:44'),
-(85, 'outpt', 'US', 'http://outpt.net', NULL, '2011-06-01 19:50:47'),
-(86, 'tRasH cAn maN', 'SE', 'http://www.trash-can-man.com', NULL, '2011-06-01 19:50:51'),
-(87, 'Psilodump', 'SE', 'http://www.psilodump.com', NULL, '2011-06-01 19:50:48'),
-(88, 'X-Dump, The', 'SE', 'http://www.x-dump.com', NULL, '2011-06-01 19:50:52'),
-(89, 'Micromusic', 'CH', 'http://micromusic.net', NULL, '2011-06-01 19:50:46'),
-(91, 'David Sugar', 'GB', 'http://www.davidsugar.com', NULL, '2011-06-01 19:50:39'),
-(92, 'Deceptikon', 'US', 'http://www.deceptikon.net', NULL, '2011-06-01 19:50:39'),
-(93, 'Midnight Snacks', 'US', 'http://midnightsnacks.8chan.net', NULL, '2011-06-01 19:50:46'),
-(109, 'Noisewaves', 'US', 'http://noisewaves.bandcamp.com', '2011-05-28 22:32:46', '2011-06-01 19:50:47'),
-(95, 'Daniel Rehn', 'US', 'http://danielrehn.com', NULL, '2011-06-01 19:50:39'),
-(96, 'LA Game Space', 'US', 'http://lagamespace.org', NULL, '2011-06-01 19:50:44'),
-(97, 'Playpower', 'US', 'http://playpower.org', NULL, '2011-06-01 19:50:48'),
-(98, 'Saskrotch', 'US', 'http://www.barnofhell.com/saskrotch.htm', NULL, '2011-06-01 19:50:49'),
-(102, 'FILE', 'BR', 'http://file.org.br', '2011-03-01 13:03:07', '2011-06-01 19:50:41'),
-(103, 'monobomb records', 'US', 'http://monobomb.com', '2011-03-19 20:49:25', '2011-06-01 19:50:46'),
-(104, '8bitpeoples', 'US', 'http://8bitpeoples.com', '2011-03-19 20:49:25', '2011-06-01 19:50:36'),
-(105, '2 Player Productions', 'US', 'http://www.2playerproductions.com', '2011-03-23 03:09:50', '2011-06-01 19:50:36'),
-(106, 'DJ Big Wiz', 'US', 'http://twitter.com/djbigwiz', '2011-03-23 03:15:01', '2011-06-01 19:50:39'),
-(107, '4mat', 'GB', 'http://4mat.bandcamp.com', '2011-04-26 17:22:28', '2011-06-01 19:50:36'),
-(108, 'RÃ¡dio Metanol', 'BR', 'http://metanol.fm', '2011-04-26 17:24:06', '2011-06-01 19:50:49'),
-(110, 'NNNNNNNNNN', 'JP', 'http://nnnnnnnnnn.futene.net', '2011-05-28 22:32:46', '2011-06-01 19:50:46'),
-(111, 'Ultrasyd', 'FR', 'http://ultrasyd.free.fr', '2011-05-28 22:32:46', '2011-06-01 19:50:52'),
-(112, 'Talk to Animals', 'US', 'http://www.facebook.com/talktoanimals', '2011-05-28 22:32:46', '2011-06-01 19:50:51'),
-(113, 'Peter Swimm', 'US', 'http://www.burialape.com', '2011-05-28 22:32:46', '2011-06-01 19:50:48'),
-(114, 'Ralp', 'ES', 'http://www.ralp.org', '2011-05-28 22:32:46', '2011-06-01 19:50:49'),
-(115, 'knife city', 'US', 'http://www.facebook.com/knifecity', '2011-05-28 22:32:46', '2011-06-01 19:50:44'),
-(116, 'Tristan Perich', 'US', 'http://tristanperich.com', '2011-05-28 22:32:46', '2011-06-01 19:50:51'),
-(117, 'Eindbaas', 'NL', 'http://eindbaas.org', '2011-05-28 22:32:46', '2011-06-01 19:50:40'),
-(118, 'cTrix', 'AU', 'http://syntaxparty.org/ctrix', '2011-05-28 22:32:47', '2011-06-01 19:50:39'),
-(121, 'ui', 'VE', 'http://www.iloveui.com', '2011-06-01 19:50:36', '2011-06-01 19:50:36'),
-(120, 'Kanagawa', 'HU', 'http://www.facebook.com/kanagawarocks', '2011-06-01 06:56:27', '2011-06-01 19:50:44');
+(3, '8bit today', 'NL', 'http://8bittoday.com', NULL, '2011-10-04 19:31:42'),
+(4, '8GB', 'AR', 'http://kikencorp.com', NULL, '2011-10-04 19:31:42'),
+(6, 'Animal Style', 'US', 'http://animal-style.com', NULL, '2011-10-04 19:31:42'),
+(7, 'Argumentativa', 'US', 'http://argumentativa.com', NULL, '2011-10-04 19:31:42'),
+(8, 'Arturo en el Barco', 'US', 'http://www.arturoenelbarco.com', NULL, '2011-10-04 19:31:43'),
+(9, 'Babycastles', 'US', 'http://babycastles.com', NULL, '2011-10-04 19:31:43'),
+(10, 'BalÃºn', 'US', 'http://balunonline.com', NULL, '2011-10-04 19:31:43'),
+(11, 'Bit Shifter', 'US', 'http://bit.shifter.net', NULL, '2011-10-04 19:31:43'),
+(12, 'Boston 8-bit', 'US', 'http://www.boston8bit.com', NULL, '2011-10-04 19:31:43'),
+(13, 'Brandon Boyer', 'US', 'http://www.brandonnn.com', NULL, '2011-10-04 19:31:43'),
+(14, 'Bubblyfish', 'US', 'http://bubblyfish.com', NULL, '2011-10-04 19:31:43'),
+(15, 'Burnkit2600', 'US', 'http://burnkit2600.com', NULL, '2011-10-04 19:31:43'),
+(16, 'Cheap Dinosaurs', 'US', 'http://filefreakout.com/cheapdinosaurs', NULL, '2011-10-04 19:31:43'),
+(17, 'Chika Iijima', 'US', 'http://imagima.com', NULL, '2011-10-04 19:31:43'),
+(18, 'Chipmusic.org', 'US', 'http://chipmusic.org', NULL, '2011-10-04 19:31:43'),
+(19, 'Chippanze', 'BR', 'http://chippanze.org', NULL, '2011-10-04 19:31:43'),
+(20, 'crashfaster', 'US', 'http://crashfaster.com', NULL, '2011-10-04 19:31:43'),
+(21, 'Dorian Wood', 'US', 'http://www.dorianwood.com', NULL, '2011-10-04 19:31:43'),
+(22, 'Droid-On', 'BR', 'http://www.myspace.com/droidon', NULL, '2011-10-04 19:31:43'),
+(23, 'enso', 'US', 'http://enso.tumblr.com', NULL, '2011-10-04 19:31:43'),
+(24, 'exileFaker', 'US', 'http://www.myspace.com/exilefaker', NULL, '2011-10-04 19:31:43'),
+(25, 'foci + loci', 'US', 'http://tamarayadao.com/foci+loci.html', NULL, '2011-10-04 19:31:43'),
+(26, 'Frank William Miller, Jr.', 'US', 'http://fwmj.com', NULL, '2011-10-04 19:31:43'),
+(27, 'Free Music Archive', 'US', 'http://freemusicarchive.org', NULL, '2011-10-04 19:31:43'),
+(28, 'Gaijin Games', 'US', 'http://gaijingames.com', NULL, '2011-10-04 19:31:43'),
+(29, 'glomag', 'US', 'http://glomag.com', NULL, '2011-10-04 19:31:43'),
+(30, 'Godxiliary', 'US', 'http://godxiliary.com', NULL, '2011-10-04 19:31:44'),
+(31, 'Ill Doctrine', 'US', 'http://illdoctrine.com', NULL, '2011-10-04 19:31:44'),
+(32, 'Jemma Hostetler', 'US', 'http://www.jemmahostetler.com', NULL, '2011-10-04 19:31:44'),
+(33, 'Joseph Meyer', 'US', 'http://www.drawjoedraw.com', NULL, '2011-10-04 19:31:44'),
+(34, 'Julie West', 'US', 'http://www.juliewest.com', NULL, '2011-10-04 19:31:44'),
+(35, 'Machine Drum', 'US', 'http://machinedrum.net', NULL, '2011-10-04 19:31:44'),
+(36, 'Mar HernÃ¡ndez', 'ES', 'http://malotaprojects.com', NULL, '2011-10-04 19:31:44'),
+(37, 'Max ZT', 'US', 'http://maxzt.com', NULL, '2011-10-04 19:31:44'),
+(38, 'MeNeO', 'ES', 'http://www.entter.com/meneo', NULL, '2011-10-04 19:31:44'),
+(39, 'Mikrosopht', 'US', 'http://mikrosopht.godxiliary.com', NULL, '2011-10-04 19:31:44'),
+(40, 'Mr. Spastic', 'US', 'http://mrspastic.com', NULL, '2011-10-04 19:31:44'),
+(41, 'Neil Voss', 'US', 'http://neilvoss.com', NULL, '2011-10-04 19:31:44'),
+(42, 'NO CARRIER', 'US', 'http://no-carrier.com', NULL, '2011-10-04 19:31:44'),
+(43, 'noteNdo', 'US', 'http://notendo.com', NULL, '2011-10-04 19:31:44'),
+(44, 'Nullsleep', 'US', 'http://nullsleep.com', NULL, '2011-10-04 19:31:44'),
+(45, 'O2Star', 'US', 'http://www.oxygenstarpower.com', NULL, '2011-10-04 19:31:44'),
+(47, 'Paris Treantafeles', 'US', 'http://parisgraphics.com', NULL, '2011-10-04 19:31:44'),
+(48, 'Psignal', 'GB', 'http://psignal.com', NULL, '2011-10-04 19:31:45'),
+(49, 'Pulselooper', 'BR', 'http://www.myspace.com/pulselooper', NULL, '2011-10-04 19:31:45'),
+(50, 'Rappers I Know', 'US', 'http://rappersiknow.com', NULL, '2011-10-04 19:31:45'),
+(51, 'Rhinostrich', 'US', 'http://www.rhinostrich.com', NULL, '2011-10-04 19:31:45'),
+(52, 'Romy Ilano', 'US', 'http://www.miromi.com', NULL, '2011-10-04 19:31:45'),
+(53, 'starPause', 'US', 'http://starpause.com', NULL, '2011-10-04 19:31:45'),
+(54, 'Subway Sonicbeat', 'BR', 'http://www.subwaysonicbeat.kit.net', NULL, '2011-10-04 19:31:45'),
+(55, 'sylcmyk', 'US', 'http;//sylcmyk.com', NULL, '2011-10-04 19:31:45'),
+(56, 'Tale of Tales', 'BE', 'http://tale-of-tales.com', NULL, '2011-10-04 19:31:45'),
+(57, 'ARE, The', 'US', 'http://www.thearebeats.com', NULL, '2011-10-04 19:31:42'),
+(58, 'C-Men, The', 'NL', 'http://www.thecmen.com', NULL, '2011-10-04 19:31:43'),
+(59, 'Tank, The', 'US', 'http://thetanknyc.org', NULL, '2011-10-04 19:31:45'),
+(60, 'Trash80', 'US', 'http://trash80.com', NULL, '2011-10-04 19:31:45'),
+(61, 'Unclassed Media', 'GB', 'http://unclassedmedia.com', NULL, '2011-10-04 19:31:45'),
+(62, 'VBLANK', 'US', 'http://waitforvblank.com', NULL, '2011-10-04 19:31:45'),
+(63, 'Zen Albatross', 'US', 'http://zenalbatross.net', NULL, '2011-10-04 19:31:45'),
+(64, 'Patric Catani', 'DE', 'http://www.myspace.com/pcatani', NULL, '2011-10-04 19:31:45'),
+(65, 'STu', 'CH', 'http://stu.atari.org', NULL, '2011-10-04 19:31:45'),
+(66, 'Cow''p', 'JP', 'http://www.19-t.com/comb', NULL, '2011-10-04 19:31:43'),
+(67, 'zabutom', 'SE', 'http://www.myspace.com/zabutom', NULL, '2011-10-04 19:31:45'),
+(68, 'failotron', 'HU', 'http://failotron.org', NULL, '2011-10-04 19:31:43'),
+(69, 'coova', 'JP', 'http://www.myspace.com/coova', NULL, '2011-10-04 19:31:43'),
+(70, 'm-.-n', 'BE', 'http://discodirt.10pm.org', NULL, '2011-10-04 19:31:44'),
+(71, 'Johan Kotlinski', 'SE', 'http://www.rebelpetset.com', NULL, '2011-10-04 19:31:44'),
+(72, 'Tonylight', 'IT', 'http://www.tonylight.it', NULL, '2011-10-04 19:31:45'),
+(73, 'Syphus', 'GB', 'http://syphus.untergrund.net', NULL, '2011-10-04 19:31:45'),
+(74, 'Unicorn Dream Attack', 'US', 'http://www.unicorndreamattack.com', NULL, '2011-10-04 19:31:45'),
+(75, 'Starscream', 'US', 'http://myspace.com/starscreamnewyork', NULL, '2011-10-04 19:31:45'),
+(76, 'Lissajou', 'US', 'http://myspace.com/lissajou', NULL, '2011-10-04 19:31:44'),
+(77, 'Mark Denardo', 'US', 'http://www.markdenardo.com', NULL, '2011-10-04 19:31:44'),
+(78, 'IAYD', 'US', 'http://www.myspace.com/iayd', NULL, '2011-10-04 19:31:44'),
+(79, 'Chromix', 'US', 'http://www.chromixmusic.com', NULL, '2011-10-04 19:31:43'),
+(80, 'Eat Rabbit', 'FR', 'http://www.myspace.com/eatrabbit', NULL, '2011-10-04 19:31:43'),
+(81, 'Dr. Von Pnok', 'FR', 'http://drvonpnok.com', NULL, '2011-10-04 19:31:43'),
+(82, 'Jean Y. Kim', 'US', 'http://www.fx6ex6.com', NULL, '2011-10-04 19:31:44'),
+(83, 'Rosa Menkman', 'NL', 'http://rosa-menkman.blogspot.com', NULL, '2011-10-04 19:31:45'),
+(84, 'little-scale', 'AU', 'http://little-scale.com', NULL, '2011-10-04 19:31:44'),
+(85, 'outpt', 'US', 'http://outpt.net', NULL, '2011-10-04 19:31:44'),
+(86, 'tRasH cAn maN', 'SE', 'http://www.trash-can-man.com', NULL, '2011-10-04 19:31:45'),
+(87, 'Psilodump', 'SE', 'http://www.psilodump.com', NULL, '2011-10-04 19:31:45'),
+(88, 'X-Dump, The', 'SE', 'http://www.x-dump.com', NULL, '2011-10-04 19:31:45'),
+(89, 'Micromusic', 'CH', 'http://micromusic.net', NULL, '2011-10-04 19:31:44'),
+(91, 'David Sugar', 'GB', 'http://www.davidsugar.com', NULL, '2011-10-04 19:31:43'),
+(92, 'Deceptikon', 'US', 'http://www.deceptikon.net', NULL, '2011-10-04 19:31:43'),
+(93, 'Midnight Snacks', 'US', 'http://midnightsnacks.8chan.net', NULL, '2011-10-04 19:31:44'),
+(109, 'Noisewaves', 'US', 'http://noisewaves.bandcamp.com', '2011-05-28 22:32:46', '2011-10-04 19:31:44'),
+(95, 'Daniel Rehn', 'US', 'http://danielrehn.com', NULL, '2011-10-04 19:31:43'),
+(96, 'LA Game Space', 'US', 'http://lagamespace.org', NULL, '2011-10-04 19:31:44'),
+(97, 'Playpower', 'US', 'http://playpower.org', NULL, '2011-10-04 19:31:45'),
+(98, 'Saskrotch', 'US', 'http://www.barnofhell.com/saskrotch.htm', NULL, '2011-10-04 19:31:45'),
+(102, 'FILE', 'BR', 'http://file.org.br', '2011-03-01 13:03:07', '2011-10-04 19:31:43'),
+(103, 'monobomb records', 'US', 'http://monobomb.com', '2011-03-19 20:49:25', '2011-10-04 19:31:44'),
+(104, '8bitpeoples', 'US', 'http://8bitpeoples.com', '2011-03-19 20:49:25', '2011-10-04 19:31:42'),
+(105, '2 Player Productions', 'US', 'http://www.2playerproductions.com', '2011-03-23 03:09:50', '2011-10-04 19:31:42'),
+(106, 'DJ Big Wiz', 'US', 'http://twitter.com/djbigwiz', '2011-03-23 03:15:01', '2011-10-04 19:31:43'),
+(107, '4mat', 'GB', 'http://4mat.bandcamp.com', '2011-04-26 17:22:28', '2011-10-04 19:31:42'),
+(108, 'RÃ¡dio Metanol', 'BR', 'http://metanol.fm', '2011-04-26 17:24:06', '2011-10-04 19:31:45'),
+(110, 'NNNNNNNNNN', 'JP', 'http://nnnnnnnnnn.futene.net', '2011-05-28 22:32:46', '2011-10-04 19:31:44'),
+(111, 'Ultrasyd', 'FR', 'http://ultrasyd.free.fr', '2011-05-28 22:32:46', '2011-10-04 19:31:45'),
+(112, 'Talk to Animals', 'US', 'http://www.facebook.com/talktoanimals', '2011-05-28 22:32:46', '2011-10-04 19:31:45'),
+(113, 'Peter Swimm', 'US', 'http://www.burialape.com', '2011-05-28 22:32:46', '2011-10-04 19:31:45'),
+(114, 'Ralp', 'ES', 'http://www.ralp.org', '2011-05-28 22:32:46', '2011-10-04 19:31:45'),
+(115, 'knife city', 'US', 'http://www.facebook.com/knifecity', '2011-05-28 22:32:46', '2011-10-04 19:31:44'),
+(116, 'Tristan Perich', 'US', 'http://tristanperich.com', '2011-05-28 22:32:46', '2011-10-04 19:31:45'),
+(117, 'Eindbaas', 'NL', 'http://eindbaas.org', '2011-05-28 22:32:46', '2011-10-04 19:31:43'),
+(118, 'cTrix', 'AU', 'http://syntaxparty.org/ctrix', '2011-05-28 22:32:47', '2011-10-04 19:31:43'),
+(121, 'ui', 'VE', 'http://www.iloveui.com', '2011-06-01 19:50:36', '2011-10-04 19:31:45'),
+(120, 'Kanagawa', 'HU', 'http://www.facebook.com/kanagawarocks', '2011-06-01 06:56:27', '2011-10-04 19:31:44'),
+(122, 'Videogramo', 'VA', 'http://videogramo.8bitpeoples.com', '2011-06-30 07:25:34', '2011-10-04 19:31:45'),
+(123, 'Francoise Gamma', 'FM', 'http://francoisegamma.computersclub.org', '2011-06-30 10:05:18', '2011-10-04 19:31:43'),
+(124, 'Jeremiah Johnson', 'US', 'http://datacorruption.org', '2011-07-06 11:04:02', '2011-10-04 19:31:44'),
+(125, 'Auriea Harvey', 'BE', 'http://auriea.com', '2011-07-06 11:06:04', '2011-10-04 19:31:43'),
+(126, 'Entropy8Zuper!', 'BE', 'http://entropy8zuper.org', '2011-07-06 11:11:18', '2011-10-04 19:31:43'),
+(127, 'Devine Lu Linvega', 'CA', 'http://xxiivv.com', '2011-07-06 11:51:06', '2011-10-04 19:31:43'),
+(128, 'Goblinko', 'US', 'http://goblinko.com', '2011-07-06 11:53:53', '2011-10-04 19:31:44'),
+(129, 'Pork Magazine', 'US', 'http://internetpork.com', '2011-07-06 11:53:53', '2011-10-04 19:31:45'),
+(130, 'Blip Festival', 'US', 'http://blipfestival.org', '2011-07-06 11:55:17', '2011-10-04 19:31:43'),
+(131, '8bitSF', 'US', 'http://www.8bitsf.com', '2011-07-06 11:56:45', '2011-10-04 19:31:42'),
+(132, 'Pulsewave', 'US', 'http://pulsewave.org', '2011-07-06 11:56:45', '2011-10-04 19:31:45'),
+(133, 'Metanol FM', 'BR', 'http://metanol.fm', '2011-09-27 16:24:25', '2011-10-04 19:31:44'),
+(134, 'MakerBot Industries', 'US', 'http://makerbot.com', '2011-09-27 16:26:28', '2011-10-04 19:31:44'),
+(135, 'High Score Society', 'US', 'http://www.highscoresociety.com', '2011-09-27 16:26:28', '2011-10-04 19:31:44'),
+(136, 'Natty Adams', 'US', 'http://nattyadams.com', '2011-10-04 19:31:42', '2011-10-04 19:31:42');
 
 -- --------------------------------------------------------
 
@@ -357,13 +601,13 @@ INSERT INTO `links` (`id`, `name`, `country`, `url`, `created`, `modified`) VALU
 
 DROP TABLE IF EXISTS `performers`;
 CREATE TABLE IF NOT EXISTS `performers` (
-  `id` int(32) NOT NULL auto_increment,
-  `event_id` int(32) NOT NULL default '0',
-  `name` varchar(140) NOT NULL default '',
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `event_id` int(32) NOT NULL DEFAULT '0',
+  `name` varchar(140) NOT NULL DEFAULT '',
   `url` text,
-  `role` enum('artist','visualist') default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
+  `role` enum('artist','visualist') DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=144 ;
 
 --
 -- Dumping data for table `performers`
@@ -404,7 +648,92 @@ INSERT INTO `performers` (`id`, `event_id`, `name`, `url`, `role`) VALUES
 (48, 74, 'Bahia303', '', 'artist'),
 (49, 74, 'Subway Sonicbeat', '', 'artist'),
 (50, 74, 'Ghouls''N''Eggs', '', 'artist'),
-(51, 74, 'Droid-On', '', 'artist');
+(51, 74, 'Droid-On', '', 'artist'),
+(53, 75, 'NO CARRIER', 'http://no-carrier.com', 'visualist'),
+(54, 75, 'Burnkit2600', 'http://burnkit2600.com', 'artist'),
+(55, 75, 'an0va', 'http://soundcloud.com/an0va', 'artist'),
+(56, 75, 'crashfaster', 'http://crashfaster.com', 'artist'),
+(58, 76, 'Nina''s Hair', 'http://www.youtube.com/watch?v=pgEgKxo-DR0', 'artist'),
+(59, 76, 'Seed A.I.', 'http://seedaimusic.com', 'artist'),
+(60, 76, 'Burnkit2600', 'http://burnkit2600.com', 'artist'),
+(61, 77, 'Pixelseed', 'http://pixelseed.com', 'visualist'),
+(62, 77, 'Beverage', 'http://music.beveragestuff.net', 'artist'),
+(63, 77, 'Trey Frey', 'http://treyfrey.com', 'artist'),
+(64, 77, 'exileFaker', 'http://exilefaker.info', 'artist'),
+(65, 77, 'Da Pantz', 'http://dapantz.com', 'artist'),
+(75, 80, 'A_Rival', 'http://blog.planetskill.com/', 'artist'),
+(74, 80, 'Louis Gorenfeld', 'http://soundcloud.com/extentofthejam/tracks', 'artist'),
+(72, 79, 'Eclectic Method', 'http://eclecticmethod.net', 'artist'),
+(70, 78, 'Nullsleep', 'http://nullsleep.com', 'artist'),
+(71, 78, 'Mikrosopht', 'http://godxiliary.com/mikro.htm', 'artist'),
+(73, 79, 'Paris', 'http://parisgraphics.com', 'visualist'),
+(76, 80, 'Zen Albatross', 'http://zenalbatross.net/', 'artist'),
+(77, 80, 'The Glowing Stars', 'http://theglowingstars.bandcamp.com/', 'artist'),
+(78, 80, 'Freaky DNA', 'http://videogameaudio.com/', 'artist'),
+(79, 80, 'VIRT', 'http://virt.bandcamp.com/', 'artist'),
+(80, 80, 'crashfaster', 'http://crashfaster.com', 'artist'),
+(81, 80, 'Disasterpeace', 'http://disasterpeace.com', 'artist'),
+(82, 81, 'FUTURE WEAPONS', '', 'visualist'),
+(83, 81, 'VJ duplesiX', '', 'visualist'),
+(84, 81, 'Zen Albatross', 'http://zenalbatross.net', 'artist'),
+(85, 81, 'DJ Medic', '', 'artist'),
+(86, 81, 'E.N. Cowell', 'http://www.tapedecktheory.com', 'artist'),
+(87, 81, 'Space Town Savior', 'http://spacetownsavior.bandcamp.com', 'artist'),
+(88, 81, 'starPause', 'http://starpause.com', 'artist'),
+(89, 81, 'Trash80', 'http://trash80.com', 'artist'),
+(90, 81, 'crashfaster', 'http://crashfaster.com', 'artist'),
+(91, 82, 'EINDBAAS', 'http://eindbaas.org', 'artist'),
+(92, 82, 'Invaderbacca & Jessen', 'http://vimeo.com/user626281', 'visualist'),
+(93, 82, 'Rioteer', 'http://soundcloud.com/baswelling', 'artist'),
+(101, 82, 'an0va', 'http://an0va.bandcamp.com', 'artist'),
+(95, 82, 'RoccoW', 'http://soundcloud.com/roccow', 'artist'),
+(96, 82, 'deadbeatblast', 'http://www.deadbeatblast.com', 'artist'),
+(97, 82, 'Men of Mega', 'http://menofmega.com', 'artist'),
+(98, 83, 'VBLANK', 'http://www.waitforvblank.com', 'visualist'),
+(99, 83, 'Chipâ€™s Challenge', 'http://chipschallengeband.com', 'artist'),
+(100, 83, 'Bubblegum Octopus', 'https://www.facebook.com/BubblegumOctopusOfficial', 'artist'),
+(102, 84, 'Zen Albatross', 'http://blipfestival.org/2012/zen-albatross/', 'artist'),
+(103, 84, 'Wizwars', 'http://blipfestival.org/2012/wizwars/', 'artist'),
+(104, 84, 'shitbird', 'http://blipfestival.org/2012/shitbird/', 'artist'),
+(105, 84, 'Radlib', 'http://blipfestival.org/2012/radlib/', 'artist'),
+(106, 84, 'Pulselooper', 'http://blipfestival.org/2012/pulselooper/', 'artist'),
+(107, 84, 'Omodaka', 'http://blipfestival.org/2012/omodaka/', 'artist'),
+(108, 84, 'Nullsleep', 'http://blipfestival.org/2012/nullsleep/', 'artist'),
+(109, 84, 'NO CARRIER', 'http://blipfestival.org/2012/no-carrier/', 'visualist'),
+(110, 84, 'Monodeer', 'http://blipfestival.org/2012/monodeer/', 'artist'),
+(111, 84, 'MisfitChris', 'http://blipfestival.org/2012/misfitchris/', 'artist'),
+(112, 84, 'Kris Keyser', 'http://blipfestival.org/2012/kris-keyser/', 'artist'),
+(113, 84, 'Kodek', 'http://blipfestival.org/2012/kodek/', 'artist'),
+(114, 84, 'Jean Y. Kim', 'http://blipfestival.org/2012/jean-y-kim/', 'visualist'),
+(115, 84, 'Infinity Shred', 'http://blipfestival.org/2012/infinity-shred/', 'artist'),
+(116, 84, 'Graffiti Monsters', 'http://blipfestival.org/2012/graffiti-monsters/', 'artist'),
+(117, 84, 'George & Jonathan', 'http://blipfestival.org/2012/george-and-jonathan/', 'artist'),
+(118, 84, 'FlashHeart', 'http://blipfestival.org/2012/flashheart/', 'artist'),
+(119, 84, 'exileFaker', 'http://blipfestival.org/2012/exilefaker/', 'artist'),
+(120, 84, 'enso', 'http://blipfestival.org/2012/enso/', 'visualist'),
+(121, 84, 'Dr. Von Pnok', 'http://blipfestival.org/2012/dr-von-pnok/', 'artist'),
+(122, 84, 'deadbeatblast', 'http://blipfestival.org/2012/deadbeatblast/', 'artist'),
+(123, 84, 'Danimal Cannon', 'http://blipfestival.org/2012/danimal-cannon/', 'artist'),
+(124, 84, 'Chromacle', 'http://blipfestival.org/2012/chromacle/', 'visualist'),
+(125, 84, 'Chipocrite', 'http://blipfestival.org/2012/chipocrite/', 'artist'),
+(126, 84, 'CHiKA', 'http://blipfestival.org/2012/chika/', 'visualist'),
+(127, 84, 'Burnkit2600', 'http://blipfestival.org/2012/burnkit2600/', 'artist'),
+(128, 84, 'Bit Shifter', 'http://blipfestival.org/2012/bit-shifter/', 'artist'),
+(129, 84, 'Batsly Adams', 'http://blipfestival.org/2012/batsly-adams/', 'visualist'),
+(130, 84, ':| kREW', 'http://blipfestival.org/2012/colon-pipe-krew/', 'artist'),
+(131, 85, 'noteNdo', 'http://notendo.com', 'visualist'),
+(132, 85, 'enso', 'http://enso.tumblr.com', 'visualist'),
+(133, 85, 'VBLANK', 'http://www.waitforvblank.com', 'visualist'),
+(134, 85, 'NO CARRIER', 'http://no-carrier.com', 'visualist'),
+(135, 85, 'Batsly Adams', 'http://www.batslyadams.com', 'visualist'),
+(136, 85, 'Rhinostrich', 'http://www.rhinostrich.com', 'artist'),
+(137, 85, 'sylcmyk', 'http://sylcmyk.com', 'artist'),
+(138, 85, 'Craphazzard', '', 'artist'),
+(139, 85, 'Corset Lore', 'http://soundcloud.com/corset-lore', 'artist'),
+(140, 85, 'exileFaker', 'http://exilefaker.info', 'artist'),
+(141, 85, 'Ricky Brugal', 'http://dapantz.bandcamp.com/', 'artist'),
+(142, 85, 'Paza', 'http://www.pazarahm.com', 'artist'),
+(143, 82, 'Freaky DNA', 'http://videogameaudio.com', 'artist');
 
 -- --------------------------------------------------------
 
@@ -414,26 +743,26 @@ INSERT INTO `performers` (`id`, `event_id`, `name`, `url`, `role`) VALUES
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(32) NOT NULL auto_increment,
-  `title` varchar(140) default NULL,
-  `producer_name` varchar(140) default NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `title` varchar(140) DEFAULT NULL,
+  `producer_name` varchar(140) DEFAULT NULL,
   `producer_url` text,
-  `production_name` varchar(140) default NULL,
+  `production_name` varchar(140) DEFAULT NULL,
   `production_url` text,
-  `date` date default NULL,
+  `date` date DEFAULT NULL,
   `their_description` text,
   `my_description` text,
-  `download_text` varchar(140) default NULL,
+  `download_text` varchar(140) DEFAULT NULL,
   `embed` text,
   `post_file_path` text,
-  `post_file_name` varchar(140) default NULL,
-  `post_file_size` int(32) default NULL,
-  `post_content_type` varchar(140) default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  `slug` varchar(140) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `post_file_name` varchar(140) DEFAULT NULL,
+  `post_file_size` int(32) DEFAULT NULL,
+  `post_content_type` varchar(140) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `slug` varchar(140) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `posts`
@@ -450,7 +779,17 @@ INSERT INTO `posts` (`id`, `title`, `producer_name`, `producer_url`, `production
 (11, '11m 20s of New Music', 'minusbaby', 'http://minusbaby.com', 'Flying Bonus Beats, Version 1', 'http://freemusicarchive.org/music/minusbaby/minusbaby_-_Singles_1918/', '2010-02-16', '', '<p>\r\nI wrote 13 minutes of bonus beats to extend my Beatles cover, "Flying", for a dance party-style gig in Montreal on February 11th - <a href="http://www.forwardmusicmontreal.com/">Forward Music</a> at <a href="http://www.barpasseport.com/">Bar Passeport</a>. My oft partner in petty crime, <a href="http://myspace.com/glomaggot">glomag</a>, played, too.\r\n</p>\r\n<p>\r\nHere''s the bulk of it without the original version. As it was written strictly for a specific, live setting, I do not consider it finished and will indubitably return to it. I thought I''d share it in the meantime for the sake of non-moving butts everywhere. Play it stupid loud so that you''ll go slightly deaf for two days like me.\r\n</p>\r\n<p>\r\nP.S.: Listen for the <a href="http://starscreamband.com">Starscream</a> interlude.\r\n</p>', 'You may download it at <a href="http://freemusicarchive.org/music/minusbaby/minusbaby_-_Singles_1918/">Free Music Archive</a>.', '<object width="720" height="50"><param name="movie" value="http://freemusicarchive.org/swf/trackplayer.swf"/><param name="flashvars" value="track=http://freemusicarchive.org/services/playlists/embed/track/25397.xml"/><param name="allowscriptaccess" value="sameDomain"/><embed type="application/x-shockwave-flash" src="http://freemusicarchive.org/swf/trackplayer.swf" width="720" height="50" flashvars="track=http://freemusicarchive.org/services/playlists/embed/track/25397.xml" allowscriptaccess="sameDomain" /></object>', '4d9369d0-24a8-421e-90b3-3e4a400dc0a6.png', 'flyingbonusbeats.png', 6559, 'image/png', '2011-03-30 10:35:12', '2011-03-30 10:35:12', '11m-20s-of-New-Music'),
 (12, '"KnifeTank" Remix', 'crashfaster & Doc Pop', 'http://knifetank.bandcamp.com', 'Deep Slit [Red Wings Remix]', 'http://knifetank.bandcamp.com/track/deep-slit-red-wings-remix', '2010-07-20', 'Born out of an HTML5 game, "<a href="http://knifetank.bandcamp.com/album/crashfaster-doctor-popular-present-knifetank-the-albumhole">KnifeTank (The Albumhole)</a>" takes the game''s original chiptune score and mixes it with nerdcore hip hop and additional remixes. Turning it into a fantastic stand alone album. Play the original game at <a href="http://www.knifetanks.com">www.knifetanks.com</a>', '', 'You may stream and buy it at <a href="http://knifetank.bandcamp.com/">http://knifetank.bandcamp.com/</a>.', '', '4d937080-d19c-443d-8bb7-79e3400dc0a6.png', 'knifetank01.png', 198503, 'image/png', '2011-03-30 11:03:44', '2011-03-30 11:03:44', 'KnifeTank-Remix'),
 (13, 'Tettix Remix', 'Tettix', 'http://www.tettix.net', 'A New Challenger!', 'http://www.tettix.net/albums/a_new_challenger.html', '2010-07-30', 'Electronic musician <a href="http://www.tettix.net/">Tettix</a> just released "<a href="http://www.tettix.net/albums/a_new_challenger.html">A New Challenger</a>", a remix album featuring tracks from his earlier "<a href="ttp://www.tettix.net/albums/tkoep.html">T.K.O.E.P.</a>". <a href="http://www.headlessbarbie.com/">Alex Mauer</a>, <a href="http://www.myspace.com/derriskharlanmsc">Derris-Kharlan</a>, <a href="http://www.disasterpeace.com/">Disasterpeace</a>, <a href="http://www.helastechne.com/">HÃ©las Techne</a> and <b>minusbaby</b> worked with him to create it.', '', 'You may download it at <a href="http://www.tettix.net/albums/a_new_challenger.html">http://www.tettix.net</a>.', '', '4d9371a3-4924-4267-b554-5375400dc0a6.png', 'tettix_01.png', 238404, 'image/png', '2011-03-30 11:08:35', '2011-05-13 21:55:08', 'Tettix-Remix'),
-(14, 'New Release on 8bitpeoples', 'minusbaby', 'http://minusbaby.com', 'Derecha', 'http://www.8bitpeoples.com/discography/8BP110', '2010-08-02', '<p>It''s surprising to me as someone who generally isn''t that big on chip music that I''m on my third straight play through minusbaby''s new album, <i>Derecha</i>. And even though I admittedly get fidgety and impatient on hearing more than one song at any given time in any given genre (chronic musical ADD), here I am humming along like an asshole, more forcefully with each repeated listen, ad-libbing riffs here and there while I finger-drum beats on my desktop like a white Candido, and quickly approaching my fourth return listen.\r\n</p>\r\n<p>\r\nAs an album, it''s a mature progression from his previous EP, <i><a href="http://www.8bitpeoples.com/discography/8BP101">Left</a></i>. And it''s damn good. And I want to tell people about it, but what do I even say? It''s chip music, but it doesn''t sound like something from any video game I played when I was a kid. It''s new music made with old-school mentality using a combination of sounds that could either be from 1985 or 2085. It''s funky, it''s danceable, it''s composed, it''s cerebral, it''s performing a complicated samba throughout the <i>Southern Hemisphere</i> at times. It''s all of these and yet it''s none of these.\r\n</p>\r\n<p>\r\nIn a word, it''s minusbaby.\r\n</p>\r\n<p>\r\n&mdash; Dylan Garret, DJ Â· New York, NY Â· July 2010\r\n</p>', '', 'You may download it at <a href="http://www.8bitpeoples.com/discography/8BP110">http://www.8bitpeoples.com</a>.', '', '4d93734a-68bc-4493-a6b9-5171400dc0a6.png', 'leftcover.png', 3359, 'image/png', '2011-03-30 11:15:38', '2011-04-29 11:21:30', 'New-Release-on-8bitpeoples');
+(14, 'New Release on 8bitpeoples', 'minusbaby', 'http://minusbaby.com', 'Derecha', 'http://www.8bitpeoples.com/discography/8BP110', '2010-08-02', '<p>It''s surprising to me as someone who generally isn''t that big on chip music that I''m on my third straight play through minusbaby''s new album, <i>Derecha</i>. And even though I admittedly get fidgety and impatient on hearing more than one song at any given time in any given genre (chronic musical ADD), here I am humming along like an asshole, more forcefully with each repeated listen, ad-libbing riffs here and there while I finger-drum beats on my desktop like a white Candido, and quickly approaching my fourth return listen.\r\n</p>\r\n<p>\r\nAs an album, it''s a mature progression from his previous EP, <i><a href="http://www.8bitpeoples.com/discography/8BP101">Left</a></i>. And it''s damn good. And I want to tell people about it, but what do I even say? It''s chip music, but it doesn''t sound like something from any video game I played when I was a kid. It''s new music made with old-school mentality using a combination of sounds that could either be from 1985 or 2085. It''s funky, it''s danceable, it''s composed, it''s cerebral, it''s performing a complicated samba throughout the <i>Southern Hemisphere</i> at times. It''s all of these and yet it''s none of these.\r\n</p>\r\n<p>\r\nIn a word, it''s minusbaby.\r\n</p>\r\n<p>\r\n&mdash; Dylan Garret, DJ Â· New York, NY Â· July 2010\r\n</p>', '', 'You may download it at <a href="http://www.8bitpeoples.com/discography/8BP110">http://www.8bitpeoples.com</a>.', '', '4d93734a-68bc-4493-a6b9-5171400dc0a6.png', 'leftcover.png', 3359, 'image/png', '2011-03-30 11:15:38', '2011-04-29 11:21:30', 'New-Release-on-8bitpeoples'),
+(17, '"BIAS" Is at Bandcamp', 'minusbaby', 'http://minusbaby.com', 'BIAS', 'http://minusbaby.bandcamp.com/album/bias', '2011-06-16', '<p>\r\n<i>â€œ[â€¦] you can give that to anybody and say â€˜THIS is chipmusicâ€™, they''ll get it. It''s the first chip album for me where there''s no gimmick, it''s a serious piece of work that''s not ruled by the hardware it''s made on.â€<br /><br />â€” Matt Simmonds a.k.a. 4mat (<a href="http://igorogogo.com/4mat.htm" class="tooltip" title="Thank you, Matt!">igorogogo.com/4mat.htm</a>)</i>\r\n</p>', '<p>\r\nThis newly mixed and mastered release includes an alternate version of â€œLeftâ€; originally released by 8bitpeoples in 2009.\r\n</p>\r\n<p>\r\nThe second half is an extended (by over twelve minutes) version of â€œDerechaâ€ [2010], plus a brand new track, "Subimago".\r\n</p>\r\n<p>\r\nThe CD version is a shrink-wrapped DigipakÂ®.\r\n</p>\r\n<p>\r\nFor those who buy the CD: let me know if you''d like me to unwrap the case and write or draw something inside the white box on the cover<i>!</i> There''s an option at checkout. Thank you<i>!</i>\r\n</p>', 'You may stream and purchase it at <a href="http://minusbaby.bandcamp.com">http://minusbaby.bandcamp.com</a>.', '<iframe width="46" height="23" style="position: relative; display: block; width: 46px; height: 23px;" src="http://bandcamp.com/EmbeddedPlayer/v=2/album=4225557124/size=short/bgcol=000000/linkcol=00b9f1/" allowtransparency="true" frameborder="0"><a href="http://minusbaby.bandcamp.com/album/bias">BIAS by minusbaby</a></iframe>\r\n\r\n', '4dfa1acf-ffec-4d79-a4c5-1ff0400dc0a6.jpg', 'news_20110616.jpg', 145302, 'image/jpeg', '2011-06-16 07:53:53', '2011-07-18 20:54:47', 'BIAS-Is-at-Bandcamp'),
+(18, 'Ten Years of Chip Music, or: Never Played Out', 'Richard Alexander Caraballo', '', 'Essay', '', '2011-07-19', '', '<p>\r\nWe just called it "chiptune" then. I think. I mean, we really didn''t have anything else to call it. In 2001, we scoured <a href="http://micromusic.net">MicroMusic</a>, <a href="http://scene.org">Scene.org</a> and <a href="http://pouet.net">Pouet</a> for tracks and source files while over in Europe they were on the third wave of tradition.\r\n</p>\r\n<p>\r\nTen years ago, there wasn''t a New York scene like there is today. Hell, there was barely a US scene in 2001 - certainly nothing like today''s impressive network of musicians covering every imaginable musical style except for, maybe, <i>zydeco</i> and <span class="tooltip" title="Update: Dragan Espenschied of BodenstÃ¤ndig 2000 emailed me to say that he''s been writing polka."><i>polka</i></span>. This can''t be ruled out, though, which is exactly why moving in loose terms from "chiptune" to "<a href="http://chipflip.wordpress.com/chipmusic/">chip music</a>" was not only inevitable, but accurate. There''s plenty of diversity within the practice of composing for old computers, video game consoles and with sound chip emulation to demand a change in nomenclature.\r\n</p>\r\n<p>\r\n<cut>\r\n</p>\r\n<p>\r\nSo yeah. Ten years ago. <a href="http://www.nullsleep.com/gallery/20010718blip/">July 18th, 2001</a>. <a href="http://nullsleep.com">Nullsleep</a> and I played our first ever shows; together at a blue, cinder block-walled club called "FUN" in Chinatown. Right beneath the Manhattan Bridge. <i>DJ Unknown</i> opened for us and including the promoter, <a href="http://www.discogs.com/artist/G.+Rizo">Ihu Anyanwu</a>, there were about five people in the crowd; <a href="http://www.coryarcangel.com">Cory Arcangel</a> was one of them and, of course, my younger brother, Tim. Only he would put up with my insistance on bringing a desktop PCâ€”18â€ CRT monitor includedâ€”to the gig.\r\n</p>\r\n<p>\r\nThere''s a recording of the show and I''ve joked about it being released in 25 years as part of a 50-disc <a href="http://8bitpeoples.com">8bitpeoples</a> box set, but that''s not so important. What I find most valuable about that day is its definition as the moment that drove us to abandon the uncertainty of inexperience and proceed with blind confidence. With that confidence came the technique to develop our passion for making interesting shit. Neither of us knew what we were doing from a performance standpoint, but that was part of the attraction. There was nothing to lose because it was all ours to begin.\r\n</p>\r\n<p>\r\nSure, I''m coloring the memory with unavoidable romanticism, but I can say with full sincerity that I still have that spiritâ€¦ that to experiment, evolve and purposely whip past accomplishments to guarantee that welcomed, aesthetic uncertainty one''s technique demands. Now that there are crowds in the tens of thousands and chip musicians in almost every major city worldwide, it''s not only a luxury to actively practice my craft, but a duty I am grateful to have personally extended across the globe with no end in sight.\r\n</p>\r\n<p>\r\nThank you - all of you - for coming out to shows over the past decade. I''ll see you on the dance floor (and from the crowd).\r\n</p>', '', '', '4e256c43-2900-455a-bd7e-7ff7400dc0a6.png', '2001-2011_minusbaby_nullsleep.png', 2692, 'image/png', '2011-07-19 04:36:35', '2011-07-19 19:55:52', 'Ten-Years-of-Chip-Music-or-Never-Played-Out'),
+(19, 'A New Track', 'minusbaby', '', 'VÃ¡lgame 2 (ExtraÃ±o)', 'http://freemusicarchive.org/music/minusbaby/minusbaby_-_Singles_1233/minusbaby-valgame_2_extrano', '2011-09-14', '', 'It''d been a while since I''d written a new tune. This one''s got legs.', 'Download at http://goo.gl/Gbr7I', '<object width="720" height="50"><param name="movie" value="http://freemusicarchive.org/swf/trackplayer.swf"/><param name="flashvars" value="track=http://freemusicarchive.org/services/playlists/embed/track/53961.xml"/><param name="allowscriptaccess" value="sameDomain"/><embed type="application/x-shockwave-flash" src="http://freemusicarchive.org/swf/trackplayer.swf" width="720" height="50" flashvars="track=http://freemusicarchive.org/services/playlists/embed/track/53961.xml" allowscriptaccess="sameDomain" /></object>', '4e712cce-6934-40ed-af5e-5643400dc0a6.png', 'valgame_2.png', 2878, 'image/png', '2011-09-14 15:38:06', '2011-09-19 12:52:51', 'A-New-Track'),
+(20, 'NSEW: The Fake News Tour', 'minusbaby', '', 'Tour', '', '2011-10-11', '<p>\r\nIntroducing "NSEW: The Fake News Tour", a four-city, four-cardinal direction tour named for the sake of drawing pixel letters, introducing "#nsewnews" to Twitter and writing this news entry.\r\n</p>', '<p>\r\n<ul>\r\n<li>\r\n<b>NORTH<i>!</i></b> &middot; Danbury, CT<br>\r\nAR(t)CADE<br>\r\n<i>with</i> Burnkit2600, Seed A.I. and more<br>\r\nOctober 8th<br>\r\n&nbsp;\r\n\r\n</li>\r\n<li>\r\n<b>SOUTH<i>!</i></b> &middot; Baltimore, MD<br>\r\nByte Nyte<br>\r\n<i>with</i> Da Pantz, exileFaker and more<br>\r\nOctober 15th<br>\r\n&nbsp;\r\n</li>\r\n<li>\r\n<b>EAST<i>!</i></b> &middot; New York, NY<br>\r\nRe:Mix Lab<br>\r\n<i>with</i> Paris and Eclectic Method<br>\r\nOctober 21st<br>\r\n&nbsp;\r\n</li>\r\n<li>\r\n<b>WEST<i>!</i></b> &middot; Chicago, IL<br>\r\nGLI.TC/H<br>\r\n<i>with</i> Mikrosopht, Nullsleep and more<br>\r\nNovember 4th<br>\r\n&nbsp;\r\n</li>\r\n</ul>\r\n</p>', 'Check out http://minusbaby.com/events to stay hip', '', '4e94b353-8a74-4129-93c0-0e48400dc0a6.png', 'nsew.png', 4355, 'image/png', '2011-10-11 14:21:23', '2011-10-11 19:13:10', 'NSEW-The-Fake-News-Tour'),
+(21, 'minusbaby + The Verge', 'The Verge', 'http://theverge.com', 'My music on the Verge', '', '2011-11-01', '', '<p>\r\n<a href="http://www.engadget.com/2011/03/18/the-engadget-show-with-jon-rubinstein-next-friday-march-25th">Back in March</a>, I learned that <a href="http://vimeo.com/user407146">The C-Men</a> and I would be the last to perform on the <span class="tooltip" title="R.I.P.">Engadget Show</span> as hosted and <i>chiefly edited</i> by <a href="http://en.wikipedia.org/wiki/Joshua_Topolsky">Joshua Topolsky</a> at the Times Center. Having performed three times prior, I thought to myself, "oh, that''s wack."\r\n</p>\r\n<p>\r\nSo I was happy to greet an email last month from <a href="http://trebletown.com/">Trent Wolbe</a> of WFMU''s <a href="http://wfmu.org/playlists/to">DJ Tront</a> fame and video producer, Chad Mumm, asking if I''d be cool with my music being used in videos for The Verge â€” Joshua and crew''s <a href="http://en.wikipedia.org/wiki/The_Verge">new venture</a>. <a href="http://theverge.com">The Verge</a> went live today and as such you''ll hear snippets, trifles and smidgens of my music in video reviews, interviews and whatnot produced for and by the company; via the site and <a href="http://www.youtube.com/user/TheVerge">their YouTube channel</a>. For example, at the beginning of <a href="http://www.youtube.com/watch?v=8rlMXAzHlts">an interview with Nokia''s Marko Ahtisaari</a>.\r\n</p>\r\n<p>\r\nLook out for audio clips by <a href="http://bit.shifter.net">Bit Shifter</a> and <a href="http://www.8bitpeoples.com/artist/glomag">glomag</a>, too. <a href="http://8bitpeoples.com">8bitpeoples</a> are reppin'' hard.\r\n</p>', '', '', '4eb04ff7-83b4-43b8-bb20-26eb400dc0a6.png', 'news-the_verge.png', 6771, 'image/png', '2011-11-01 13:00:55', '2011-11-01 13:01:15', 'minusbaby-The-Verge'),
+(22, 'Happy 2012!', 'minusbaby', '', 'A Pretty *.PNG for You', '', '2012-01-01', '', 'Thank you so much for helping make 2011 infinitely memorable. I hope to help make 2012 memorable for you.', '', '', '4f051c77-fba4-4350-8939-709f400dc0a6.png', '2011-2012_for_minusbaby_dot_com.png', 19691, 'image/png', '2012-01-04 19:43:51', '2012-01-04 19:44:52', 'Happy-2012'),
+(23, 'Native Like Tongues', 'minusbaby', '', 'minusbaby y Su 8-Hit Combo', '', '2012-05-13', '', 'Since 2001, I''ve played nearly one-hundred fresh, wild, fly and bold shows all by myself, but it''s the ones with band mates that have been the most satisfying. There''s a specific energy that builds unequaled by solo performances; and, because sequenced electronic music is, more or less, a setting wherein little can go wrong temporally, it''s exciting to stand beside the suddenness of a slightly off-center hi-hat rushing like a runaway train or a fluke semitone sighed by the bellows of decades-old harmonium.\r\n<br /><br />\r\nI''m mentioning this because my performance at <a href="http://blipfestival.org/2012/minusbaby">Blip Festival New York 2012</a> will mark the beginning of a deliberate foray into composing, arranging and producing specifically for small musical ensembles as <i>minusbaby y Su 8-Hit Combo</i>. I chose the name for several reasons:\r\n<br /><br />\r\n\r\nâ‘  <span style="color:#7f7f7f;">The "y Su Combo" ("and His Small Band") suffix was popular among Latin big bands in the ''40s through early-''70s as a way to showcase the leader''s musical mastery upon a relatively small ensemble - comparable to <a href="http://bit.shifter.net/">Joshua Davis</a>'' personal musical precept, "â€¦pushing minimal hardware to its maximum", which is shifting toward becoming a de facto definition of the chip music medium and, by wit, a solid reference to the history of musical composition and performance.</span>\r\n<br /><br />\r\nâ‘¡ <span style="color:#7f7f7f;"><i>"In video games, a combo (short for combination) is a term that designates a set of actions performed in sequence, usually with strict timing limitations, that yield a significant benefit or advantage."</i> &mdash; <a href="http://en.wikipedia.org/wiki/Combo_(video_gaming)">Wikipedia</a></span>\r\n<br /><br />\r\nâ‘¢ <span style="color:#7f7f7f;">"8-Hit" sounds like "8-Bit".\r\n</span>\r\n<br /><br />\r\nThis new project won''t replace the ways I''ve been writing since 1999 &mdash; nor will I stop perfoming solo. <i>minusbaby y Su 8-Hit Combo</i> is the beginning of a musical future full of hand and mallet percussion, horns, an NES, servomechanisms, analogue drum machines, oddly-placed microphone arrays and whatnot. So yeah, I''ll catch you by the bass bins, as always. Things are about to get fancy.', '', '', '4fb01b99-1108-4abc-9e1b-37fb400dc0a6.png', 'minusbaby_y_su_8-hit_combo_(2012-05-13).png', 14394, 'image/png', '2012-05-13 13:37:45', '2012-06-21 20:12:16', 'Native-Like-Tongues'),
+(24, 'Last Night''s Set', 'Chiptography', 'http://chiptography.com', 'Blip Festival New York 2012', 'http://blipfestival.org/2012', '2012-05-25', '', 'This was taken by Marjorie Becker a.k.a. Chiptography during my set for Blip Festival New York 2012 last night featuring <a href="http://stuartbogie.com">Stuart Bogie</a> (bass harmonica, flute, clarinet and saxophone) [background] <a href="http://ryanferreira.com/">Ryan Ferreira</a> (electric guitar), <a href="http://p.irateship.com/">the p.irateship</a> and <a href="http://mikrosopht.godxiliary.com/">Mikrosopht</a>.\r\n<br /><br />\r\nâ—Ž More of my set:<br />\r\n<a href="http://www.flickr.com/photos/m_becker/tags/minusbabyysu8hitcombo/">http://www.flickr.com/photos/m_becker/tags/minusbabyysu8hitcombo</a><br /><br />\r\nâ—Ž "Blip Festival 2012: Day One" Set:<br />\r\n<a href="http://flic.kr/s/aHsjzCeqJJ">http://flic.kr/s/aHsjzCeqJJ</a>\r\n', '', '', '4fc16f61-963c-4fed-bd86-648b400dc0a6.jpg', '2012-05-25_chiptography.jpg', 45194, 'image/jpeg', '2012-05-27 00:03:45', '2012-05-27 00:08:27', 'Last-Night-s-Set'),
+(25, 'Nerd Alert', 'PBS Off Book', 'http://www.pbs.org/arts', 'Tracking The Evolution of 8-Bit Art, From Atari Era to the Present Day', 'http://www.wired.com/underwire/2012/06/evolution-of-8-bit-art', '2012-06-15', '<i>The brief but engaging eight-minute doc â€” which sports an appropriately seizure-inducing, psychedelic intro â€” traces the 8-bit aesthetic over the past three decades, from the early days of Atari and Nintendo to the present day. Featuring interviews with 8-bit practitioners <a href="http://www.jesperjuul.net/">Jesper Juul</a>, Doctor Octoroc, <i>Minusbaby</i>, <a href="http://www.trendhunter.com/trends/anthony-michael-sneed">Anthony Sneed</a> and chiptune band <a href="http://anamanaguchi.com/">Anamanaguchi</a>, the doc covers an impressive amount of ground in a short amount of time. The simplicity and minimalism of 8-bit art â€” and its capability for provoking extreme bouts of nostalgia â€” is part of what makes the aesthetic so powerful, according to the interview subjects.</i>\r\n<br /><br />\r\n<a href="http://www.wired.com/underwire/2012/06/evolution-of-8-bit-art">Read more at Wiredâ€¦</a>', 'So this is a bit of a recursive nerd alertâ€¦ a documentary about chip music and 8-bit art produced by "<a href="http://www.pbs.org/arts/exhibit/offbook-s2e8-8bitart">Off Book</a>" for <i>PBS</i> subsequently covered by "<a href="http://www.wired.com/underwire/2012/06/evolution-of-8-bit-art">Underwire</a>" for <i>Wired Magazine</i>.\r\n<br /><br />\r\nMy mom would''ve been so proud, so I''m beaming for both of us. â™¥', '', '<iframe width="720" height="347" src="http://www.youtube.com/embed/xYL1DsY8GMI" frameborder="0" allowfullscreen></iframe>', '', '', NULL, NULL, '2012-06-16 18:50:43', '2012-06-16 18:51:55', 'Nerd-Alert'),
+(26, 'My Portfolio', 'Richard Alexander Caraballo', 'http://minusbaby.com', 'My Portfolio', 'http://minusbaby.com/portfolio', '2012-07-30', '', '<p>\r\nAfter nearly a week straight of gathering, organizing and resizing my work from the past ten years, I''m proud to present a solid online portfolio.\r\n</p>\r\n<p>\r\nâ†’ <a href="http://minusbaby.com/portfolio">http://minusbaby.com/portfolio</a>\r\n</p>\r\n<p>\r\n<i>Check back soon because I''m going to add some downloadable content.</i>\r\n</p>', '', '', '501611e5-8f60-461a-85d3-2298400dc0a6.png', 'portfolio_screenshot.png', 37082, 'image/png', '2012-07-30 04:44:10', '2012-07-30 04:47:33', 'My-Portfolio');
 
 -- --------------------------------------------------------
 
@@ -460,19 +799,19 @@ INSERT INTO `posts` (`id`, `title`, `producer_name`, `producer_url`, `production
 
 DROP TABLE IF EXISTS `press`;
 CREATE TABLE IF NOT EXISTS `press` (
-  `id` int(32) NOT NULL auto_increment,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `bio` text,
   `embed_1` text,
   `embed_2` text,
   `embed_3` text,
   `embed_4` text,
   `press_file_path` text,
-  `press_file_name` varchar(140) default NULL,
-  `press_file_size` int(32) default NULL,
-  `press_content_type` varchar(140) default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
+  `press_file_name` varchar(140) DEFAULT NULL,
+  `press_file_size` int(32) DEFAULT NULL,
+  `press_content_type` varchar(140) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -480,7 +819,7 @@ CREATE TABLE IF NOT EXISTS `press` (
 --
 
 INSERT INTO `press` (`id`, `bio`, `embed_1`, `embed_2`, `embed_3`, `embed_4`, `press_file_path`, `press_file_name`, `press_file_size`, `press_content_type`, `created`, `modified`) VALUES
-(1, '<p style="font-size: 125%;">Richard Alexander Caraballo began his minusbaby project in 1999 to explore the diversity of a lo-fi, compositional aesthetic and has since progressed experimentally in its scope to include elements guided by those roots and a sonic language representative of his influences, namely: <i>the art of bass and how it moves asses</i>.</p>\r\n<p>\r\nIn addition to music, he is a prolific pixel artist who, since 1999, has been largely responsible for defining the unique aesthetics of the modern 8-bit creative movement. Spearheading the visual identities of <a href="http://8bitpeoples.com">8bitpeoples</a>, <a href="http://pulsewave.org">Pulsewave</a> and the <a href="http://blipfestival.org">Blip Festival</a> has contributed to making his work ubiquitous to the public''s perception of chip music and art. His work, which he has referred to as, â€œa practice in primitivism, but mostly a stab at trying to continue several traditions at once,â€ is often guided by a central idea meant to be triumphed by the individual.\r\n</p>\r\n<p>\r\nCombining his love for type, patterns and limited palettes, minusbaby has developed his own unique visual and musical languages where rather than easing into common trends, he utilizes multiple sources outside of video game culture to broaden both his and the movement''s repertoire so as to expand the canon and avoid Super Mario cannons.\r\n</p>', '', '', '', '', '2011-03-19_ben_mason_720x388.jpg', '2011-03-19_ben_mason_720x388.jpg', 44771, 'image/jpeg', '2011-03-18 08:09:39', '2011-05-05 16:52:22');
+(1, '<p style="font-size: 125%;">Richard Alexander Caraballo began his minusbaby project in 1999 to explore the diversity of a lo-fi, compositional aesthetic and has since progressed experimentally in its scope to include elements guided by those roots and a sonic language representative of his influences, namely: <i>the art of bass and how it moves butts</i>.</p>\r\n<p>\r\nIn addition to music, he is a prolific pixel artist who, since 1999, has been largely responsible for defining the unique aesthetics of the modern 8-bit creative movement. Spearheading the visual identities of <a href="http://8bitpeoples.com">8bitpeoples</a>, <a href="http://pulsewave.org">Pulsewave</a> and the <a href="http://blipfestival.org">Blip Festival</a> has contributed to making his work ubiquitous to the public''s perception of chip music and art. His work, which he has referred to as, â€œa practice in primitivism, but mostly a stab at trying to continue several traditions at once,â€ is often guided by a central idea meant to be triumphed by the individual.\r\n</p>\r\n<p>\r\nCombining his love for type, patterns and limited palettes, minusbaby has developed his own unique visual and musical languages where rather than easing into common trends, he utilizes multiple sources outside of video game culture to broaden both his and the movement''s repertoire so as to expand the canon and avoid Super Mario cannons.\r\n</p>', '', '', '', '', '2011-03-19_ben_mason_720x388.jpg', '2011-03-19_ben_mason_720x388.jpg', 44771, 'image/jpeg', '2011-03-18 08:09:39', '2012-09-12 19:16:13');
 
 -- --------------------------------------------------------
 
@@ -490,22 +829,22 @@ INSERT INTO `press` (`id`, `bio`, `embed_1`, `embed_2`, `embed_3`, `embed_4`, `p
 
 DROP TABLE IF EXISTS `press_links`;
 CREATE TABLE IF NOT EXISTS `press_links` (
-  `id` int(32) NOT NULL auto_increment,
-  `site` varchar(140) default NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `site` varchar(140) DEFAULT NULL,
   `site_url` text,
   `article_url` text,
-  `article_title` varchar(140) default NULL,
-  `author` varchar(140) default NULL,
+  `article_title` varchar(140) DEFAULT NULL,
+  `author` varchar(140) DEFAULT NULL,
   `author_url` text,
   `article` text,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   `image_file_path` text,
-  `image_file_name` varchar(140) default NULL,
-  `image_file_size` int(32) default NULL,
-  `image_content_type` varchar(140) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+  `image_file_name` varchar(140) DEFAULT NULL,
+  `image_file_size` int(32) DEFAULT NULL,
+  `image_content_type` varchar(140) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `press_links`
@@ -519,7 +858,8 @@ INSERT INTO `press_links` (`id`, `site`, `site_url`, `article_url`, `article_tit
 (8, 'Revista Fraude', 'http://revistafraude.com', ' http://issuu.com/revistafraude/docs/fraude_7', 'Uma Pessoa de 8bit (An 8bit Person)', 'JoÃ£o AraÃºjo & Nelson Oliveira', 'http://revistafraude.com', '<p>\r\n&bull; <i>Could you define the 8-bit aesthetic to Fraudeâ€™s public?</i>\r\nIt has become a blanket term to describe images that are, emulate or have been inspired by video game console,arcade and home computer raster images. In other words, old school video game graphics.\r\n</p>\r\n<p>\r\n&bull; <i>Why and since when minusbaby?</i>\r\nI was known as â€œSYS 64738â€ â€” my favorite Commodore 64 command â€” in 1998 and then realized that that was too comprehensively nerdy so I went with an incidental phrase that ended up holding water. I worked as a tattoo designer in the late 1990s. I would spend time at the tattoo parlor to get an understanding of the way body curves and ink relate. I donâ€™t know why exactly, but customers would ask if I was married and had children. I grew tired of the long answer, so I shortened it to, â€œI am minus baby.â€ That was usually enough to momentarily confuse them and halt further personal questions.\r\n</p>\r\n<p>\r\nThereâ€™s a second meaning to the alias that Iâ€™ve slowly begun letting out. Maybe next time, though.\r\n</p>\r\n<p>\r\n&bull; <i>Letâ€™s start with your workâ€¦ music and visual arts. Which came first?</i>\r\n</p>\r\n<p>\r\nThe visual arts side, well, Iâ€™ve been doing that since I was a little kid. One drawing I especially remember is of funny-looking pigeons standing next to a can of GoyaÂ® gandules (â€œpigeon peasâ€ in English). I was four years old.\r\n</p>\r\n<p>\r\nAs far as my music, I began my current phase in 1997 or so with a 4-track tape deck, a cheap sampler, hundreds of records and kidsâ€™ toys. In 1999, Iâ€™d noticed that those musical experiments were beginning to sound like too many people uploading tunes to scene.org, so I decided to try something different. I downloaded a copy of GoatTracker via stolen internet access in 1999 and incorporated Commodore 64 triangles and squares into what Iâ€™d already been writing. Some of the better tunes ended up on Micromusic.netâ€™s â€œMicro_Superstarz_2000â€ CD compilation, my first release for 8bitpeoples, â€œMonkey Patchâ€, and â€œStrong Arctic Winds Take Ternsâ€, released by Rappers I Know Records, curiously enough. I donâ€™t even rap.\r\n</p>\r\n<p>\r\n&bull; <i>How would you define your work?</i>\r\n</p>\r\n<p>\r\nA few months ago in an 8bit Today interview I managed to describe my work succinctly, so Iâ€™ll use it again: â€œa practice in primitivism, but mostly a stab at trying to continue several traditions at once.â€ Itâ€™s easy to fall into the trappings of pixel art: video game references, very bright colors and esoteric imagery only understood by gamers, so I try for something a bit different. Lately, my work has been either type-heavy or illustration-heavy.\r\n</p>\r\n<p>\r\n&bull; <i>When, why and how did you start â€œdoing it yourselfâ€?</i>\r\n</p>\r\n<p>\r\nThe tradition of learning a skill solely for the sake of a letter grade or paycheck is quite depressing, so I adopted a do-it-yourself ethic while in high school. I dropped out twice and spent time at museums, libraries, zoos, record shops and on the street instead. I eventually re-enrolled, graduated, got accepted to a fancy arts college and dropped out a year and a half later.\r\n</p>\r\n<p>\r\n<a href="http://minusbaby.tumblr.com/post/254506979">READ MOREâ€¦</a>\r\n</p>', '2011-05-05 10:30:04', '2011-05-05 14:44:32', '4dc2df01-fda0-4ab0-bb33-4743400dc0a6.jpg', 'revista_fraude_logo.jpg', 7791, 'image/jpeg'),
 (9, 'MTV Brasil', 'http://mtv.com.br', '', 'Nullbits no Scrap MTV (Nullbits on MTV Scrap)', 'MTV Scrap', 'http://mtv.com.br', '<object width="450" height="286"><param name="movie" value="http://www.youtube-nocookie.com/v/USOe4MuC6ao?fs=1&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube-nocookie.com/v/USOe4MuC6ao?fs=1&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" width="450" height="286" allowscriptaccess="always" allowfullscreen="true"></embed></object>', '2011-05-05 14:43:52', '2011-05-05 14:43:52', '4dc31a18-7434-46d7-beb7-2c2e400dc0a6.jpg', 'mtv_brasil_logo.jpg', 14463, 'image/jpeg'),
 (10, 'MTV Brasil', 'http://mtv.uol.com.br/programas/mod', 'http://mtv.uol.com.br/programas/mod/videos/03-tecnologias-obsoletas', 'Mod MTV | 03 | Tecnologias Obsoletas', 'Mod MTV', 'http://mtv.uol.com.br/programas/mod/videos/03-tecnologias-obsoletas', '<iframe src="http://player.mtv.uol.com.br/embed.php?id=36382" name="" width="480" height="270" frameborder="0" SCROLLING=NO></iframe>', '2011-05-19 10:10:20', '2011-05-27 15:12:51', '4dd54efc-8010-4112-a1d0-66aa400dc0a6.jpg', 'mtv_brasil_logo.jpg', 14463, 'image/jpeg'),
-(11, 'GameSetWatch', 'http://gamesetwatch.com', 'http://www.gamesetwatch.com/2011/05/blip_festival_2011_micro_report_night_1.php', 'Blip Festival 2011 Micro-Report: Night 1', 'Matthew Hawkins', '', '<p>\r\n<i>Yet it was perhaps Minusbaby who might be remembered the most, perhaps of the entire festival, when all is said and done. When he first got on stage, alongside were various other musicians, with mandolins, clarinets, tubas, and all other manners of instruments. The scene created a buzz in the audience that is simply indescribable, and the same could be said of the amazing mixture of electronic and traditional sounds that followed. Near the end, Richard Caraballo stepped aside and let the clarinetist and others take the spotlight. The crowd was completely transfixed, though in the final stretch, it was funny seeing people give each other looks that read like, "Umm... what''s going on here?" It''s definitely a performance that people will be talking about for a good while, so dare I say history was made?</i>\r\n</p>\r\n<p>\r\n<a href="http://www.gamesetwatch.com/2011/05/blip_festival_2011_micro_report_night_1.php">READ MOREâ€¦</a>', '2011-05-23 15:34:01', '2011-05-23 15:34:01', '4ddae0d9-c544-43e6-bb21-2fa6400dc0a6.jpg', 'gamesetwatch_logo.jpg', 14130, 'image/jpeg');
+(11, 'GameSetWatch', 'http://gamesetwatch.com', 'http://www.gamesetwatch.com/2011/05/blip_festival_2011_micro_report_night_1.php', 'Blip Festival 2011 Micro-Report: Night 1', 'Matthew Hawkins', '', '<p>\r\n<i>Yet it was perhaps Minusbaby who might be remembered the most, perhaps of the entire festival, when all is said and done. When he first got on stage, alongside were various other musicians, with mandolins, clarinets, tubas, and all other manners of instruments. The scene created a buzz in the audience that is simply indescribable, and the same could be said of the amazing mixture of electronic and traditional sounds that followed. Near the end, Richard Caraballo stepped aside and let the clarinetist and others take the spotlight. The crowd was completely transfixed, though in the final stretch, it was funny seeing people give each other looks that read like, "Umm... what''s going on here?" It''s definitely a performance that people will be talking about for a good while, so dare I say history was made?</i>\r\n</p>\r\n<p>\r\n<a href="http://www.gamesetwatch.com/2011/05/blip_festival_2011_micro_report_night_1.php">READ MOREâ€¦</a>', '2011-05-23 15:34:01', '2011-05-23 15:34:01', '4ddae0d9-c544-43e6-bb21-2fa6400dc0a6.jpg', 'gamesetwatch_logo.jpg', 14130, 'image/jpeg'),
+(12, 'MakerBot Industries', 'http://www.makerbot.com', 'http://www.makerbot.com/blog/2012/03/02/friday-night-all-right-its-minusbaby', 'Friday Night, All Right, Itâ€™s minusbaby!', 'Michelle Zatta', 'http://www.makerbot.com/blog/author/michelle/', '<pb>\r\nFuture MakerBot Artist-in-Resident minusbaby came to <b>MakerBot</b>â€™s BotFarm this past week to collect and record sounds from The MakerBot <b>Replicator</b>. Although different from MakerBotâ€™s <i>Cupcake</i> and <i>Thing-O-matic</i>, The Replicator has its own unique style and tone. Minusbaby will be exploring its musical potential through a performance later this summer involving other musicians and musical MakerBots. Some booty shaking to be had.\r\n</p>\r\n<p>\r\nAnd to hear a sliver of â€œa diamond still in the rough (sparkly but rough)â€ cut of Minusbabyâ€™s recording, click <a href="http://minusbaby.com/files/richard_alexander_caraballo-the_3d_printer_and_a_drum_loop.mp3">here</a>.\r\n</p>', '2012-03-06 01:10:52', '2012-03-06 01:16:02', '4f55d49c-6bf8-4234-bdf8-604a400dc0a6.jpg', 'makerbot.jpg', 12443, 'image/jpeg');
 
 -- --------------------------------------------------------
 
@@ -529,19 +869,19 @@ INSERT INTO `press_links` (`id`, `site`, `site_url`, `article_url`, `article_tit
 
 DROP TABLE IF EXISTS `press_photos`;
 CREATE TABLE IF NOT EXISTS `press_photos` (
-  `id` int(32) NOT NULL auto_increment,
-  `press_id` int(32) default '1',
-  `photographer` varchar(140) default NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `press_id` int(32) DEFAULT '1',
+  `photographer` varchar(140) DEFAULT NULL,
   `photographer_url` text,
   `license` text,
-  `notes` varchar(140) default NULL,
+  `notes` varchar(140) DEFAULT NULL,
   `photo_file_path` text,
-  `photo_file_name` varchar(140) default NULL,
-  `photo_file_size` int(32) default NULL,
-  `photo_content_type` varchar(140) default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
+  `photo_file_name` varchar(140) DEFAULT NULL,
+  `photo_file_size` int(32) DEFAULT NULL,
+  `photo_content_type` varchar(140) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -549,8 +889,8 @@ CREATE TABLE IF NOT EXISTS `press_photos` (
 --
 
 INSERT INTO `press_photos` (`id`, `press_id`, `photographer`, `photographer_url`, `license`, `notes`, `photo_file_path`, `photo_file_name`, `photo_file_size`, `photo_content_type`, `created`, `modified`) VALUES
-(1, 1, 'Marjorie Becker', 'http://chiptography.com', 'Copyright 2011', '2480 x 1748 &middot; 300 DPI &middot; JPG', 'minusbaby_by_marjorie_becker_(2011-02-19).jpg', 'minusbaby_by_marjorie_becker_(2011-02-19).jpg', 2270654, 'image/jpeg', '2011-03-18 08:09:39', '2011-05-05 16:52:22'),
-(2, 1, 'Ben Mason', 'http://locutus.the-collective.net', 'Copyright 2011', '3504 x 2336 &middot; 300 DPI &middot; JPG', '4d8998ad-6eb4-4a06-84aa-05c2c0a80168.jpg', '2011-03-19_ben_mason.jpg', 1460779, 'image/jpeg', '2011-03-18 08:09:39', '2011-05-05 16:52:22');
+(1, 1, 'Marjorie Becker', 'http://chiptography.com', 'Copyright 2011', '2480 x 1748 &middot; 300 DPI &middot; JPG', 'minusbaby_by_marjorie_becker_(2011-02-19).jpg', 'minusbaby_by_marjorie_becker_(2011-02-19).jpg', 2270654, 'image/jpeg', '2011-03-18 08:09:39', '2012-09-12 19:16:13'),
+(2, 1, 'Ben Mason', 'http://locutus.the-collective.net', 'Copyright 2011', '3504 x 2336 &middot; 300 DPI &middot; JPG', '4d8998ad-6eb4-4a06-84aa-05c2c0a80168.jpg', '2011-03-19_ben_mason.jpg', 1460779, 'image/jpeg', '2011-03-18 08:09:39', '2012-09-12 19:16:13');
 
 -- --------------------------------------------------------
 
@@ -560,11 +900,11 @@ INSERT INTO `press_photos` (`id`, `press_id`, `photographer`, `photographer_url`
 
 DROP TABLE IF EXISTS `settings`;
 CREATE TABLE IF NOT EXISTS `settings` (
-  `id` int(32) NOT NULL auto_increment,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `key` text,
   `value` text,
   `description` text,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
@@ -583,19 +923,19 @@ INSERT INTO `settings` (`id`, `key`, `value`, `description`) VALUES
 
 DROP TABLE IF EXISTS `songs`;
 CREATE TABLE IF NOT EXISTS `songs` (
-  `id` int(32) NOT NULL auto_increment,
-  `album_id` int(32) NOT NULL default '0',
-  `artist` varchar(140) NOT NULL default '',
-  `title` varchar(140) NOT NULL default '',
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `album_id` int(32) NOT NULL DEFAULT '0',
+  `artist` varchar(140) NOT NULL DEFAULT '',
+  `title` varchar(140) NOT NULL DEFAULT '',
   `url` text,
-  `number` int(2) NOT NULL default '0',
-  `length` varchar(5) default NULL,
-  `downloads` int(32) default '0',
-  `file_size` int(32) default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=404 ;
+  `number` int(2) NOT NULL DEFAULT '0',
+  `length` varchar(5) DEFAULT NULL,
+  `downloads` int(32) DEFAULT '0',
+  `file_size` int(32) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=422 ;
 
 --
 -- Dumping data for table `songs`
@@ -986,7 +1326,25 @@ INSERT INTO `songs` (`id`, `album_id`, `artist`, `title`, `url`, `number`, `leng
 (400, 28, 'Tettix', 'Derris-Kharlan vs. Exploding Heart Technique!', '', 8, '', 0, NULL, '2011-04-25 09:51:28', '2011-04-26 13:39:51'),
 (401, 28, 'Tettix', 'Tettix vs. Demon Knuckle!', '', 9, '', 0, NULL, '2011-04-25 09:51:28', '2011-04-26 13:39:51'),
 (402, 28, 'Tettix', 'Game Over.', '', 10, '', 0, NULL, '2011-04-25 09:51:28', '2011-04-26 13:39:51'),
-(403, 29, 'fasterbaby', 'Grandmaster Chief', 'fasterbaby-grandmaster_chief.mp3', 1, '3:32', 0, 5098049, '2011-04-25 10:23:31', '2011-04-26 14:19:16');
+(403, 29, 'fasterbaby', 'Grandmaster Chief', 'fasterbaby-grandmaster_chief.mp3', 1, '3:32', 0, 5098049, '2011-04-25 10:23:31', '2011-04-26 14:19:16'),
+(404, 33, '', 'Algo SucediÃ³ Cuando Nacistes', '', 1, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(405, 33, '', 'Una Gran Parte de Tu Mente Rebanada', '', 2, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(406, 33, '', 'RelajÃ¡ndonos por un Rato', '', 3, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(407, 33, '', 'Y Se TransportÃ³ en Mi Mente', '', 4, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(408, 33, '', 'Algunos AÃ±os MÃ¡s Tarde', '', 5, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(409, 33, '', 'Izquierda', '', 6, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(410, 33, '', 'AlgzÃ¨bres, Pts. A-M', '', 7, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(411, 33, '', 'AlgzÃ¨bres, Pts. N-Z', '', 8, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(412, 33, '', 'Transmitting Mixed Signals', '', 9, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(413, 33, '', 'A Box from the Eighties', '', 10, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(414, 33, '', 'You Were Strong', '', 11, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(415, 33, '', 'Useless Numbers', '', 12, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(416, 33, '', 'Courtship Manifesto', '', 13, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(417, 33, '', 'Right', '', 14, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(418, 33, '', 'BIAS, Pt. 1', '', 15, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(419, 33, '', 'BIAS, Pt. 2', '', 16, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(420, 33, '', 'Derecha', '', 17, '', 0, NULL, '2011-07-05 13:31:16', '2011-07-05 13:31:16'),
+(421, 33, '', 'Subimago', '', 18, '', 0, NULL, '2011-07-05 13:31:17', '2011-07-05 13:31:17');
 
 -- --------------------------------------------------------
 
@@ -996,11 +1354,11 @@ INSERT INTO `songs` (`id`, `album_id`, `artist`, `title`, `url`, `number`, `leng
 
 DROP TABLE IF EXISTS `tweets`;
 CREATE TABLE IF NOT EXISTS `tweets` (
-  `id` int(32) NOT NULL auto_increment,
-  `twitter_id` bigint(20) NOT NULL default '0',
-  `posted` int(32) NOT NULL default '0',
-  `tweet` varchar(160) NOT NULL default '',
-  PRIMARY KEY  (`id`)
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `twitter_id` bigint(20) NOT NULL DEFAULT '0',
+  `posted` int(32) NOT NULL DEFAULT '0',
+  `tweet` varchar(160) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -1008,7 +1366,7 @@ CREATE TABLE IF NOT EXISTS `tweets` (
 --
 
 INSERT INTO `tweets` (`id`, `twitter_id`, `posted`, `tweet`) VALUES
-(1, 79987899059277824, 1307930219, 'â€¢ Happy Puerto Rican Day! I''m going to stay far away from the parade while listening to Ray Barretto, Willie ColÃ³n and BalÃºn albums all day.');
+(1, 231096670002225152, 1344015908, 'â€¢ To the woman who held up the escalator at the 100+Â°F 181st Street station doing her make-up with an iPhone as a mirror: you''re still ugly.');
 
 -- --------------------------------------------------------
 
@@ -1018,13 +1376,13 @@ INSERT INTO `tweets` (`id`, `twitter_id`, `posted`, `tweet`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL auto_increment,
-  `username` varchar(255) NOT NULL default '',
-  `password` varchar(40) NOT NULL default '',
-  `group_id` int(11) NOT NULL default '0',
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(40) NOT NULL DEFAULT '',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
@@ -1033,8 +1391,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `group_id`, `created`, `modified`) VALUES
-(1, 'openback', '9020f819bd893216d3efaa86fefd5d669f126d14', 0, '2011-03-19 15:39:48', '2011-03-19 15:39:48'),
-(2, 'minusbaby', '1032571865d6d8f09675c2444a9292e86a785720', 0, '2011-03-19 15:40:51', '2011-03-19 15:40:51');
+(2, 'openback', '235b9a75ae644b893e70dd55fb1807bfe35b9895', 0, '2011-03-19 15:39:48', '2011-03-19 15:39:48'),
+(3, 'minusbaby', '89185ce26fe385c0ef616ece950c6aeb4d482a5d', 0, '2011-03-19 15:40:51', '2011-03-19 15:40:51');
 
 -- --------------------------------------------------------
 
@@ -1044,18 +1402,18 @@ INSERT INTO `users` (`id`, `username`, `password`, `group_id`, `created`, `modif
 
 DROP TABLE IF EXISTS `venues`;
 CREATE TABLE IF NOT EXISTS `venues` (
-  `id` int(32) NOT NULL auto_increment,
-  `name` varchar(140) NOT NULL default '',
-  `address1` varchar(140) NOT NULL default '',
-  `address2` varchar(140) default NULL,
-  `city` varchar(140) NOT NULL default '',
-  `state` varchar(140) default NULL,
-  `zip` varchar(140) default NULL,
-  `country` varchar(2) default NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `name` varchar(140) NOT NULL DEFAULT '',
+  `address1` varchar(140) NOT NULL DEFAULT '',
+  `address2` varchar(140) DEFAULT NULL,
+  `city` varchar(140) NOT NULL DEFAULT '',
+  `state` varchar(140) DEFAULT NULL,
+  `zip` varchar(140) DEFAULT NULL,
+  `country` varchar(2) DEFAULT NULL,
   `url` text,
   `map` text,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
 
 --
 -- Dumping data for table `venues`
@@ -1115,5 +1473,18 @@ INSERT INTO `venues` (`id`, `name`, `address1`, `address2`, `city`, `state`, `zi
 (56, 'FUN', '130 Madison Street', '', 'New York', 'New York', '10002', 'US', '', 'http://goo.gl/Bhhvl'),
 (57, 'The Lookout', '3600 16th Street', '', 'San Francisco', 'California', '94114', 'US', 'http://lookoutsf.com', 'http://goo.gl/jzr0o'),
 (58, 'Plano B', 'Rua CÃ¢ndido dos Reis nÂº 30', '', 'Porto', '', '4050', 'PT', 'http://www.planobporto.com', 'http://goo.gl/Hbvp3'),
-(59, 'DogCaffÃ¨', 'Rua Texas, 605', '', 'Brooklin', 'SÃ£o Paulo', '04557-000', 'BR', 'http://dog.tv.br/dogcaffe', 'http://goo.gl/ypuSZ');
+(59, 'DogCaffÃ¨', 'Rua Texas, 605', '', 'Brooklin', 'SÃ£o Paulo', '04557-000', 'BR', 'http://dog.tv.br/dogcaffe', 'http://goo.gl/ypuSZ'),
+(60, 'Fontana''s', '105 Eldridge Street', '', 'New York', 'New York', '10002', 'US', 'http://www.fontanasnyc.com', 'http://goo.gl/ow7hW'),
+(61, 'Heirloom Arts Theatre', '155 Main Street', '', 'Danbury', 'Connecticut', '06810', 'US', 'http://heirloomarts.org', 'http://goo.gl/4jQzu'),
+(62, 'The Hour Haus', '135 West North Avenue', '', 'Baltimore', 'Maryland', '21201', 'US', 'http://www.thehourhaus.com', 'http://goo.gl/Iusnz'),
+(66, 'MIST Ultra Club', '316 11th Street ', '', 'San Francisco', 'California', '94103 ', 'US', 'http://www.mistsf.com/', 'http://goo.gl/85q12'),
+(64, 'Chelsea Market', '410 West 16th Street', '', 'New York', 'New York', '10011', 'US', 'http://www.chelseamarket.com', 'http://goo.gl/F15sv'),
+(65, 'Enemy', '1550 North Milwaukee Avenue', '3rd Floor', 'Chicago', 'Illinois', '60622', 'US', 'http://www.enemysound.com', 'http://goo.gl/DcP3v'),
+(67, 'The Trash Bar', '256 Grand Street', '', 'Brooklyn', 'New York', '11211', 'US', 'http://www.thetrashbar.com', 'http://goo.gl/n5apQ'),
+(68, 'PhilaMOCA', '531 North 12th Street', '', 'Philadelphia', 'Pennsylvania', '19123', 'US', 'http://www.philamoca.org', 'http://goo.gl/Ra9HV'),
+(69, 'The Gramercy Theatre', '127 East 23rd Street', '', 'New York', 'New York', '10010', 'US', 'http://thegramercytheatre.com', 'http://goo.gl/rAHmQ');
+SET FOREIGN_KEY_CHECKS=1;
 
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
