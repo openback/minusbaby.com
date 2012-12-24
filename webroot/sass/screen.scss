@@ -38,8 +38,13 @@ a {
 
 	&.more {
 		@include sprite-replace-text($icons, forward_off);
+		@include transition-duration(0);
 		position: absolute;
 		top: 4px; left: 946px;
+
+		&:hover {
+			@include sprite-replace-text($icons, forward_on);
+		}
 	}
 
 }
@@ -119,40 +124,44 @@ time {
 }
 
 nav {
-	a {
-		&.forward,
-		&.back {
-			@include transition-duration(0ms);
+	.forward,
+	.back,
+	.close {
+		@include transition-duration(0ms);
+	}
+
+	.back {
+		@include sprite-replace-text($icons, back_off);
+		margin-right: 5px;
+
+		&:hover {
+			@include sprite-replace-text($icons, back_on);
 		}
 
-		&.back {
-			@include sprite-replace-text($icons, back_off);
-			margin-right: 5px;
+		&.disabled {
+			@include sprite-replace-text($icons, back_disabled);
+		}
+	}
 
-			&:hover {
-				@include sprite-replace-text($icons, back_on);
-			}
+	.close {
+		@include sprite-replace-text($icons, nav_close_off);
+		margin-right: 5px;
 
-			&.disabled {
-				@include sprite-replace-text($icons, back_disabled);
-			}
+		&:hover {
+			@include sprite-replace-text($icons, nav_close_on);
 		}
 
-		&.close {
-			@include sprite-replace-text($icons, nav_close_off);
-			margin-right: 5px;
+	}
+
+	.forward {
+		@include sprite-replace-text($icons, forward_off);
+
+		&:hover {
+			@include sprite-replace-text($icons, forward_on);
 		}
 
-		&.forward {
-			@include sprite-replace-text($icons, forward_off);
-
-			&:hover {
-				@include sprite-replace-text($icons, forward_on);
-			}
-
-			&.disabled {
-				@include sprite-replace-text($icons, forward_disabled);
-			}
+		&.disabled {
+			@include sprite-replace-text($icons, forward_disabled);
 		}
 	}
 }
@@ -781,7 +790,7 @@ footer {
 		}
 	}
 
-	a.more {
+	.more {
 		z-index: 103;
 	}
 }
