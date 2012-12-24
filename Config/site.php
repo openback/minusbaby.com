@@ -18,6 +18,7 @@ Configure::write('Monobomb',
 define('DEFAULT_ARTIST', 'minusbaby');
 define('SITE_TITLE', 'minusbaby');
 define('NEWS_LOGO', 'minusbaby_logo_14x16.png');
+define('NEWS_LOGO_WIDTH', 14);
 define('FOOTER_IMAGE', 'minusbaby_logo_footer.png');
 
 Configure::write('Menu',

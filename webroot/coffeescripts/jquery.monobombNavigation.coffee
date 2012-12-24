@@ -337,7 +337,6 @@ methods =
 		#
 		required_height = data.$inner_nav_wrapper.height()
 		data.min_height = required_height + 140
-		console.log 'this: ', this.height(), ' min: ', data.min_height
 		if this.height() < data.min_height
 			this.height(data.min_height)
 		else
@@ -416,6 +415,9 @@ methods =
 							url: state.url + '.json'
 							success: (response) ->
 								if (response.success)
+									$err = $('.flash-error')
+									$err.slideUp() if $err.css('display') isnt 'none'
+
 									$article = $(response.data)
 									$article.hide()
 									$(data.settings.article_selector).replaceWith($article)
@@ -426,12 +428,20 @@ methods =
 										new_height = if height < data.min_height + 140 then data.min_height + 140 else height + 140
 										data.$content.stop().animate
 											height: new_height + 'px'
+								else
+									$loading.hide('fast')
+									Monobomb.flashError 'Sorry, there was a problem loading that item. ' + response.data
+									History.back()
+							error: (jqXHR, textStatus, errorThrown) ->
+								$loading.hide('fast')
+								Monobomb.flashError('Sorry, there was a problem loading that item. (' + textStatus + ')')
+								History.back()
 			)
 
 			data.$inner_nav_wrapper.delegate('a', 'click', ->
 				if not data.$content.monobombNavigator('isAnimating')
 					$this = $(this)
-					History.pushState(null, Monobomb.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'))
+					History.pushState(null, SiteConfig.siteTitle + ' • ' + $this.find('.title').text(), $this.attr('href'))
 
 				false
 			)

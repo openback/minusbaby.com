@@ -135,9 +135,10 @@ $(document).ready ->
 						data: data
 						dataType: 'json'
 						success: (response) ->
-							console.log 'RESPONSE: ', response
 							if not response.success
-								alert('Sorry, there was a problem!')
+								Monobomb.flashError('Sorry, there was a problem saving that item. (' + response.data + ')')
+						error: (jqXHR, textStatus, errorThrown) ->
+							Monobomb.flashError('Sorry, there was a problem saving that item. (' + textStatus + ')')
 
 			)
 
@@ -197,7 +198,10 @@ $(document).ready ->
 				data: data
 				dataType: 'json'
 				success: (response) ->
-					console.log 'RESPONSE: ', response
+					if not response.success
+						Monobomb.flashError('Sorry, there was a problem reording the videos. (' + response.data + ')')
+				error: (jqXHR, textStatus, errorThrown) ->
+					Monobomb.flashError('Sorry, there was a problem reording the videos. (' + textStatus + ')')
 
 	# Artist forms
 	$('table.artists tbody').add('table.sites tbody').sortable

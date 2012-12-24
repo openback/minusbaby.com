@@ -26,8 +26,8 @@
 		<![endif]-->
 		<?php
 			if (Configure::read('debug') == 0) {
-				$this->Html->css('min/screen', null, array('media' => 'screen, projection', 'inline' => false));
-				$this->Html->css('min/print', null, array('media' => 'print', 'inline' => false));
+				$this->Html->css('/ccss/screen', null, array('media' => 'screen, projection', 'inline' => false));
+				$this->Html->css('/ccss/print', null, array('media' => 'print', 'inline' => false));
 			} else {
 				$this->Html->css('screen', null, array('media' => 'screen, projection', 'inline' => false));
 				$this->Html->css('print', null, array('media' => 'print', 'inline' => false));
@@ -51,6 +51,7 @@
 			} else {
 				$this->Html->script('jquery.history', array('block' => 'notIEJs'));
 				$this->Html->script('jquery.jplayer.min', array('block' => 'footJs'));
+				$this->Html->script('compiled/monobomb', array('block' => 'footJs'));
 				$this->Html->script('compiled/siteConfig', array('block' => 'footJs'));
 				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'footJs'));
 				$this->Html->script('compiled/application', array('block' => 'footJs'));
@@ -91,7 +92,7 @@
 		<div class="wrapper">
 			<nav class="main">
 				<ul class="main-menu">
-					<li class="main-logo"><a href="/news"<?php if ($controller_name == 'news') echo ' class="current"'; ?>><?php echo $this->Html->image(NEWS_LOGO, array('alt' => DEFAULT_ARTIST)); ?></a></li>
+					<li class="main-logo"><a href="/"<?php if ($controller_name == 'news') echo ' class="current"'; ?>><?php echo $this->Html->image(NEWS_LOGO, array('width' => NEWS_LOGO_WIDTH, 'alt' => DEFAULT_ARTIST)); ?></a></li>
 					<?php
 						foreach($menu as $menuItem) {
 							if ($menuItem['controller'] == $controller_name) {
