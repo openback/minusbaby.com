@@ -60,7 +60,7 @@
 
 			if (AuthComponent::user('id') != null) {
 				if (Configure::read('debug') == 0) {
-					$this->Html->script('admin.min', array('block' => 'footJs'));
+					$this->Html->script('/cjs/admin.min', array('block' => 'footJs'));
 				} else {
 					$this->Html->script('jquery-ui-timepicker-addon', array('block' => 'footJs'));
 					$this->Html->script('compiled/admin', array('block' => 'footJs'));
