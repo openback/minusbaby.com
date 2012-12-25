@@ -9,9 +9,6 @@ class EventsController extends AppController {
             'allow_non_image_files' => false,
             'rm_tmp_file' => false,
 			'max_file_size' => 3145728, /* in bytes */
-            'images_size' => array(
-                'original' => true,
-            )
         ),
         'Autocomplete' => array(
             'model' => 'Event',
