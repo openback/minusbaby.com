@@ -73,7 +73,7 @@ class Event extends AppModel {
 
     protected function _findeventList($state, $query, $results = array()) {
 		if ($state == 'before') {
-			$query['fields'] = array('start_time', 'title', 'has_content');
+			$query['fields'] = array('start_time', 'title', 'slug', 'has_content');
 			$query['recursive'] = 0;
 			return $query;
 		}
