@@ -32,7 +32,7 @@ if (!empty($eventList)) {
             $currentYear = $eventYear;
 ?>
 		<nav class="events<?php echo $nav_class; ?>">
-			<h2><strong><?php echo $eventYear; ?></strong></h2>
+			<h2><?php echo $eventYear; ?></h2>
 			<ul>
 <?php   endif; ?>
 <?php   if ($event['has_content'] || (AuthComponent::user('id') != null)): ?>

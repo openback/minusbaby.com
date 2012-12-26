@@ -155,8 +155,8 @@
       data.$more.fadeIn('fast');
       if (show_articles) {
         this.find('> article').add(this.find('.admin')).stop().animate({
-          opacity: 100
-        }, 'fast');
+          opacity: 1
+        }, 'slow');
       }
       data.$main_nav_wrapper.stop().animate({
         left: data.original_left + 'px'

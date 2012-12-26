@@ -31,7 +31,7 @@ if (!empty($postsList)) {
             $currentYear = $postYear;
 ?>
 		<nav class="posts<?php echo $nav_class; ?>">
-			<h2><strong><?php echo $postYear; ?></strong></h2>
+			<h2><?php echo $postYear; ?></h2>
 			<ul>
 <?php   endif; ?>
 			<li><a id="post-<?php echo $post['id']; ?>" href="<?php echo $this->Html->url(array('action' => 'view', $post['id'], $post['slug'])); ?>" class="<?php echo $class; ?>"><span class="title"><?php echo $post['title']; ?></span><?php echo $this->Pixelpod->time(null, $post['date']); ?></a></li>

@@ -930,6 +930,10 @@ nav.events {
 		}
 	}
 
+	h2 {
+		color: $normal-text;
+	}
+
 	li {
 		@include smaller-text;
 		margin-bottom: 24px;
