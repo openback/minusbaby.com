@@ -250,7 +250,7 @@ em {
   display: inline-block;
   width: 11px;
   height: 11px;
-  padding: 0 8px;
+  margin: 0 8px;
 }
 
 /* line 82, ../sass/screen.scss */
