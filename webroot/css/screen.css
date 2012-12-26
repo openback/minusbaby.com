@@ -200,7 +200,7 @@ a.more {
   transition-duration: 0;
   position: absolute;
   top: 4px;
-  left: 946px;
+  left: 945px;
 }
 /* line 45, ../sass/screen.scss */
 a.more:hover {
@@ -1042,7 +1042,7 @@ nav.pager {
   display: none;
   position: absolute;
   top: 4px;
-  left: 905px;
+  left: 904px;
   width: 56px;
   z-index: 102;
 }
