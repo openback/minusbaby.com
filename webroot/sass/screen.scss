@@ -718,6 +718,12 @@ footer {
 		width: 720px;
 	}
 
+	&.about,
+	&.posts,
+	&.events {
+		height: 2000px;
+	}
+
 	.videos,
 	.articles,
 	.all-posts,
@@ -926,6 +932,10 @@ nav.events {
 				@include replace_text('archive_current.gif');
 			}
 		}
+	}
+
+	h2 {
+		color: $normal-text;
 	}
 
 	li {

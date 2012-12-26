@@ -146,8 +146,8 @@ methods =
 
 		if show_articles
 			this.find('> article').add(this.find('.admin')).stop().animate
-				opacity: 100
-				'fast'
+				opacity: 1
+				'slow'
 
 		data.$main_nav_wrapper.stop().animate
 			left: data.original_left + 'px'
@@ -337,11 +337,19 @@ methods =
 		#
 		required_height = data.$inner_nav_wrapper.height()
 		data.min_height = required_height + 140
-		if this.height() < data.min_height
+
+		# Figure out our truly required height
+		total_height = 0
+
+		this.children().each ->
+			if $(this).css('position') isnt 'absolute'
+				total_height += $(this).height()
+
+		if total_height < data.min_height
 			this.height(data.min_height)
 		else
 			# Just to give some room in case this is a single post view
-			this.height(this.height() + 140)
+			this.height(total_height + 140)
 
 
 		# Switch to the current page if we're on a view page
