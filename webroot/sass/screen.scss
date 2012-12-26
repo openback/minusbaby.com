@@ -851,9 +851,6 @@ footer {
 
 		h1 {
 			@include smaller-text;
-		}
-
-		h1 {
 			border-bottom: none;
 			margin-bottom: auto;
 			padding-bottom: 0;
@@ -867,6 +864,11 @@ footer {
 
 		strong {
 			font-weight: bold;
+		}
+
+		> img,
+		.embed {
+			margin-bottom: 16px;
 		}
 	}
 
