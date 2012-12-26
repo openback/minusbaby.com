@@ -12,7 +12,7 @@
 			<?php echo $this->Form->input('event', array('type' => 'file', 'label' => 'Flier')); ?>
 			<?php echo $this->Form->input('delete_flier', array('type' => 'checkbox', 'value' => 1, 'hiddenField' => false, 'label' => 'Delete Flier', 'class' => 'delete')); ?>
 		</div>
-		<?php echo $this->Fck->input('Event.description'); ?>
+		<?php echo $this->Form->input('description'); ?>
 		<?php echo $this->Form->input('venue_id', array('div' => false)); ?>
 		<?php echo $this->Form->input('using_existing_venue', array('type' => 'hidden')); ?>
 		<a href="<?php echo $this->Html->url(array('action' => 'add')); ?>" class="new-venue wide-link">ADD NEW VENUE</a>

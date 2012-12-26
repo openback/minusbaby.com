@@ -12,7 +12,7 @@
 			<?php echo $this->Form->input('delete_image', array('type' => 'checkbox')); ?>
 		</div>
 		<?php echo $this->Form->input('embed'); ?>
-		<?php echo $this->Form->input('description', array('class' => 'ckeditor')); ?>
+		<?php echo $this->Form->input('description'); ?>
 		<?php echo $this->Form->input('post_file_path', array('type' => 'hidden')); ?>
 		<?php echo $this->Form->input('post_file_name', array('type' => 'hidden')); ?>
 		<?php echo $this->Form->input('post_file_size', array('type' => 'hidden')); ?>
