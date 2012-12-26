@@ -303,7 +303,7 @@
     */
 
     init: function(options) {
-      var $first_page, $loading, data, individual_width, required_height, settings,
+      var $first_page, $loading, data, individual_width, required_height, settings, total_height,
         _this = this;
       settings = {
         more_selector: '> .more',
@@ -345,10 +345,16 @@
       data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px');
       required_height = data.$inner_nav_wrapper.height();
       data.min_height = required_height + 140;
-      if (this.height() < data.min_height) {
+      total_height = 0;
+      this.children().each(function() {
+        if ($(this).css('position') !== 'absolute') {
+          return total_height += $(this).height();
+        }
+      });
+      if (total_height < data.min_height) {
         this.height(data.min_height);
       } else {
-        this.height(this.height() + 140);
+        this.height(total_height + 140);
       }
       if (data.closed && ($first_page = this.find('.first-page')).length) {
         methods.moveToPage.call(this, $first_page, true);
