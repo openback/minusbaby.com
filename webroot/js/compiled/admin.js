@@ -76,6 +76,18 @@
         editor = e.editor;
         element = editor.element;
         $element = $(element.$);
+        editor.config.toolbar = [
+          {
+            name: 'clipboard',
+            items: ['Source', 'PasteText', 'PasteFromWord']
+          }, {
+            name: 'format',
+            items: ['RemoveFormat']
+          }, {
+            name: 'html',
+            items: ['Link', 'Unlink', 'HorizontalRule', 'Source']
+          }
+        ];
         if (element.is('h1', 'h2', 'h3') || $element.hasClass('no-p')) {
           editor.on('configLoaded', function() {
             editor.config.removePlugins = 'colorbutton,find,flash,font,' + 'forms,iframe,image,newpage,removeformat,scayt,' + 'smiley,specialchar,stylescombo,templates,wsc';

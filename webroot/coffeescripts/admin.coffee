@@ -79,6 +79,21 @@ $(document).ready ->
 			element = editor.element
 			$element = $(element.$)
 
+			editor.config.toolbar = [
+				{
+					name: 'clipboard',
+					items: ['Source', 'PasteText', 'PasteFromWord']
+				},
+				{
+					name: 'format',
+					items: ['RemoveFormat']
+				},
+				{
+					name: 'html',
+					items: ['Link', 'Unlink', 'HorizontalRule', 'Source' ]
+				}
+			]
+
 			if element.is('h1', 'h2', 'h3') or $element.hasClass('no-p')
 				editor.on('configLoaded', ->
 					# Remove unnecessary plugins to make the editor simpler.
