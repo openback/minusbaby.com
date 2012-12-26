@@ -4,8 +4,8 @@ class AppController extends Controller {
     var $components = array(
 		'Auth' => array(
 			'authorize' => 'Controller',
-			'loginRedirect' => '/',
-			'logoutRedirect' => '/',
+			'loginRedirect' => '/news',
+			'logoutRedirect' => '/news',
 			'ajaxLogin' => 'ajax_no_auth',
 			'authError' => 'You are not allowed to do that.',
 		),
