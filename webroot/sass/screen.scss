@@ -74,7 +74,7 @@ em {
 
 .slash {
 	@include sprite_replace_text($icons, title_divider);
-	padding: 0 8px;
+	margin: 0 8px;
 }
 
 #flashMessage,

@@ -1,5 +1,4 @@
 <?php
-	// Should I set width to 450 here?
 	$cover = $this->Html->image($album['Album']['cover_url'], array('class'=>'cover', 'alt' => $album['Album']['title'].' cover', 'width' => 450));
 
 	/* LICENSE */
