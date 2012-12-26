@@ -45,11 +45,11 @@ class ArtistsController extends AppController {
 			}
 
 			if (!empty($artists)) {
-				if ($this->Artist->saveMany($this->request->data['Artist']) && $deleteSuccessful) {
+				if ($this->Artist->saveMany($this->request->data['Artist'])) {
 					$this->Session->setFlash('The Artists were saved successfully.');
 					$this->redirect(array('controller' => 'about'));
 				} else {
-					$this->Session->setFlash('There was a problem saving the artist. Please try again.', 'error');
+					$this->Session->setFlash('There was a problem saving the artists. Please try again.', 'error');
 				}
 			} else {
 				$this->Session->setFlash('The artists were saved successfully.');

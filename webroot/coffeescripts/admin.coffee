@@ -58,7 +58,12 @@ addRowFromTable = (table) ->
 		if matches[3] is 'SortOrder'
 			$el.attr('value', parseInt($el.attr('value')) + 1)
 		else
-			$el.attr('value', '')
+			if $el.attr('type') is 'checkbox'
+				$el.attr('value', 1)
+			else if $el.attr('id').endsWith('_')
+				$el.attr('value', 0)
+			else
+				$el.attr('value', '')
 
 	# And finally, add a delete link
 	$row.find('td:last').html('<a href="#" class="remove-row-from-table delete">REMOVE</a>')
