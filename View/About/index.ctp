@@ -4,11 +4,12 @@
 	echo $this->Pixelpod->makeEditable('article', $main_text, array(), 'fields', 'Field', 'content');
 ?>
 <section class="members">
-<h1>Musicians and Collaborators<?php if (AuthComponent::user('id') !== null) { ?> <a href="<?php echo Router::url(array('controller' => 'artists')); ?>">MANAGE</a><?php } ?></h1>
+<h1>Collaborators<?php if (AuthComponent::user('id') !== null) { ?> <a href="<?php echo Router::url(array('controller' => 'artists')); ?>">MANAGE</a><?php } ?></h1>
 	<div class="collaborator-wrapper">
 		<?php foreach ($collaborator_chunks as $collaborators) { ?>
 		<dl>
 			<?php foreach ($collaborators as $artist) { ?>
+			<?php	if ($artist['Artist']['email'] == 'hello@minusbaby.com') continue; ?>
 			<dt>
 				<?php echo $this->Pixelpod->makeEditable('div', $artist, array('class' => 'name no-p no-bar'), 'artists', 'Artist', 'name'); ?>
 				<?php echo $this->Pixelpod->makeEditable('div', $artist, array('class' => 'instrument no-p no-bar'), 'artists', 'Artist', 'tag'); ?>
