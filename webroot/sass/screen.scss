@@ -64,6 +64,10 @@ strong {
 	color: $normal-text;
 }
 
+em {
+	font-style: italic;
+}
+
 .hidden {
 	display: none !important;
 }
@@ -859,6 +863,10 @@ footer {
 			padding-bottom: 16px;
 			margin-bottom: 16px;
 			@include fancy-bottom-border;
+		}
+
+		strong {
+			font-weight: bold;
 		}
 	}
 
