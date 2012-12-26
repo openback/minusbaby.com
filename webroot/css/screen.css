@@ -961,15 +961,15 @@ nav.main ul li a:visited {
 }
 /* line 21, ../../../../../home/openback/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 nav.main ul li a:focus {
-  color: #3cf5ff;
+  color: #00b9f1;
 }
 /* line 24, ../../../../../home/openback/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 nav.main ul li a:hover {
-  color: #3cf5ff;
+  color: #00b9f1;
 }
 /* line 27, ../../../../../home/openback/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 nav.main ul li a:active {
-  color: #3cf5ff;
+  color: #00b9f1;
 }
 /* line 568, ../sass/screen.scss */
 nav.main ul li a.current {
@@ -985,15 +985,15 @@ nav.main .logout a:visited {
 }
 /* line 21, ../../../../../home/openback/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 nav.main .logout a:focus {
-  color: #3cf5ff;
+  color: #00b9f1;
 }
 /* line 24, ../../../../../home/openback/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 nav.main .logout a:hover {
-  color: #3cf5ff;
+  color: #00b9f1;
 }
 /* line 27, ../../../../../home/openback/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 nav.main .logout a:active {
-  color: #3cf5ff;
+  color: #00b9f1;
 }
 /* line 582, ../sass/screen.scss */
 nav.main #highlight {

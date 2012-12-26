@@ -561,7 +561,7 @@ nav.main {
 				display: block;
 				height: 108px;
 				line-height: 108px;
-				@include link-colors($quiet-text, $location-border-highlight, $location-border-highlight, $quiet-text, $location-border-highlight);
+				@include link-colors($quiet-text, $location-border-main, $location-border-main, $quiet-text, $location-border-main);
 				text-decoration: none;
 				text-transform: uppercase;
 
@@ -575,7 +575,7 @@ nav.main {
 	.logout {
 
 		a {
-			@include link-colors($normal-text, $location-border-highlight, $location-border-highlight, $normal-text, $location-border-highlight);
+			@include link-colors($normal-text, $location-border-main, $location-border-main, $normal-text, $location-border-main);
 		}
 	}
 
