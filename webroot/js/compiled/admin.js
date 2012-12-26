@@ -78,6 +78,9 @@
         $element = $(element.$);
         editor.config.toolbar = [
           {
+            name: 'text',
+            items: ['Bold']
+          }, {
             name: 'clipboard',
             items: ['Source', 'PasteText', 'PasteFromWord']
           }, {
