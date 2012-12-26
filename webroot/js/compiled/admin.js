@@ -153,7 +153,6 @@
         var $field;
         $field = $(e.target);
         if ($field.text() === '') {
-          $field.css('color', '#666');
           return $field.text($field.attr('data-label'));
         }
       }).live('mouseout', function(e) {
@@ -165,7 +164,6 @@
       }).live('click', function(e) {
         var $field;
         $field = $(e.target);
-        $field.css('color', 'inherit');
         if ($field.text() === $field.attr('data-label')) {
           return $field.text('');
         }

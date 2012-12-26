@@ -167,7 +167,6 @@ $(document).ready ->
 			$field = $(e.target)
 
 			if $field.text() is ''
-				$field.css('color','#666')
 				$field.text($field.attr('data-label'))
 		).live('mouseout', (e) ->
 			$field = $(e.target)
@@ -177,7 +176,6 @@ $(document).ready ->
 		).live('click', (e) ->
 			$field = $(e.target)
 
-			$field.css('color', 'inherit')
 			if $field.text() is $field.attr('data-label')
 				$field.text('')
 		)
