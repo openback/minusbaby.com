@@ -1,7 +1,7 @@
 <?php
 	$this->Pixelpod->monobombNavigation('.members', '.collaborator-wrapper', 'dl', '.pager', 2);
 	$artists = array_filter($artists, function ($element) { return $element['Artist']['email'] != 'hello@minusbaby.com'; });
-	$collaborator_chunks = array_chunk($artists, 4);
+	$collaborator_chunks = array_chunk($artists, 3);
 	echo $this->Pixelpod->makeEditable('article', $main_text, array(), 'fields', 'Field', 'content');
 ?>
 <section class="members">
