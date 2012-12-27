@@ -2,12 +2,12 @@
 	$no_albums = true;
 
 	if (!empty($lps)) {
-		echo $this->element('album_list', array('title' => 'LPs', 'class' => 'lps', 'albums' => $lps));
+		echo $this->element('album_list', array('title' => 'Albums', 'class' => 'lps', 'albums' => $lps));
 		$no_albums = false;
 	}
 
 	if (!empty($eps)) {
-		echo $this->element('album_list', array('title' => 'EPs', 'class' => 'eps', 'albums' => $eps));
+		echo $this->element('album_list', array('title' => 'Singles &amp; EPs', 'class' => 'eps', 'albums' => $eps));
 		$no_albums = false;
 	}
 
