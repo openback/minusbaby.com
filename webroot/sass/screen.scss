@@ -782,7 +782,11 @@ footer {
 
 			dd {
 				width: 311px;
-				margin-bottom: 32px;
+				margin-bottom: 16px;
+
+				div:last-child p {
+					margin-bottom: 0;
+				}
 			}
 
 			.name {

@@ -18,6 +18,9 @@
     $back.addClass('disabled');
     $list = $nav.find('ul');
     $nav.find('ul').width(album_count * album_width + 'px');
+    if (album_count <= 2) {
+      $forward.addClass('disabled');
+    }
     $forward.click(function() {
       var current_left, delta;
       if ($forward.hasClass('disabled') || $list.is(':animated')) {

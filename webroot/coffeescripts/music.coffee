@@ -14,6 +14,7 @@ for nav in $sections
 		$list = $nav.find('ul')
 
 		$nav.find('ul').width(album_count * album_width + 'px')
+		$forward.addClass('disabled') if album_count <= 2
 
 		$forward.click =>
 			return false if $forward.hasClass('disabled') or $list.is(':animated')
