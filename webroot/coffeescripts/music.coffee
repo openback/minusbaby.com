@@ -7,25 +7,26 @@ for nav in $sections
 	do (nav) ->
 		$nav = $(nav)
 		album_count = $nav.find('li').length
-		max_left = if album_count >= 2 then - album_width * (album_count - 2) else 0
+		min_left = - album_width * (album_count - 4)
 		$forward = $nav.find('.forward')
 		$back = $nav.find('.back')
 		$back.addClass('disabled')
 		$list = $nav.find('ul')
 
 		$nav.find('ul').width(album_count * album_width + 'px')
-		$forward.addClass('disabled') if album_count <= 2
+		$forward.addClass('disabled') if album_count <= 4
 
 		$forward.click =>
 			return false if $forward.hasClass('disabled') or $list.is(':animated')
 			current_left = $list.position().left
 
-			return false if current_left is max_left
+			# return false if current_left is 0
 
-			delta = if current_left - album_width is max_left then album_width else 2 * album_width
+			delta = 4 * album_width
+			delta = current_left - min_left if current_left - delta < min_left
 
 			$back.removeClass('disabled')
-			$forward.addClass('disabled') if current_left - delta is max_left
+			$forward.addClass('disabled') if current_left - delta is min_left
 
 			$list.animate
 				left: '-=' + delta + 'px'
@@ -37,9 +38,10 @@ for nav in $sections
 			return false if $back.hasClass('disabled') or $list.is(':animated')
 			current_left = $list.position().left
 
-			return false if not current_left
+			return false if current_left == 0
 
-			delta = if current_left + album_width is 0 then album_width else 2 * album_width
+			delta = 4 * album_width
+			delta = -current_left if current_left - delta < 0
 
 			$forward.removeClass('disabled')
 			$back.addClass('disabled') if current_left + delta is 0

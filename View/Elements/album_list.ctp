@@ -13,6 +13,15 @@
 			</figure>
 		</a></li>
 		<?php }; ?>
+		<?php
+			if (count($albums) < 4) {
+				for($i = 1; $i <= 4 - count($albums); $i++) {
+		?>
+		<li><figure><?php echo $this->Html->image('empty_release.png', array('width' => 210, 'height' => 210, 'alt' => 'No release')); ?></figure></li>
+		<?php
+				}
+			}
+		?>
 	</ul>
 	<nav class="pager"><a class="back" href="#">&lt;</a><a class="forward" href="#">&gt;</a></nav>
 </nav>

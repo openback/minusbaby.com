@@ -1005,11 +1005,7 @@ nav.events {
 		margin-bottom: 48px;
 		overflow: hidden;
 		position: relative;
-		width: 210px * 2 + 40px;
-
-		&:nth-child(2n+1) {
-			margin-right: 40px;
-		}
+		width: 210px * 4 + 40px * 3;
 	}
 
 	hr {
