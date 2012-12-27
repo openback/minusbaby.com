@@ -147,12 +147,13 @@ methods =
 		if show_articles
 			this.find('> article').add(this.find('.admin')).stop().animate
 				opacity: 1
-				'slow'
+				900
+				callback
 
 		data.$main_nav_wrapper.stop().animate
 			left: data.original_left + 'px'
 			'slow'
-			callback
+
 		data.closed = true
 		this
 
