@@ -8,17 +8,17 @@
   album_width = $($sections[0]).find('li:first').outerWidth(true);
 
   _fn = function(nav) {
-    var $back, $forward, $list, $nav, album_count, max_left,
+    var $back, $forward, $list, $nav, album_count, min_left,
       _this = this;
     $nav = $(nav);
     album_count = $nav.find('li').length;
-    max_left = album_count >= 2 ? -album_width * (album_count - 2) : 0;
+    min_left = -album_width * (album_count - 4);
     $forward = $nav.find('.forward');
     $back = $nav.find('.back');
     $back.addClass('disabled');
     $list = $nav.find('ul');
     $nav.find('ul').width(album_count * album_width + 'px');
-    if (album_count <= 2) {
+    if (album_count <= 4) {
       $forward.addClass('disabled');
     }
     $forward.click(function() {
@@ -27,12 +27,12 @@
         return false;
       }
       current_left = $list.position().left;
-      if (current_left === max_left) {
-        return false;
+      delta = 4 * album_width;
+      if (current_left - delta < min_left) {
+        delta = current_left - min_left;
       }
-      delta = current_left - album_width === max_left ? album_width : 2 * album_width;
       $back.removeClass('disabled');
-      if (current_left - delta === max_left) {
+      if (current_left - delta === min_left) {
         $forward.addClass('disabled');
       }
       $list.animate({
@@ -46,10 +46,13 @@
         return false;
       }
       current_left = $list.position().left;
-      if (!current_left) {
+      if (current_left === 0) {
         return false;
       }
-      delta = current_left + album_width === 0 ? album_width : 2 * album_width;
+      delta = 4 * album_width;
+      if (current_left - delta < 0) {
+        delta = -current_left;
+      }
       $forward.removeClass('disabled');
       if (current_left + delta === 0) {
         $back.addClass('disabled');
