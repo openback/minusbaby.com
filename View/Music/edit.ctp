@@ -48,8 +48,8 @@
 				<label for="AlbumType">Type</label>
 				<?php echo $this->Form->select('type',
 						array(
-							'EP' => 'EP',
-							'LP' => 'LP',
+							'LP' => 'Album',
+							'EP' => 'Single or EP',
 							'Compilation' => 'Compilation',
 							'Appears on' => 'Appears on'
 						),
