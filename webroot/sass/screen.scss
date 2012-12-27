@@ -769,7 +769,7 @@ footer {
 			width: 464px;
 
 			dt, dd {
-				display: inline-block;
+				@include inline-box;
 			}
 
 			dt {
@@ -781,10 +781,11 @@ footer {
 			}
 
 			dd {
+				float: left;
 				width: 311px;
 				margin-bottom: 16px;
 
-				div:last-child p {
+				p:nth-last-of-type(1) {
 					margin-bottom: 0;
 				}
 			}

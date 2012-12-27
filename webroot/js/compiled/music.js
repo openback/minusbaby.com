@@ -15,9 +15,9 @@
     min_left = -album_width * (album_count - 4);
     $forward = $nav.find('.forward');
     $back = $nav.find('.back');
-    $back.addClass('disabled');
     $list = $nav.find('ul');
     $nav.find('ul').width(album_count * album_width + 'px');
+    $back.addClass('disabled');
     if (album_count <= 4) {
       $forward.addClass('disabled');
     }
@@ -50,7 +50,7 @@
         return false;
       }
       delta = 4 * album_width;
-      if (current_left - delta < 0) {
+      if (current_left + delta > 0) {
         delta = -current_left;
       }
       $forward.removeClass('disabled');
