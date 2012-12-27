@@ -140,19 +140,22 @@ methods =
 
 		show_articles = true if typeof(show_articles) isnt 'boolean'
 
-		methods.moveToPage.call(this, page, callback)
+		methods.moveToPage.call(this, page)
 		data.$controls_nav.fadeOut 'slow'
-		data.$more.fadeIn('fast')
+		data.$more.fadeIn('slow')
 
-		if show_articles
-			this.find('> article').add(this.find('.admin')).stop().animate
-				opacity: 1
-				900
-				callback
-
-		data.$main_nav_wrapper.stop().animate
-			left: data.original_left + 'px'
-			'slow'
+		data.$main_nav_wrapper.stop().animate(
+			left: data.original_left + 'px',
+			'slow',
+			=>
+				if show_articles
+					this.find('> article').add(this.find('.admin')).stop().animate
+						opacity: 1
+						'fast'
+						callback
+				else
+					callback()
+		)
 
 		data.closed = true
 		this

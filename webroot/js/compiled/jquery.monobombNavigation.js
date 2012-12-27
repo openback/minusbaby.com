@@ -128,7 +128,8 @@
     */
 
     closeToPage: function(page, show_articles, callback) {
-      var data;
+      var data,
+        _this = this;
       data = this.data('monobombNavigator');
       if (data.$main_nav_wrapper.position().left === data.original_left) {
         return;
@@ -150,17 +151,20 @@
       if (typeof show_articles !== 'boolean') {
         show_articles = true;
       }
-      methods.moveToPage.call(this, page, callback);
+      methods.moveToPage.call(this, page);
       data.$controls_nav.fadeOut('slow');
-      data.$more.fadeIn('fast');
-      if (show_articles) {
-        this.find('> article').add(this.find('.admin')).stop().animate({
-          opacity: 1
-        }, 900, callback);
-      }
+      data.$more.fadeIn('slow');
       data.$main_nav_wrapper.stop().animate({
         left: data.original_left + 'px'
-      }, 'slow');
+      }, 'slow', function() {
+        if (show_articles) {
+          return _this.find('> article').add(_this.find('.admin')).stop().animate({
+            opacity: 1
+          }, 'fast', callback);
+        } else {
+          return callback();
+        }
+      });
       data.closed = true;
       return this;
     },

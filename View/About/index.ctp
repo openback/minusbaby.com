@@ -1,6 +1,6 @@
 <?php
 	$this->Pixelpod->monobombNavigation('.members', '.collaborator-wrapper', 'dl', '.pager', 2);
-	$collaborator_chunks = array_chunk($artists, 4);
+	$collaborator_chunks = array_chunk($artists, 3);
 	echo $this->Pixelpod->makeEditable('article', $main_text, array(), 'fields', 'Field', 'content');
 ?>
 <section class="members">
