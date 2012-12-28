@@ -5,7 +5,7 @@
 		<li><?php echo $this->Html->link($site['Site']['name'], $site['Site']['url']); ?></li>
 		<?php } ?>
 	</ul>
-	<?php if (AuthComponent::user('id') !== null): ?><a href="<?php echo Router::url(array('controller' => 'sites')); ?>" class="wide-link">MANAGE</a><?php endif; ?>
+	<?php if (AuthComponent::user('id') !== null): ?><div class="admin"><a href="<?php echo Router::url(array('controller' => 'sites')); ?>">MANAGE</a></div><?php endif; ?>
 </nav>
 <nav class="individually">
 	<h1>Or&hellip;</h1>
@@ -14,7 +14,7 @@
 		<li><a href="<?php echo $artist['Artist']['email']; ?>"><span class="name"><?php echo $artist['Artist']['name']; ?></span><span class="address"><?php echo $artist['Artist']['email']; ?></span></a></li>
 		<?php } ?>
 	</ul>
-	<?php if (AuthComponent::user('id') !== null): ?><a href="<?php echo Router::url(array('controller' => 'artists')); ?>" class="wide-link">MANAGE</a><?php endif; ?>
+	<?php if (AuthComponent::user('id') !== null): ?><div class="admin"><a href="<?php echo Router::url(array('controller' => 'artists')); ?>">MANAGE</a></div><?php endif; ?>
 </nav>
 <section>
 	<?php echo $this->Form->create('Contact'); ?>

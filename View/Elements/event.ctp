@@ -59,7 +59,9 @@
 		<figcaption><?php echo $this->Pixelpod->makeEditable('div', $event, 'events', 'Event', 'description'); ?></figcaption>
 	</figure>
 <?php if (AuthComponent::user('id') != null) { ?>
-	<a href="<?php echo $this->Html->url(array('action' => 'edit', $event['Event']['id'], $event['Event']['slug'])); ?>" class="wide-link">EDIT</a>
-	<?php echo $this->Html->link('DELETE', array('action' => 'delete', $event['Event']['id'], $event['Event']['slug']), array('class' => 'wide-link'), 'Are you sure you want to delete this event?'); ?>
+	<div class="admin">
+		<a href="<?php echo $this->Html->url(array('action' => 'edit', $event['Event']['id'], $event['Event']['slug'])); ?>">EDIT</a>
+		<?php echo $this->Html->link('DELETE', array('action' => 'delete', $event['Event']['id'], $event['Event']['slug']), 'Are you sure you want to delete this event?'); ?>
+	</div>
 <?php } ?>
 </article>

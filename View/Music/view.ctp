@@ -23,7 +23,15 @@
 		}
 	}
 ?>
-<div class="images"><?php echo $cover; ?></div>
+<div class="images">
+	<?php echo $cover; ?>
+	<?php if (AuthComponent::user('id') != null) { ?>
+	<div class="admin">
+		<a href="<?php echo $this->Html->url(array('action' => 'edit', $album['Album']['id'], $album['Album']['slug'])); ?>">EDIT</a>
+		<?php echo $this->Html->link('DELETE', array('action' => 'delete', $album['Album']['id'], $album['Album']['slug']), 'Are you sure you want to delete this album?'); ?>
+	</div>
+	<?php } ?>
+</div>
 <!-- <nav class="images"><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a></nav> -->
 <section class="details">
 	<dl>
@@ -65,10 +73,6 @@
 		<dd><?php echo $license; ?></dd>
 		<?php } ?>
 	</dl>
-<?php if (AuthComponent::user('id') != null) { ?>
-	<a href="<?php echo $this->Html->url(array('action' => 'edit', $album['Album']['id'], $album['Album']['slug'])); ?>" class="wide-link">EDIT</a>
-	<?php echo $this->Html->link('DELETE', array('action' => 'delete', $album['Album']['id'], $album['Album']['slug']), array('class' => 'wide-link'), 'Are you sure you want to delete this album?'); ?>
-<?php } ?>
 	<a class="wide-link back" href="<?php echo $this->Html->url(array('action' => 'index')); ?>"><span class="left-arrow">&laquo;</span>BACK</a>
 </section>
 

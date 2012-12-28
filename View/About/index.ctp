@@ -4,7 +4,7 @@
 	echo $this->Pixelpod->makeEditable('article', $main_text, array(), 'fields', 'Field', 'content');
 ?>
 <section class="members">
-<h1>Musicians and Collaborators<?php if (AuthComponent::user('id') !== null) { ?> <a href="<?php echo Router::url(array('controller' => 'artists')); ?>">MANAGE</a><?php } ?></h1>
+<h1>Musicians and Collaborators</h1>
 	<div class="collaborator-wrapper">
 		<?php foreach ($collaborator_chunks as $collaborators) { ?>
 		<dl>
@@ -18,6 +18,9 @@
 		</dl>
 		<?php } ?>
 	</div>
+	<?php if (AuthComponent::user('id') !== null) { ?>
+	<div class="admin"><a href="<?php echo Router::url(array('controller' => 'artists')); ?>">MANAGE</a></span>
+	<?php } ?>
 </section>
 <nav class="pager"><a class="back" href="#">&lt;</a><a class="close" href="#">X</a><a class="forward" href="#">&gt;</a></nav>
 <a class="more" href="#">MORE</a>

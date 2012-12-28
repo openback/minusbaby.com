@@ -32,7 +32,9 @@
 ?>
 Why don't you <a href="<?php echo Router::url(array('action' => 'add')); ?>">add one</a>?
 		<?php } else { ?>
-		<a href="<?php echo Router::url(array('action' => 'add')); ?>" class="wide-link">ADD ALBUM</a>
+		<div class="admin">
+			<a href="<?php echo Router::url(array('action' => 'add')); ?>" class="wide-link">ADD ALBUM</a>
+		</div>
 <?php
 		}
 	}
