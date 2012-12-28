@@ -85,4 +85,16 @@
     }
   });
 
+  $(window).load(function() {
+    var $videos, max_height;
+    if ($('.content.videos')) {
+      $videos = $('.videos-wrapper figure');
+      max_height = 0;
+      $videos.each(function() {
+        return max_height = Math.max(max_height, $(this).height());
+      });
+      return $videos.height(max_height);
+    }
+  });
+
 }).call(this);

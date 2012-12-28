@@ -80,3 +80,14 @@ $(document).ready ->
 		$email.add("#xmpp span").html (index, oldhtml) ->
 			oldhtml.replace "(@]", "@"
 		$email.attr "href", "mailto:" + $email.html().toLowerCase()
+
+$(window).load ->
+	if $('.content.videos')
+		# We need to align the heights of everything
+		$videos = $('.videos-wrapper figure')
+		max_height = 0
+
+		$videos.each ->
+			max_height = Math.max(max_height, $(this).height())
+
+		$videos.height(max_height)
