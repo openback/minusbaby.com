@@ -333,7 +333,9 @@ methods =
 
 		# We need to adjust the width of the wrapper to fit all the navs
 		individual_width   = $(data.$actual_navs[1]).outerWidth(true)
-		data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px')
+		new_width = data.nav_count * individual_width
+		new_width = 960 if new_width < 960
+		data.$inner_nav_wrapper.width( new_width + 'px')
 
 		# And adjust the height of page to contain everything
 		# required_height    = data.$inner_nav_wrapper.height()

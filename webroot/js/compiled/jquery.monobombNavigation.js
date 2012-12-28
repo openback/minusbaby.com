@@ -307,7 +307,7 @@
     */
 
     init: function(options) {
-      var $first_page, $loading, data, individual_width, required_height, settings, total_height,
+      var $first_page, $loading, data, individual_width, new_width, required_height, settings, total_height,
         _this = this;
       settings = {
         more_selector: '> .more',
@@ -346,7 +346,11 @@
       data.closed = !data.$main_nav_wrapper.hasClass('start-open');
       this.data('monobombNavigator', data);
       individual_width = $(data.$actual_navs[1]).outerWidth(true);
-      data.$inner_nav_wrapper.width(data.nav_count * individual_width + 'px');
+      new_width = data.nav_count * individual_width;
+      if (new_width < 960) {
+        new_width = 960;
+      }
+      data.$inner_nav_wrapper.width(new_width + 'px');
       required_height = data.$inner_nav_wrapper.height();
       data.min_height = required_height + 140;
       total_height = 0;

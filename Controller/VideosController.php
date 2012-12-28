@@ -27,6 +27,7 @@ class VideosController extends AppController {
 			$this->redirect(array('action' => 'view', $video['Video']['id'], $video['Video']['slug']));
 		}
 		$this->set('video', $video);
+		$this->set('title_for_layout', $video['Video']['title']);
     }
 
 	function sort() {
@@ -140,15 +141,18 @@ class VideosController extends AppController {
         $this->Auth->deny('reorder');
 
         $this->set('controller_name','videos');
-		$this->set('videos', $this->Video->find('all', array(
-			'fields' => array(
-				'Video.id',
-				'Video.sort_order',
-				'Video.url',
-				'Video.thumbnail_url',
-				'Video.title',
-				'Video.slug'
-			)
-		)));
+
+		if (!$this->request->is('ajax')) {
+			$this->set('videos', $this->Video->find('all', array(
+				'fields' => array(
+					'Video.id',
+					'Video.sort_order',
+					'Video.url',
+					'Video.thumbnail_url',
+					'Video.title',
+					'Video.slug'
+				)
+			)));
+		}
     }
 }

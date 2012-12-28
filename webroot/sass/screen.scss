@@ -726,7 +726,7 @@ footer {
 	position: relative;
 
 	.now-playing,
-	.videos,
+	.all-videos,
 	.post,
 	.articles,
 	.event {
@@ -745,7 +745,7 @@ footer {
 		height: 2000px;
 	}
 
-	.videos,
+	.all-videos,
 	.articles,
 	.all-posts,
 	.all-events {
@@ -852,7 +852,7 @@ footer {
 
 	}
 
-	.videos {
+	.all-videos {
 		li {
 			@include smaller-text;
 			margin-bottom: 36px;
@@ -1283,6 +1283,7 @@ nav.events {
 }
 
 /* navigator styles */
+.content.videos .all-videos,
 .content.events .all-events,
 .content.news .all-articles {
 	overflow: hidden;
@@ -1295,6 +1296,7 @@ nav.events {
 		left: 0;
 	}
 
+	.videos-wrapper,
 	.inner-articles,
 	.past-events {
 		@include easyclearfix;
@@ -1319,6 +1321,7 @@ nav.events {
 	}
 }
 
+.content.videos,
 .content.events,
 .content.news {
 	.loading {
