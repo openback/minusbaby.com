@@ -21,12 +21,12 @@
 		<?php echo $video['Video']['embed']; ?>
 	</figure>
 	<p><?php echo $video['Video']['description']; ?></p>
-	<?php
-		if ($this->Session->check('Auth.User')) {
-			echo $this->Html->link('EDIT',    array('action' => 'edit', $video['Video']['id']), array('class' => 'wide-link'))
-			    .$this->Html->link('DELETE',  array('action' => 'delete', $video['Video']['id']), array('class' => 'wide-link'), 'Are you sure you want to delete this video?')
-			    .$this->Html->link('add', array('action' => 'add'), array('class' => 'wide-link'))
-			    .$this->Html->link('sort', array('action' => 'sort'), array('class' => 'wide-link'));
-		}
-	?>
+	<?php if ($this->Session->check('Auth.User')) { ?>
+	<div class="admin">
+		<a href="<?php echo Router::url(array('action' => 'add')); ?>">ADD</a>
+		<a href="<?php echo Router::url(array('action' => 'edit', $video['Video']['id'])); ?>">EDIT</a>
+		<?php echo $this->Html->link('DELETE', array('action' => 'delete', $video['Video']['id']), 'Are you sure you want to delete this video?'); ?>
+		<a href="<?php echo Router::url(array('action' => 'sort')); ?>">SORT</a>
+	</div>
+	<?php } ?>
 </article>

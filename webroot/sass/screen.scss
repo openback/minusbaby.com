@@ -47,6 +47,27 @@ a {
 		}
 	}
 
+	.admin & {
+		@include border-radius;
+		@include single-text-shadow;
+		@include background-image(linear-gradient(color-stops(#00b100, #0c0, #00b100)));
+		@include smaller-text;
+		border: 1px solid #0c0;
+		color: black;
+		display: inline-block;
+		line-height: 1em;
+		margin: 0 16px 16px 0;
+		padding: 8px;
+
+		&:hover {
+			@include background-image(linear-gradient(color-stops(#00b100, #00b100, #00b100)));
+			color: white;
+		}
+
+		&:active {
+			@include background-image(linear-gradient(color-stops(#0a0, #0a0, #0a0)));
+		}
+	}
 }
 
 p {
@@ -968,11 +989,12 @@ nav.events {
 			li {
 				margin-bottom: 32px;
 			}
+
+			a {
+				@include link-colors($quiet-text, $link, $link, $quiet-text, $link);
+			}
 		}
 
-		a {
-			@include link-colors($quiet-text, $link, $link, $quiet-text, $link);
-		}
 	}
 
 	.individually {
@@ -1015,6 +1037,10 @@ nav.events {
 				margin-right: 40px;
 			}
 		}
+
+		a {
+			@include link-colors($normal-text, $link, $link, $normal-text, $link);
+		}
 	}
 
 	hr {
@@ -1037,10 +1063,6 @@ nav.events {
 			width: 210px;
 			margin-right: 40px;
 		}
-	}
-
-	a {
-		@include link-colors($normal-text, $link, $link, $normal-text, $link);
 	}
 
 	img,
@@ -1068,19 +1090,21 @@ nav.events {
 .content.album {
 	@include smaller-text;
 
-	div.images {
+	.images {
 		display: block;
 		float: left;
 		margin-bottom: 16px;
 		overflow: hidden;
-		width: 450px; height: 450px;
+		width: 450px;
 
 		img {
 			display: block;
 			float: left;
+			margin-bottom: 16px;
 		}
 	}
 
+	/*
 	nav.images {
 		clear: left;
 		display: block;
@@ -1099,7 +1123,11 @@ nav.events {
 				@include sprite_replace_text($icons, led_on);
 			}
 		}
+	}
+	*/
 
+	.admin {
+		font-size: 1.3em;
 	}
 
 	dl {
@@ -1197,6 +1225,11 @@ nav.events {
 
 		h2 strong {
 			font-weight: normal;
+		}
+
+		.admin {
+			font-size: 1.3em;
+			margin-top: 16px;
 		}
 	}
 

@@ -47,7 +47,7 @@ if (!empty($postsList)) {
 ?>
 <?php if (AuthComponent::user('id') != null): ?>
 <div class="admin">
-	<a href="<?php echo $this->Html->url(array('action' => 'add')); ?>" class="wide-link">NEW POST</a>
+	<a href="<?php echo $this->Html->url(array('action' => 'add')); ?>">NEW POST</a>
 </div>
 <?php endif; ?>
 <?php
