@@ -8,17 +8,18 @@
   album_width = $($sections[0]).find('li:first').outerWidth(true);
 
   _fn = function(nav) {
-    var $back, $forward, $list, $nav, album_count, min_left,
+    var $back, $forward, $list, $nav, album_count, min_left, visible,
       _this = this;
     $nav = $(nav);
+    visible = $nav.hasClass('half-width') ? 2 : 4;
     album_count = $nav.find('li').length;
-    min_left = -album_width * (album_count - 4);
+    min_left = -album_width * (album_count - visible);
     $forward = $nav.find('.forward');
     $back = $nav.find('.back');
     $list = $nav.find('ul');
     $nav.find('ul').width(album_count * album_width + 'px');
     $back.addClass('disabled');
-    if (album_count <= 4) {
+    if (album_count <= visible) {
       $forward.addClass('disabled');
     }
     $forward.click(function() {
@@ -27,7 +28,7 @@
         return false;
       }
       current_left = $list.position().left;
-      delta = 4 * album_width;
+      delta = visible * album_width;
       if (current_left - delta < min_left) {
         delta = current_left - min_left;
       }
@@ -49,7 +50,7 @@
       if (current_left === 0) {
         return false;
       }
-      delta = 4 * album_width;
+      delta = visible * album_width;
       if (current_left + delta > 0) {
         delta = -current_left;
       }

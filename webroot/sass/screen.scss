@@ -1003,6 +1003,14 @@ nav.events {
 		overflow: hidden;
 		position: relative;
 		width: 210px * 4 + 40px * 3;
+
+		&.half-width {
+			width: 210px * 2 + 40px;
+
+			&:nth-child(2n+1) {
+				margin-right: 40px;
+			}
+		}
 	}
 
 	hr {
