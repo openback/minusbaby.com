@@ -2,17 +2,17 @@
 	$no_albums = true;
 
 	if (!empty($lps)) {
-		echo $this->element('album_list', array('title' => 'Albums', 'class' => 'lps', 'albums' => $lps));
+		echo $this->element('album_list', array('title' => 'Albums', 'class' => 'lps half-width', 'albums' => $lps));
+		$no_albums = false;
+	}
+
+	if (!empty($compilations)) {
+		echo $this->element('album_list', array('title' => 'Compilations', 'class' => 'compilations half-width', 'albums' => $compilations));
 		$no_albums = false;
 	}
 
 	if (!empty($eps)) {
 		echo $this->element('album_list', array('title' => 'Singles &amp; EPs', 'class' => 'eps', 'albums' => $eps));
-		$no_albums = false;
-	}
-
-	if (!empty($compilations)) {
-		echo $this->element('album_list', array('title' => 'Compilations', 'class' => 'compilations', 'albums' => $compilations));
 		$no_albums = false;
 	}
 

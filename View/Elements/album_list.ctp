@@ -14,8 +14,10 @@
 		</a></li>
 		<?php }; ?>
 		<?php
-			if (count($albums) < 4) {
-				for($i = 1; $i <= 4 - count($albums); $i++) {
+			$visible = (strpos($class, 'half-width') === false)? 4 : 2;
+
+			if (count($albums) < $visible) {
+				for($i = 1; $i <= $visible - count($albums); $i++) {
 		?>
 		<li><figure><?php echo $this->Html->image('empty_release.png', array('width' => 210, 'height' => 210, 'alt' => 'No release')); ?></figure></li>
 		<?php

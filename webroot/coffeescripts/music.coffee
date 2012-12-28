@@ -6,21 +6,22 @@ album_width = $($sections[0]).find('li:first').outerWidth(true)
 for nav in $sections
 	do (nav) ->
 		$nav = $(nav)
+		visible = if $nav.hasClass('half-width') then 2 else 4
 		album_count = $nav.find('li').length
-		min_left = - album_width * (album_count - 4)
+		min_left = - album_width * (album_count - visible)
 		$forward = $nav.find('.forward')
 		$back = $nav.find('.back')
 		$list = $nav.find('ul')
 
 		$nav.find('ul').width(album_count * album_width + 'px')
 		$back.addClass('disabled')
-		$forward.addClass('disabled') if album_count <= 4
+		$forward.addClass('disabled') if album_count <= visible
 
 		$forward.click =>
 			return false if $forward.hasClass('disabled') or $list.is(':animated')
 			current_left = $list.position().left
 
-			delta = 4 * album_width
+			delta = visible * album_width
 			delta = current_left - min_left if current_left - delta < min_left
 
 			$back.removeClass('disabled')
@@ -38,7 +39,7 @@ for nav in $sections
 
 			return false if current_left == 0
 
-			delta = 4 * album_width
+			delta = visible * album_width
 			delta = -current_left if current_left + delta > 0
 
 			$forward.removeClass('disabled')

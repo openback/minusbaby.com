@@ -74,6 +74,6 @@ class ArtistsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
 
-		$this->Security->unlockedActions = array('index');
+		$this->Security->unlockedActions = array('edit');
     }
 }

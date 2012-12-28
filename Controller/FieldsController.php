@@ -33,4 +33,9 @@ class FieldsController extends AppController {
 	public function edit($id = null) {
 		return $this->Pixelpod->handleAjaxEdit('Field', $id);
 	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Security->unlockedActions = array('edit');
+	}
 }
