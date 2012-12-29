@@ -104,7 +104,10 @@ methods =
 
 		data.closed = false
 
-		methods.moveToPage.call(this, page, false, callback)
+		if data.nav_count <= data.settings.visible_columns
+			methods.moveToPage.call(this, 1, false, callback)
+		else
+			methods.moveToPage.call(this, page, false, callback)
 		this
 
 	###*
@@ -139,6 +142,8 @@ methods =
 			show_articles = true
 
 		show_articles = true if typeof(show_articles) isnt 'boolean'
+
+		page = data.$inner_nav_wrapper.find('.current')?.closest('nav') if not page
 
 		methods.moveToPage.call(this, page)
 		data.$controls_nav.fadeOut 'slow'
@@ -429,7 +434,9 @@ methods =
 									$err = $('.flash-error')
 									$err.slideUp() if $err.css('display') isnt 'none'
 
-									$article = $(response.data).imagesLoaded ->
+									$article = $(response.data)
+
+									$article.imagesLoaded ->
 										$article.hide()
 										$(data.settings.article_selector).replaceWith($article)
 										$loading.fadeOut('fast')

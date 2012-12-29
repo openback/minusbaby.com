@@ -974,6 +974,32 @@ nav.events {
 	}
 }
 
+.all-videos {
+	figcaption {
+		display: block;
+		margin-left: 24px;
+		position: relative;
+		width: 210px - 24px;
+
+		&:before {
+			@include sprite_replace_text($icons, led_off);
+			content: 'O';
+			position: absolute;
+			left: -24px;
+		}
+	}
+
+	a {
+		&:hover,
+		&.current {
+			figcaption:before {
+				@include replace_text('archive_current.gif');
+			}
+		}
+	}
+
+}
+
 .content.contact {
 	$aside-width: 168px;
 
