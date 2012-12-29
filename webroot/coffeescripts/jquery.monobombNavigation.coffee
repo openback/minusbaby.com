@@ -432,9 +432,9 @@ methods =
 									$err = $('.flash-error')
 									$err.slideUp() if $err.css('display') isnt 'none'
 
-									$article = $(response.data)
-									$article.hide()
-									$(data.settings.article_selector).replaceWith($article).waitForImages ->
+									$article = $(response.data).imagesLoaded ->
+										$article.hide()
+										$(data.settings.article_selector).replaceWith($article)
 										$loading.fadeOut('fast')
 										$('> .admin', data.$content).animate {opacity: 1}
 										$article.fadeIn =>

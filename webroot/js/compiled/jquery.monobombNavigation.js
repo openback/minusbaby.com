@@ -432,10 +432,10 @@
                   if ($err.css('display') !== 'none') {
                     $err.slideUp();
                   }
-                  $article = $(response.data);
-                  $article.hide();
-                  return $(data.settings.article_selector).replaceWith($article).waitForImages(function() {
+                  return $article = $(response.data).imagesLoaded(function() {
                     var _this = this;
+                    $article.hide();
+                    $(data.settings.article_selector).replaceWith($article);
                     $loading.fadeOut('fast');
                     $('> .admin', data.$content).animate({
                       opacity: 1

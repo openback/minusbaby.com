@@ -51,7 +51,7 @@
 			} else {
 				$this->Html->script('jquery.history', array('block' => 'notIEJs'));
 				$this->Html->script('jquery.jplayer.min', array('block' => 'footJs'));
-				$this->Html->script('jquery.waitforimages', array('block' => 'footJs'));
+				$this->Html->script('jquery.imagesloaded.min', array('block' => 'footJs'));
 				$this->Html->script('compiled/monobomb', array('block' => 'footJs'));
 				$this->Html->script('compiled/siteConfig', array('block' => 'footJs'));
 				$this->Html->script('compiled/jquery.monobombNavigation', array('block' => 'footJs'));
