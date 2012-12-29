@@ -432,16 +432,16 @@ methods =
 									$err = $('.flash-error')
 									$err.slideUp() if $err.css('display') isnt 'none'
 
-									$article = $(response.data)
-									$article.hide()
-									$(data.settings.article_selector).replaceWith($article)
-									$loading.fadeOut('fast')
-									$('> .admin', data.$content).animate {opacity: 1}
-									$article.fadeIn =>
-										height = $article.height()
-										new_height = if height < data.min_height + 140 then data.min_height + 140 else height + 140
-										data.$content.stop().animate
-											height: new_height + 'px'
+									$article = $(response.data).imagesLoaded ->
+										$article.hide()
+										$(data.settings.article_selector).replaceWith($article)
+										$loading.fadeOut('fast')
+										$('> .admin', data.$content).animate {opacity: 1}
+										$article.fadeIn =>
+											height = $article.height()
+											new_height = if height < data.min_height + 140 then data.min_height + 140 else height + 140
+											data.$content.stop().animate
+												height: new_height + 'px'
 								else
 									$loading.hide('fast')
 									Monobomb.flashError 'Sorry, there was a problem loading that item. ' + response.data

@@ -426,26 +426,27 @@
               type: 'GET',
               url: state.url + '.json',
               success: function(response) {
-                var $article, $err,
-                  _this = this;
+                var $article, $err;
                 if (response.success) {
                   $err = $('.flash-error');
                   if ($err.css('display') !== 'none') {
                     $err.slideUp();
                   }
-                  $article = $(response.data);
-                  $article.hide();
-                  $(data.settings.article_selector).replaceWith($article);
-                  $loading.fadeOut('fast');
-                  $('> .admin', data.$content).animate({
-                    opacity: 1
-                  });
-                  return $article.fadeIn(function() {
-                    var height, new_height;
-                    height = $article.height();
-                    new_height = height < data.min_height + 140 ? data.min_height + 140 : height + 140;
-                    return data.$content.stop().animate({
-                      height: new_height + 'px'
+                  return $article = $(response.data).imagesLoaded(function() {
+                    var _this = this;
+                    $article.hide();
+                    $(data.settings.article_selector).replaceWith($article);
+                    $loading.fadeOut('fast');
+                    $('> .admin', data.$content).animate({
+                      opacity: 1
+                    });
+                    return $article.fadeIn(function() {
+                      var height, new_height;
+                      height = $article.height();
+                      new_height = height < data.min_height + 140 ? data.min_height + 140 : height + 140;
+                      return data.$content.stop().animate({
+                        height: new_height + 'px'
+                      });
                     });
                   });
                 } else {
