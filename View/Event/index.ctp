@@ -28,8 +28,8 @@ if (!empty($eventList)) {
 				echo "\t\t\t</ul>\n\t\t</nav>";
 			}
 
-			$nav_class = (isset($thisEventYear) && ($thisEventYear == $eventYear)) ? ' first-page' : '';
-            $currentYear = $eventYear;
+		$nav_class = (isset($thisEventYear) && ($thisEventYear == $eventYear)) ? ' first-page' : '';
+		$currentYear = $eventYear;
 ?>
 		<nav class="events<?php echo $nav_class; ?>">
 			<h2><?php echo $eventYear; ?></h2>

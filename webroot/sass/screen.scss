@@ -970,6 +970,32 @@ nav.events {
 	}
 }
 
+.all-videos {
+	figcaption {
+		display: block;
+		margin-left: 24px;
+		position: relative;
+		width: 210px - 24px;
+
+		&:before {
+			@include sprite_replace_text($icons, led_off);
+			content: 'O';
+			position: absolute;
+			left: -24px;
+		}
+	}
+
+	a {
+		&:hover,
+		&.current {
+			figcaption:before {
+				@include sprite_replace_text($icons, led_on);
+			}
+		}
+	}
+
+}
+
 .content.contact {
 	$aside-width: 168px;
 

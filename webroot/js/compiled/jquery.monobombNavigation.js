@@ -111,7 +111,11 @@
         left: 0
       }, 'slow');
       data.closed = false;
-      methods.moveToPage.call(this, page, false, callback);
+      if (data.nav_count <= data.settings.visible_columns) {
+        methods.moveToPage.call(this, 1, false, callback);
+      } else {
+        methods.moveToPage.call(this, page, false, callback);
+      }
       return this;
     },
     /**
@@ -128,7 +132,7 @@
     */
 
     closeToPage: function(page, show_articles, callback) {
-      var data,
+      var data, _ref,
         _this = this;
       data = this.data('monobombNavigator');
       if (data.$main_nav_wrapper.position().left === data.original_left) {
@@ -150,6 +154,9 @@
       }
       if (typeof show_articles !== 'boolean') {
         show_articles = true;
+      }
+      if (!page) {
+        page = (_ref = data.$inner_nav_wrapper.find('.current')) != null ? _ref.closest('nav') : void 0;
       }
       methods.moveToPage.call(this, page);
       data.$controls_nav.fadeOut('slow');
@@ -431,7 +438,8 @@
                   if ($err.css('display') !== 'none') {
                     $err.slideUp();
                   }
-                  return $article = $(response.data).imagesLoaded(function() {
+                  $article = $(response.data);
+                  return $article.imagesLoaded(function() {
                     var _this = this;
                     $article.hide();
                     $(data.settings.article_selector).replaceWith($article);

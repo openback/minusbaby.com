@@ -1548,25 +1548,56 @@ nav.events li > div:hover {
   color: #b3b3b3;
 }
 
-/* line 977, ../sass/screen.scss */
+/* line 974, ../sass/screen.scss */
+.all-videos figcaption {
+  display: block;
+  margin-left: 24px;
+  position: relative;
+  width: 186px;
+}
+/* line 980, ../sass/screen.scss */
+.all-videos figcaption:before {
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  background: url('/img/icons-sada860fd35.png') 0 -65px no-repeat;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  content: 'O';
+  position: absolute;
+  left: -24px;
+}
+/* line 991, ../sass/screen.scss */
+.all-videos a:hover figcaption:before, .all-videos a.current figcaption:before {
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  background: url('/img/icons-sada860fd35.png') 0 -48px no-repeat;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+}
+
+/* line 1003, ../sass/screen.scss */
 .content.contact .networks,
 .content.contact .individually {
   float: right;
   width: 168px;
   margin-left: 32px;
 }
-/* line 982, ../sass/screen.scss */
+/* line 1008, ../sass/screen.scss */
 .content.contact .networks ul,
 .content.contact .individually ul {
   font-size: 0.8em;
   line-height: 1.5em;
 }
-/* line 985, ../sass/screen.scss */
+/* line 1011, ../sass/screen.scss */
 .content.contact .networks ul li,
 .content.contact .individually ul li {
   margin-bottom: 32px;
 }
-/* line 989, ../sass/screen.scss */
+/* line 1015, ../sass/screen.scss */
 .content.contact .networks ul a,
 .content.contact .individually ul a {
   color: #595959;
@@ -1591,26 +1622,26 @@ nav.events li > div:hover {
 .content.contact .individually ul a:active {
   color: #ff6e36;
 }
-/* line 997, ../sass/screen.scss */
+/* line 1023, ../sass/screen.scss */
 .content.contact .individually span {
   display: block;
 }
-/* line 1001, ../sass/screen.scss */
+/* line 1027, ../sass/screen.scss */
 .content.contact .individually .address {
   overflow: hidden;
   text-overflow: ellipsis;
   color: #ff6e36;
 }
-/* line 1009, ../sass/screen.scss */
+/* line 1035, ../sass/screen.scss */
 .content.contact .networks h1 {
   color: #595959;
 }
-/* line 1014, ../sass/screen.scss */
+/* line 1040, ../sass/screen.scss */
 .content.contact section {
   width: 560px;
 }
 
-/* line 1021, ../sass/screen.scss */
+/* line 1047, ../sass/screen.scss */
 .content.albums > nav {
   display: block;
   float: left;
@@ -1619,15 +1650,15 @@ nav.events li > div:hover {
   position: relative;
   width: 960px;
 }
-/* line 1029, ../sass/screen.scss */
+/* line 1055, ../sass/screen.scss */
 .content.albums > nav.half-width {
   width: 460px;
 }
-/* line 1032, ../sass/screen.scss */
+/* line 1058, ../sass/screen.scss */
 .content.albums > nav.half-width:nth-child(2n+1) {
   margin-right: 40px;
 }
-/* line 1037, ../sass/screen.scss */
+/* line 1063, ../sass/screen.scss */
 .content.albums > nav a {
   color: #b3b3b3;
 }
@@ -1647,14 +1678,14 @@ nav.events li > div:hover {
 .content.albums > nav a:active {
   color: #ff6e36;
 }
-/* line 1042, ../sass/screen.scss */
+/* line 1068, ../sass/screen.scss */
 .content.albums hr {
   border: none;
   border-bottom: 1px solid #595959;
   clear: both;
   margin-bottom: 32px;
 }
-/* line 1049, ../sass/screen.scss */
+/* line 1075, ../sass/screen.scss */
 .content.albums ul {
   display: inline-block;
   position: relative;
@@ -1673,7 +1704,7 @@ nav.events li > div:hover {
 .content.albums ul {
   display: block;
 }
-/* line 1055, ../sass/screen.scss */
+/* line 1081, ../sass/screen.scss */
 .content.albums ul li {
   font-size: 0.8em;
   line-height: 1.5em;
@@ -1682,7 +1713,7 @@ nav.events li > div:hover {
   width: 210px;
   margin-right: 40px;
 }
-/* line 1067, ../sass/screen.scss */
+/* line 1093, ../sass/screen.scss */
 .content.albums img,
 .content.albums h2,
 .content.albums .label,
@@ -1690,12 +1721,12 @@ nav.events li > div:hover {
   display: block;
   margin-bottom: 16px;
 }
-/* line 1073, ../sass/screen.scss */
+/* line 1099, ../sass/screen.scss */
 .content.albums .label,
 .content.albums time {
   color: #595959;
 }
-/* line 1077, ../sass/screen.scss */
+/* line 1103, ../sass/screen.scss */
 .content.albums nav.pager {
   display: block;
   left: auto;
@@ -1705,7 +1736,7 @@ nav.events li > div:hover {
   width: 35px;
 }
 
-/* line 1086, ../sass/screen.scss */
+/* line 1112, ../sass/screen.scss */
 .content.album {
   font-size: 0.8em;
   line-height: 1.5em;
@@ -1731,7 +1762,7 @@ nav.events li > div:hover {
   	}
   	*/
 }
-/* line 1089, ../sass/screen.scss */
+/* line 1115, ../sass/screen.scss */
 .content.album .images {
   display: block;
   float: left;
@@ -1739,17 +1770,17 @@ nav.events li > div:hover {
   overflow: hidden;
   width: 450px;
 }
-/* line 1096, ../sass/screen.scss */
+/* line 1122, ../sass/screen.scss */
 .content.album .images img {
   display: block;
   float: left;
   margin-bottom: 16px;
 }
-/* line 1125, ../sass/screen.scss */
+/* line 1151, ../sass/screen.scss */
 .content.album .admin {
   font-size: 1.3em;
 }
-/* line 1129, ../sass/screen.scss */
+/* line 1155, ../sass/screen.scss */
 .content.album dl {
   display: inline-block;
 }
@@ -1766,7 +1797,7 @@ nav.events li > div:hover {
 .content.album dl {
   display: block;
 }
-/* line 1133, ../sass/screen.scss */
+/* line 1159, ../sass/screen.scss */
 .content.album dt {
   clear: left;
   color: #595959;
@@ -1774,49 +1805,49 @@ nav.events li > div:hover {
   float: left;
   text-transform: uppercase;
 }
-/* line 1141, ../sass/screen.scss */
+/* line 1167, ../sass/screen.scss */
 .content.album dd {
   float: left;
   margin-left: 8px;
   margin-bottom: 32px;
   width: 390px;
 }
-/* line 1148, ../sass/screen.scss */
+/* line 1174, ../sass/screen.scss */
 .content.album .details {
   display: inline-block;
   margin-left: 48px;
   width: 462px;
 }
-/* line 1154, ../sass/screen.scss */
+/* line 1180, ../sass/screen.scss */
 .content.album .details dl dt {
   margin-bottom: 32px;
   width: 64px;
 }
-/* line 1160, ../sass/screen.scss */
+/* line 1186, ../sass/screen.scss */
 .content.album .details time {
   font-size: 1em;
 }
-/* line 1165, ../sass/screen.scss */
+/* line 1191, ../sass/screen.scss */
 .content.album .details dl.tracks dt {
   color: #ff6e36;
   margin-bottom: 8px;
   width: 16px;
 }
-/* line 1171, ../sass/screen.scss */
+/* line 1197, ../sass/screen.scss */
 .content.album .details dl.tracks dd {
   margin-bottom: 8px;
   width: 366px;
 }
-/* line 1176, ../sass/screen.scss */
+/* line 1202, ../sass/screen.scss */
 .content.album .details dl.tracks a {
   display: block;
   color: #b3b3b3;
 }
-/* line 1181, ../sass/screen.scss */
+/* line 1207, ../sass/screen.scss */
 .content.album .details dl.tracks a:hover, .content.album .details dl.tracks a:active {
   color: #ff6e36;
 }
-/* line 1186, ../sass/screen.scss */
+/* line 1212, ../sass/screen.scss */
 .content.album .details dl.tracks .playing {
   text-indent: -119988px;
   overflow: hidden;
@@ -1828,83 +1859,83 @@ nav.events li > div:hover {
   display: none;
   float: right;
 }
-/* line 1194, ../sass/screen.scss */
+/* line 1220, ../sass/screen.scss */
 .content.album .back {
   clear: left;
 }
 
-/* line 1200, ../sass/screen.scss */
+/* line 1226, ../sass/screen.scss */
 .content.events .event {
   font-size: 0.8em;
   line-height: 1.5em;
 }
-/* line 1203, ../sass/screen.scss */
+/* line 1229, ../sass/screen.scss */
 .content.events .event + event {
   border-top: 1px solid #595959;
   padding-top: 16px;
   margin-top: 16px;
 }
-/* line 1209, ../sass/screen.scss */
+/* line 1235, ../sass/screen.scss */
 .content.events .event figure {
   overflow: hidden;
 }
-/* line 1212, ../sass/screen.scss */
+/* line 1238, ../sass/screen.scss */
 .content.events .event figure img {
   width: 460px;
   float: left;
 }
-/* line 1217, ../sass/screen.scss */
+/* line 1243, ../sass/screen.scss */
 .content.events .event figure + a {
   margin-top: 16px;
 }
-/* line 1222, ../sass/screen.scss */
+/* line 1248, ../sass/screen.scss */
 .content.events .event h2 strong {
   font-weight: normal;
 }
-/* line 1226, ../sass/screen.scss */
+/* line 1252, ../sass/screen.scss */
 .content.events .event .admin {
   font-size: 1.3em;
   margin-top: 16px;
 }
-/* line 1232, ../sass/screen.scss */
+/* line 1258, ../sass/screen.scss */
 .content.events .details {
   display: block;
 }
-/* line 1235, ../sass/screen.scss */
+/* line 1261, ../sass/screen.scss */
 .content.events .details > * {
   display: inline-block;
 }
-/* line 1239, ../sass/screen.scss */
+/* line 1265, ../sass/screen.scss */
 .content.events .details time {
   color: #b3b3b3;
   font-style: normal;
 }
-/* line 1244, ../sass/screen.scss */
+/* line 1270, ../sass/screen.scss */
 .content.events .details h1 {
   border: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
-/* line 1250, ../sass/screen.scss */
+/* line 1276, ../sass/screen.scss */
 .content.events .details .slash {
   margin-left: 8px;
 }
-/* line 1254, ../sass/screen.scss */
+/* line 1280, ../sass/screen.scss */
 .content.events .details .address {
   display: inline;
 }
-/* line 1259, ../sass/screen.scss */
+/* line 1285, ../sass/screen.scss */
 .content.events time {
   font-size: 1em;
 }
-/* line 1263, ../sass/screen.scss */
+/* line 1289, ../sass/screen.scss */
 .content.events figcaption {
   display: inline-block;
   line-height: 2em;
   margin-left: 16px;
   width: 244px;
 }
-/* line 1270, ../sass/screen.scss */
+/* line 1296, ../sass/screen.scss */
 .content.events .participants {
   display: block;
   margin-bottom: 16px;
@@ -1924,7 +1955,7 @@ nav.events li > div:hover {
   height: 1px;
   top: 100%;
 }
-/* line 1279, ../sass/screen.scss */
+/* line 1305, ../sass/screen.scss */
 .content.events .details,
 .content.events .details h1,
 .content.events .participants {
@@ -1932,7 +1963,7 @@ nav.events li > div:hover {
 }
 
 /* navigator styles */
-/* line 1288, ../sass/screen.scss */
+/* line 1314, ../sass/screen.scss */
 .content.videos .all-videos,
 .content.events .all-events,
 .content.news .all-articles {
@@ -1943,13 +1974,13 @@ nav.events li > div:hover {
   width: 960px;
   z-index: 100;
 }
-/* line 1295, ../sass/screen.scss */
+/* line 1321, ../sass/screen.scss */
 .content.videos .all-videos.start-open,
 .content.events .all-events.start-open,
 .content.news .all-articles.start-open {
   left: 0;
 }
-/* line 1301, ../sass/screen.scss */
+/* line 1327, ../sass/screen.scss */
 .content.videos .all-videos .videos-wrapper,
 .content.videos .all-videos .inner-articles,
 .content.videos .all-videos .past-events,
@@ -1992,7 +2023,7 @@ nav.events li > div:hover {
 .content.news .all-articles .past-events {
   display: block;
 }
-/* line 1307, ../sass/screen.scss */
+/* line 1333, ../sass/screen.scss */
 .content.videos .all-videos nav,
 .content.events .all-events nav,
 .content.news .all-articles nav {
@@ -2000,13 +2031,13 @@ nav.events li > div:hover {
   margin-right: 16px;
   width: 210px;
 }
-/* line 1314, ../sass/screen.scss */
+/* line 1340, ../sass/screen.scss */
 .content.videos .all-videos h1,
 .content.events .all-events h1,
 .content.news .all-articles h1 {
   margin-bottom: 16px;
 }
-/* line 1318, ../sass/screen.scss */
+/* line 1344, ../sass/screen.scss */
 .content.videos .all-videos h2,
 .content.events .all-events h2,
 .content.news .all-articles h2 {
@@ -2014,7 +2045,7 @@ nav.events li > div:hover {
   margin-bottom: 16px;
 }
 
-/* line 1327, ../sass/screen.scss */
+/* line 1353, ../sass/screen.scss */
 .content.videos .loading,
 .content.events .loading,
 .content.news .loading {
@@ -2026,43 +2057,43 @@ nav.events li > div:hover {
   left: 0;
   width: 720px;
 }
-/* line 1336, ../sass/screen.scss */
+/* line 1362, ../sass/screen.scss */
 .content.videos .admin,
 .content.events .admin,
 .content.news .admin {
   width: 720px;
 }
-/* line 1339, ../sass/screen.scss */
+/* line 1365, ../sass/screen.scss */
 .content.videos .admin.start-open,
 .content.events .admin.start-open,
 .content.news .admin.start-open {
   display: none;
 }
-/* line 1345, ../sass/screen.scss */
+/* line 1371, ../sass/screen.scss */
 .content.videos nav.pager.start-open,
 .content.events nav.pager.start-open,
 .content.news nav.pager.start-open {
   display: block;
 }
-/* line 1348, ../sass/screen.scss */
+/* line 1374, ../sass/screen.scss */
 .content.videos nav.pager.start-open .close,
 .content.events nav.pager.start-open .close,
 .content.news nav.pager.start-open .close {
   display: none;
 }
-/* line 1354, ../sass/screen.scss */
+/* line 1380, ../sass/screen.scss */
 .content.videos a.more,
 .content.events a.more,
 .content.news a.more {
   z-index: 103;
 }
-/* line 1357, ../sass/screen.scss */
+/* line 1383, ../sass/screen.scss */
 .content.videos a.more.start-open,
 .content.events a.more.start-open,
 .content.news a.more.start-open {
   display: none;
 }
-/* line 1362, ../sass/screen.scss */
+/* line 1388, ../sass/screen.scss */
 .content.videos .admin.start-open,
 .content.events .admin.start-open,
 .content.news .admin.start-open {
@@ -2070,11 +2101,11 @@ nav.events li > div:hover {
 }
 
 /* end navigator styles */
-/* line 1369, ../sass/screen.scss */
+/* line 1395, ../sass/screen.scss */
 .content.venues ul {
   overflow: hidden;
 }
-/* line 1373, ../sass/screen.scss */
+/* line 1399, ../sass/screen.scss */
 .content.venues li {
   display: -moz-inline-stack;
   display: inline-block;
@@ -2087,16 +2118,16 @@ nav.events li > div:hover {
   margin-bottom: 32px;
   margin-right: 16px;
 }
-/* line 1380, ../sass/screen.scss */
+/* line 1406, ../sass/screen.scss */
 .content.venues li:nth-child(2n+2) {
   margin-right: 0;
 }
-/* line 1385, ../sass/screen.scss */
+/* line 1411, ../sass/screen.scss */
 .content.venues .name {
   display: block;
   font-weight: bold;
 }
-/* line 1393, ../sass/screen.scss */
+/* line 1419, ../sass/screen.scss */
 .content.venues .url,
 .content.venues .city,
 .content.venues .state,
@@ -2104,12 +2135,12 @@ nav.events li > div:hover {
   display: inline-block;
   min-width: 2em;
 }
-/* line 1398, ../sass/screen.scss */
+/* line 1424, ../sass/screen.scss */
 .content.venues .url {
   text-overflow: ellipsis;
   width: 430px;
 }
-/* line 1404, ../sass/screen.scss */
+/* line 1430, ../sass/screen.scss */
 .content.venues .icon.site_url,
 .content.venues .map .icon {
   text-indent: -119988px;
@@ -2121,23 +2152,23 @@ nav.events li > div:hover {
   height: 16px;
   margin-right: 8px;
 }
-/* line 1409, ../sass/screen.scss */
+/* line 1435, ../sass/screen.scss */
 .content.venues .count {
   display: block;
 }
-/* line 1413, ../sass/screen.scss */
+/* line 1439, ../sass/screen.scss */
 .content.venues .pages {
   text-align: center;
   margin-bottom: 16px;
 }
-/* line 1418, ../sass/screen.scss */
+/* line 1444, ../sass/screen.scss */
 .content.venues .url.input {
   display: block;
   width: 100%;
 }
 
 /* jPlayer */
-/* line 1426, ../sass/screen.scss */
+/* line 1452, ../sass/screen.scss */
 .jp-interface {
   display: block;
   line-height: 13px;
@@ -2147,17 +2178,17 @@ nav.events li > div:hover {
   width: 390px;
   height: 13px;
 }
-/* line 1434, ../sass/screen.scss */
+/* line 1460, ../sass/screen.scss */
 .jp-interface ul.jp-controls {
   width: 100%;
   height: 13px;
 }
-/* line 1437, ../sass/screen.scss */
+/* line 1463, ../sass/screen.scss */
 .jp-interface ul.jp-controls li {
   display: inline-block;
   vertical-align: top;
 }
-/* line 1446, ../sass/screen.scss */
+/* line 1472, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-progress,
 .jp-interface ul.jp-controls a.jp-play,
 .jp-interface ul.jp-controls a.jp-stop,
@@ -2165,7 +2196,7 @@ nav.events li > div:hover {
 .jp-interface ul.jp-controls .jp-volume-bar {
   margin-right: 10px;
 }
-/* line 1450, ../sass/screen.scss */
+/* line 1476, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-progress {
   background-color: #595959;
   display: block;
@@ -2174,7 +2205,7 @@ nav.events li > div:hover {
   width: 265px;
   height: 13px;
 }
-/* line 1457, ../sass/screen.scss */
+/* line 1483, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-progress .jp-seek-bar {
   background-color: #ff6e36;
   cursor: pointer;
@@ -2183,7 +2214,7 @@ nav.events li > div:hover {
   width: 0;
   height: 13px;
 }
-/* line 1465, ../sass/screen.scss */
+/* line 1491, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-play {
   text-indent: -119988px;
   overflow: hidden;
@@ -2193,7 +2224,7 @@ nav.events li > div:hover {
   width: 13px;
   height: 13px;
 }
-/* line 1468, ../sass/screen.scss */
+/* line 1494, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-stop {
   text-indent: -119988px;
   overflow: hidden;
@@ -2204,7 +2235,7 @@ nav.events li > div:hover {
   height: 13px;
   display: none;
 }
-/* line 1472, ../sass/screen.scss */
+/* line 1498, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-lower {
   text-indent: -119988px;
   overflow: hidden;
@@ -2214,7 +2245,7 @@ nav.events li > div:hover {
   width: 13px;
   height: 13px;
 }
-/* line 1475, ../sass/screen.scss */
+/* line 1501, ../sass/screen.scss */
 .jp-interface ul.jp-controls a.jp-higher {
   text-indent: -119988px;
   overflow: hidden;
@@ -2224,17 +2255,17 @@ nav.events li > div:hover {
   width: 13px;
   height: 13px;
 }
-/* line 1478, ../sass/screen.scss */
+/* line 1504, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-play-bar {
   background-color: #fff;
   width: 0;
   height: 13px;
 }
-/* line 1482, ../sass/screen.scss */
+/* line 1508, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-seeking-bg {
   background-color: purple;
 }
-/* line 1485, ../sass/screen.scss */
+/* line 1511, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-volume-bar {
   background-color: #ff6e36;
   cursor: pointer;
@@ -2242,23 +2273,23 @@ nav.events li > div:hover {
   width: 46px;
   height: 13px;
 }
-/* line 1491, ../sass/screen.scss */
+/* line 1517, ../sass/screen.scss */
 .jp-interface ul.jp-controls .jp-volume-bar-value {
   background-color: #fff;
   width: 0;
   height: 13px;
 }
 
-/* line 1498, ../sass/screen.scss */
+/* line 1524, ../sass/screen.scss */
 li.jp-playlist-current .title {
   background-color: #2d2d2d;
 }
-/* line 1501, ../sass/screen.scss */
+/* line 1527, ../sass/screen.scss */
 li.jp-playlist-current .length {
   background-color: #2d2d2d;
 }
 
-/* line 1506, ../sass/screen.scss */
+/* line 1532, ../sass/screen.scss */
 .ui-slider-handle {
   display: block;
   position: relative;
@@ -2266,19 +2297,19 @@ li.jp-playlist-current .length {
   height: 16px;
 }
 
-/* line 1513, ../sass/screen.scss */
+/* line 1539, ../sass/screen.scss */
 .ui-timepicker-div dl {
   margin-top: 16px;
   overflow: hidden;
 }
-/* line 1518, ../sass/screen.scss */
+/* line 1544, ../sass/screen.scss */
 .ui-timepicker-div dt {
   float: left;
   clear: left;
   width: 30%;
   margin-bottom: 8px;
 }
-/* line 1525, ../sass/screen.scss */
+/* line 1551, ../sass/screen.scss */
 .ui-timepicker-div dd {
   float: left;
   width: 70%;
