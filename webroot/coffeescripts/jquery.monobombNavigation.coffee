@@ -65,7 +65,7 @@ methods =
 
 		return if data.closed and not force
 
-		page = 1 if not page
+		page = data.first_page if not page
 		time = if force then 0 else 'slow'
 		$nav = private_.getPageObject.call(this, page)
 		page = private_.getPageNumber.call(this, page)
@@ -323,8 +323,6 @@ methods =
 		data.$actual_navs       = data.$inner_nav_wrapper.find(settings.inner_elements)
 		data.nav_count          = data.$actual_navs.length
 		data.original_left      = 960 - $(data.$actual_navs[0]).width()
-		# holds the page of the currently viewed article
-		data.viewing            = 1
 		# holds the first page visible when opened
 		data.first_page         = 1
 		data.closed             = not data.$main_nav_wrapper.hasClass('start-open')
@@ -356,7 +354,6 @@ methods =
 		else
 			# Just to give some room in case this is a single post view
 			this.height(total_height + 140)
-
 
 		# Switch to the current page if we're on a view page
 		if data.closed and ($first_page = this.find('.first-page')).length

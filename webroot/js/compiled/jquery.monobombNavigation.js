@@ -76,7 +76,7 @@
         return;
       }
       if (!page) {
-        page = 1;
+        page = data.first_page;
       }
       time = force ? 0 : 'slow';
       $nav = private_.getPageObject.call(this, page);
@@ -341,7 +341,6 @@
       data.$actual_navs = data.$inner_nav_wrapper.find(settings.inner_elements);
       data.nav_count = data.$actual_navs.length;
       data.original_left = 960 - $(data.$actual_navs[0]).width();
-      data.viewing = 1;
       data.first_page = 1;
       data.closed = !data.$main_nav_wrapper.hasClass('start-open');
       this.data('monobombNavigator', data);
