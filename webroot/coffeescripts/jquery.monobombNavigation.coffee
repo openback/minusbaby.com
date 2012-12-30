@@ -394,6 +394,8 @@ methods =
 					state = History.getState()
 					split_url = state.url.split('/')
 					id = split_url[5]
+					#This may be a page that was moved into /music
+					id = split_url[6] if isNaN(id) and split_url.length > 6
 
 					if isNaN(id)
 						# We ended up on the main page

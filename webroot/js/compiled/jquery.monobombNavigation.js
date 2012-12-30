@@ -403,6 +403,9 @@
           state = History.getState();
           split_url = state.url.split('/');
           id = split_url[5];
+          if (isNaN(id) && split_url.length > 6) {
+            id = split_url[6];
+          }
           if (isNaN(id)) {
             data.$inner_nav_wrapper.find('.current').removeClass('current');
             $('.pager').addClass('start-open');

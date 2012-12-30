@@ -93,7 +93,7 @@
 		<div class="wrapper">
 			<nav class="main">
 				<ul class="main-menu">
-					<li class="main-logo"><a href="/news"<?php if ($controller_name == 'news') echo ' class="current"'; ?>><?php echo $this->Html->image(NEWS_LOGO, array('width' => NEWS_LOGO_WIDTH, 'alt' => DEFAULT_ARTIST)); ?></a></li>
+					<li class="main-logo"><a href="<?php echo Router::url(array('controller' => 'news')); ?>"<?php if ($controller_name == 'news') echo ' class="current"'; ?>><?php echo $this->Html->image(NEWS_LOGO, array('width' => NEWS_LOGO_WIDTH, 'alt' => DEFAULT_ARTIST)); ?></a></li>
 					<?php
 						foreach($menu as $menuItem) {
 							if ($menuItem['controller'] == $controller_name) {

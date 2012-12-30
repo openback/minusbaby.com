@@ -37,8 +37,11 @@ Router::connect('/error/:code',
     )
 );
 
-Router::mapResources('events');
-Router::mapResources('music');
+Router::connect('/music/news/:action/*', array('controller' => 'news'));
+Router::connect('/music/events/:action/*', array('controller' => 'events'));
+Router::connect('/music/discography/:action/*', array('controller' => 'music'));
+Router::connect('/music/videos/:action/*', array('controller' => 'videos'));
+Router::connect('/music/about/:action/*', array('controller' => 'about'));
 
 Router::connect('/login',
     array(
