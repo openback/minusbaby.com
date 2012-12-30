@@ -142,8 +142,8 @@ methods =
 			show_articles = true
 
 		show_articles = true if typeof(show_articles) isnt 'boolean'
-
 		page = data.$inner_nav_wrapper.find('.current')?.closest('nav') if not page
+		page = 1 if typeof page.position() is 'undefined'
 
 		methods.moveToPage.call(this, page)
 		data.$controls_nav.fadeOut 'slow'

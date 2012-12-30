@@ -158,6 +158,9 @@
       if (!page) {
         page = (_ref = data.$inner_nav_wrapper.find('.current')) != null ? _ref.closest('nav') : void 0;
       }
+      if (typeof page.position() === 'undefined') {
+        page = 1;
+      }
       methods.moveToPage.call(this, page);
       data.$controls_nav.fadeOut('slow');
       data.$more.fadeIn('slow');
