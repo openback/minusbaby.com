@@ -28,7 +28,7 @@
 	<?php if (AuthComponent::user('id') != null) { ?>
 	<div class="admin">
 		<a href="<?php echo $this->Html->url(array('action' => 'edit', $album['Album']['id'], $album['Album']['slug'])); ?>">EDIT</a>
-		<?php echo $this->Html->link('DELETE', array('action' => 'delete', $album['Album']['id'], $album['Album']['slug']), 'Are you sure you want to delete this album?'); ?>
+		<?php echo $this->Html->link('DELETE', array('action' => 'delete', $album['Album']['id'], $album['Album']['slug']), null, 'Are you sure you want to delete this album?'); ?>
 	</div>
 	<?php } ?>
 </div>
@@ -51,10 +51,14 @@
 			<div id="jp_interface" class="jp-interface"><ul class="jp-controls"><li><a href="#" class="jp-play" tabindex="1">play</a></li><li><a href="#" class="jp-stop" tabindex="1">stop</a></li><li><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div></li><li><a href="#" class="jp-lower" tabindex="1">vol down</a></li><li><div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div></li><li><a href="#" class="jp-higher" tabindex="1">vol up</a></li></ul></div>
 			<?php } ?>
 			<dl class="tracks">
-		<?php	foreach($album['Song'] as $song) { ?>
+		<?php	foreach($album['Song'] as $song): ?>
 				<dt><?php echo str_pad($song['number'],2,'0',STR_PAD_LEFT); ?></dt>
+		<?php		if ($album['Album']['type'] === 'Appears on' || $album['Album']['type'] === 'Compilation'): ?>
+				<dd><?php echo $this->Pixelpod->link_if(!empty($song['url']), ((!empty($song['artist']))? $song['artist'] . ' &middot; ' : '') . $song['title'].'<span class="playing">PLAYING</span>', '/attachments/mp3/'.$song['url'], array('escape' => false)); ?></dd>
+		<?php		else: ?>
 				<dd><?php echo $this->Pixelpod->link_if(!empty($song['url']), $song['title'].'<span class="playing">PLAYING</span>', '/attachments/mp3/'.$song['url'], array('escape' => false)); ?></dd>
-		<?php	} ?>
+		<?php		endif; ?>
+		<?php	endforeach; ?>
 			</dl>
 		</dd>
 		<?php } ?>
