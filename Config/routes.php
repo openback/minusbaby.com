@@ -37,10 +37,19 @@ Router::connect('/error/:code',
     )
 );
 
+Router::connect('/music/news', array('controller' => 'news', 'action' => 'index'));
 Router::connect('/music/news/:action/*', array('controller' => 'news'));
+
+Router::connect('/music/events', array('controller' => 'events', 'action' => 'index'));
 Router::connect('/music/events/:action/*', array('controller' => 'events'));
+
+Router::connect('/music/discography', array('controller' => 'music', 'action' => 'index'));
 Router::connect('/music/discography/:action/*', array('controller' => 'music'));
+
+Router::connect('/music/videos', array('controller' => 'videos', 'action' => 'index'));
 Router::connect('/music/videos/:action/*', array('controller' => 'videos'));
+
+Router::connect('/music/about', array('controller' => 'about', 'action' => 'index'));
 Router::connect('/music/about/:action/*', array('controller' => 'about'));
 
 Router::connect('/login',
