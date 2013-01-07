@@ -38,7 +38,8 @@ Router::connect('/error/:code',
 );
 
 Router::mapResources('events');
-Router::mapResources('music');
+Router::connect('/discography', array('controller' => 'music', 'action' => 'index'));
+Router::connect('/discography/:action/*', array('controller' => 'music'));
 
 Router::connect('/login',
     array(

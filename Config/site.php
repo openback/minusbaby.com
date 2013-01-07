@@ -24,7 +24,7 @@ define('FOOTER_IMAGE', 'crashfaster_logo_footer.png');
 Configure::write('Menu',
 	array(
 		array('name' => 'ABOUT',   'controller' => 'about'),
-		array('name' => 'MUSIC',   'controller' => 'music'),
+		array('name' => 'DISCOGRAPHY', 'controller' => 'music'),
 		array('name' => 'VIDEO',   'controller' => 'videos'),
 		array('name' => 'EVENTS',  'controller' => 'events'),
 		#array('name' => 'PRESS',   'controller' => 'press'),
