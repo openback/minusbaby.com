@@ -83,6 +83,10 @@ class VideosController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->Pixelpod->redirectIfCancel(array('action' => 'view', $id));
 
+			if ($this->request->is('ajax')) {
+				return $this->Pixelpod->handleAjaxEdit('Video', $id);
+			}
+
 			if ($this->Video->save($this->request->data)) {
 				$this->Session->setFlash(__('The video has been saved'));
 				$this->redirect(array('action' => 'view', $id , $this->Video->field('slug')));
