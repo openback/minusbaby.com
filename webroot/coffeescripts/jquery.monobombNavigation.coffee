@@ -35,6 +35,7 @@
 "methods:nomunge, private_: nomunge"
 
 $ = jQuery
+History = window.History
 
 methods =
 	###*

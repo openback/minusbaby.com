@@ -79,6 +79,10 @@ $(document).ready ->
 			element = editor.element
 			$element = $(element.$)
 
+			editor.config.removePlugins = 'sourcearea'
+			editor.config.extraPlugins = 'sourcedialog'
+			editor.config.allowedContent = true
+
 			editor.config.toolbar = [
 				{
 					name: 'text',
@@ -94,7 +98,7 @@ $(document).ready ->
 				},
 				{
 					name: 'html',
-					items: ['Link', 'Unlink', 'HorizontalRule', 'Source' ]
+					items: ['Link', 'Unlink', 'HorizontalRule', 'Sourcedialog' ]
 				}
 			]
 
@@ -104,7 +108,7 @@ $(document).ready ->
 
 					editor.config.removePlugins = 'colorbutton,find,flash,font,' +
 						'forms,iframe,image,newpage,removeformat,scayt,' +
-						'smiley,specialchar,stylescombo,templates,wsc'
+						'smiley,specialchar,stylescombo,templates,wsc,sourcearea'
 
 					# Remove the paragraph wrapping unless we hit Shift+Enter
 					editor.config.enterMode = CKEDITOR.ENTER_BR

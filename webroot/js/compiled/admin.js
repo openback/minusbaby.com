@@ -76,6 +76,9 @@
         editor = e.editor;
         element = editor.element;
         $element = $(element.$);
+        editor.config.removePlugins = 'sourcearea';
+        editor.config.extraPlugins = 'sourcedialog';
+        editor.config.allowedContent = true;
         editor.config.toolbar = [
           {
             name: 'text',
@@ -88,12 +91,12 @@
             items: ['RemoveFormat']
           }, {
             name: 'html',
-            items: ['Link', 'Unlink', 'HorizontalRule', 'Source']
+            items: ['Link', 'Unlink', 'HorizontalRule', 'Sourcedialog']
           }
         ];
         if (element.is('h1', 'h2', 'h3') || $element.hasClass('no-p')) {
           editor.on('configLoaded', function() {
-            editor.config.removePlugins = 'colorbutton,find,flash,font,' + 'forms,iframe,image,newpage,removeformat,scayt,' + 'smiley,specialchar,stylescombo,templates,wsc';
+            editor.config.removePlugins = 'colorbutton,find,flash,font,' + 'forms,iframe,image,newpage,removeformat,scayt,' + 'smiley,specialchar,stylescombo,templates,wsc,sourcearea';
             editor.config.enterMode = CKEDITOR.ENTER_BR;
             editor.config.shiftEnterMode = CKEDITOR.ENTER_P;
             return editor.config.toolbarGroups = [
