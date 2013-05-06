@@ -630,8 +630,10 @@ nav.main {
 	}
 
 	#ball {
-		@include sprite-replace-text($icons, menu_ball);
+		@include background-image(image-url( 'menu_shooter.png'));
+		display: block;
 		position: absolute;
+		width: 6px; height: 8px;
 	}
 }
 
@@ -1038,6 +1040,39 @@ nav.events {
 	.networks {
 		h1 {
 			color: $quiet-text;
+		}
+
+		a {
+			display: block;
+			margin-left: 24px;
+			position: relative;
+			width: 168px - 24px;
+
+			&:before {
+				@include sprite_replace_text($icons, led_off);
+				content: 'O';
+				position: absolute;
+				left: -24px;
+			}
+
+			&:hover, &:active {
+				&:before {
+					@include replace_text('archive_current.gif');
+				}
+			}
+
+		}
+
+
+		.admin {
+			a {
+				margin-left: 0;
+				width: auto;
+
+				&:before {
+					display: none;
+				}
+			}
 		}
 	}
 

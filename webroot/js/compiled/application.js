@@ -4,18 +4,19 @@
   $ = jQuery;
 
   $(document).ready(function() {
-    var $ball, $current, $email, $highlight, $nav, clicked, left, width;
+    var $bullet, $current, $email, $highlight, $nav, clicked, doneMoving, left, width;
     clicked = false;
     $highlight = $('<span id="highlight"/>');
-    $ball = $('<span id="ball"/>').hide();
+    $bullet = $('<span id="ball"/>').hide();
     $nav = $('nav.main');
-    $nav.append($highlight).append($ball);
+    $nav.append($highlight).append($bullet);
     $current = $nav.find('.current');
     if (!$current.length) {
       $current = $nav.find('a:first-child');
     }
     width = $current.width();
     left = $current.position().left;
+    doneMoving = true;
     $highlight.css({
       'left': left,
       'width': width
@@ -25,50 +26,70 @@
       if (clicked) {
         return;
       }
+      doneMoving = false;
       $a = $(this).find('a');
       newLeft = $a.position().left;
       newWidth = $a.width();
       return $highlight.stop().animate({
         'left': newLeft,
         'width': newWidth
+      }, function() {
+        return doneMoving = true;
       });
     }, function() {
       if (clicked) {
         return;
       }
+      doneMoving = false;
       return $highlight.stop().animate({
         'left': left,
         'width': width
+      }, function() {
+        return doneMoving = true;
       });
     });
     $nav.delegate('a', 'click', function() {
-      var bottom, bouncy, followLink, url;
+      var bottom, followLink, shoot, shootAfterDoneMoving, url,
+        _this = this;
       if (clicked) {
         return;
       }
       clicked = true;
-      bottom = $highlight.position().top - $ball.height();
-      $ball.css({
-        'left': $highlight.position().left + ($highlight.width() / 2 - $ball.width() / 2),
+      bottom = $highlight.position().top - $bullet.height();
+      $bullet.css({
+        'left': $highlight.position().left + ($highlight.width() / 2 - $bullet.width() / 2),
         'top': bottom
       });
       url = $(this).attr('href');
       followLink = function() {
         return window.location = url;
       };
-      bouncy = function() {
-        return $ball.animate({
+      shoot = function() {
+        var $link;
+        $link = $(_this);
+        $bullet.css({
+          width: $link.width() - ($link.width() % 6)
+        });
+        $bullet.css({
+          'left': $highlight.position().left + ($link.width() / 2 - $bullet.width() / 2)
+        });
+        return $bullet.show().animate({
           'top': '60px'
-        }, 100, function() {
-          return $ball.animate({
-            'top': bottom
-          }, 100, bouncy);
+        }, 200, function() {
+          $bullet.css({
+            top: bottom
+          });
+          return shoot();
         });
       };
-      $ball.show().animate({
-        'top': '60px',
-        'left': $(this).position().left + ($(this).width() / 2 - $ball.width() / 2)
-      }, 100, bouncy);
+      shootAfterDoneMoving = function() {
+        if (!doneMoving) {
+          return setTimeout(shootAfterDoneMoving, 50);
+        } else {
+          return shoot();
+        }
+      };
+      shootAfterDoneMoving();
       setTimeout(followLink, 100);
       return false;
     });
