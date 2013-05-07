@@ -552,6 +552,14 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 #   php_value session.cookie_httponly true
 # </IfModule>
 
+# Old site redirects
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+	RewriteRule ^information http://%{HTTP_HOST}/music/about [R=307,L]
+	RewriteRule ^news/(.*) http://%{HTTP_HOST}/music/news/$1 [R=307,L]
+	RewriteRule ^events http://%{HTTP_HOST}/music/events [R=307,L]
+</IfModule>
+
 # Now off to Cake
 <IfModule mod_rewrite.c>
     RewriteEngine On
