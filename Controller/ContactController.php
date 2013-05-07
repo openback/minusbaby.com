@@ -20,6 +20,7 @@ class ContactController extends AppController {
                     $email->replyTo(array($this->request->data['Contact']['email'] => $this->request->data['Contact']['name']));
 					$email->subject($this->request->data['Contact']['subject']);
 					$body_pre = "The following was sent from the " . DEFAULT_ARTIST . ".com contact form:\n";
+					$body_pre = "From : " . $this->request->data['Contact']['name'] . " <" . $this->request->data['Contact']['email'] . ">\n";
 
 					try {
 						if ($email->send($body_pre . $this->request->data['Contact']['body'])) {
