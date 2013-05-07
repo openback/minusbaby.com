@@ -342,10 +342,7 @@ methods =
 		data.$inner_nav_wrapper.width( new_width + 'px')
 
 		# And adjust the height of page to contain everything
-		# required_height    = data.$inner_nav_wrapper.height()
-		# this.height(required_height + 140) if this.height() < required_height
-		#
-		required_height = data.$inner_nav_wrapper.height()
+		required_height = data.$inner_nav_wrapper.outerHeight(true)
 		data.min_height = required_height + 140
 
 		# Figure out our truly required height
@@ -353,7 +350,7 @@ methods =
 
 		this.children().each ->
 			if $(this).css('position') isnt 'absolute'
-				total_height += $(this).height()
+				total_height += $(this).outerHeight(true)
 
 		if total_height < data.min_height
 			this.height(data.min_height)

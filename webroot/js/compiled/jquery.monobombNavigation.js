@@ -40,9 +40,11 @@
 (function() {
   "methods:nomunge, private_: nomunge";
 
-  var $, methods, private_;
+  var $, History, methods, private_;
 
   $ = jQuery;
+
+  History = window.History;
 
   methods = {
     /**
@@ -360,12 +362,12 @@
         new_width = 960;
       }
       data.$inner_nav_wrapper.width(new_width + 'px');
-      required_height = data.$inner_nav_wrapper.height();
+      required_height = data.$inner_nav_wrapper.outerHeight(true);
       data.min_height = required_height + 140;
       total_height = 0;
       this.children().each(function() {
         if ($(this).css('position') !== 'absolute') {
-          return total_height += $(this).height();
+          return total_height += $(this).outerHeight(true);
         }
       });
       if (total_height < data.min_height) {
