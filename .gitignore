@@ -17,7 +17,6 @@ webroot/attachments/news/*
 webroot/attachments/photos/*
 webroot/attachments/tmp/*
 webroot/audio/*
-webroot/sass/_site.scss
 webroot/coffeescripts/siteConfig.coffee
 webroot/js/compiled/siteConfig.js
 

@@ -3,7 +3,7 @@
 	url = ssh://git@github.com/cakephp/debug_kit.git
 [submodule "Plugin/Utility"]
 	path = Plugin/Utility
-	url = ssh://git@github.com/milesj/cake-utility.git
+	url = ssh://git@github.com/milesj/Utility.git
 [submodule "Plugin/AssetCompress"]
 	path = Plugin/AssetCompress
 	url = ssh://git@github.com/markstory/asset_compress.git

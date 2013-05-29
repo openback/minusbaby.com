@@ -1,0 +1,97 @@
+.landing-page {
+	a {
+		display: table-cell;
+		position: relative;
+		width: 400px;
+		border-left: 39px solid transparent;
+		padding-left: 16px;
+		top: 50%;
+
+		&:before {
+			display: block;
+			position: absolute;
+			top: 4px;
+		}
+
+		&:link h1,
+		&:visited h1 {
+			color: #00b9f1;
+		}
+
+		&:link h2,
+		&:visited h2 {
+			color: #ebebeb;
+		}
+
+		&:link p,
+		&:visited p {
+			color: #7f7f7f;
+		}
+
+		&:hover h1,
+		&:active h1 {
+			color: black;
+		}
+
+
+		&:hover h2,
+		&:active h2 {
+			color: #00b9f1;
+		}
+
+	}
+
+	h1,
+	h2 {
+		@include transition-property(color);
+		@include transition-duration(300ms);
+		border-bottom-width: 0;
+		font-size: 1.5em;
+		line-height: 1.0em;
+	}
+
+	h1 {
+		margin-bottom: 0;
+	}
+
+	h2 {
+		margin-bottom: 16px;
+	}
+
+	p {
+		font-size: 1.1em;
+		line-height: 1.2em;
+		padding-bottom: 0;
+	}
+
+	.content {
+		display: table;
+		height: 100% !important;
+		margin-top: 0;
+		min-height: 100% !important;
+
+		&:after {
+			display: none;
+		}
+
+	}
+
+	#music {
+		margin-right: 100px;
+
+		&:before {
+			content: url("../img/minusbaby_logo_16x16.png");
+			left: -27px;
+		}
+	}
+
+	#portfolio:before {
+		content: url("../img/eye.png");
+		left: -31px;
+	}
+}
+
+body.landing-page .wrapper {
+	height: 100% !important;
+}
+
