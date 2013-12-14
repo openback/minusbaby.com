@@ -51,7 +51,7 @@
 				<a href="/portfolio" id="portfolio">
 					<h1>Portfolio</h1>
 					<h2>Richard Alexander Caraballo</h2>
-					<p>Selected Pixel Art Works <i>1492-2012</i>
+					<p>Selected Pixel Art Works <i>1492-2014</i>
 					</p>
 				</a>
 			</div>
